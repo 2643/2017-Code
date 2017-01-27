@@ -3,18 +3,18 @@ package org.usfirst.frc.team2643.robot;
 public  class robotMap {
 	//wheel motor ports
 	static int LEFT_FRONT_SPARK_PWM_PORT = 0;
-	static int LEFT_BACK_SPARK_PWN_PORT = 1;
-	static int RIGHT_FRONT_SPARK_PWN_PORT = 3;
-	static int RIGHT_BACK_SPARK_PWN_PORT = 2;
+	static int LEFT_BACK_SPARK_PWM_PORT = 1;
+	static int RIGHT_FRONT_SPARK_PWM_PORT = 3;
+	static int RIGHT_BACK_SPARK_PWM_PORT = 2;
 	
 	//joystick port
 	static int JOYSTICK_PORT = 0;
 	
 	//right motor axis on joystick
-	static int RIGHT_WHEEL_AXIS = 5;
+	static int RIGHT_JOYSTICK_AXIS = 5;
 	
 	//left motor axis on joystick
-	static int LEFT_WHEEL_AXIS = 1;
+	static int LEFT_JOYSTICK_AXIS = 1;
 	
 	
 	//toggle button
