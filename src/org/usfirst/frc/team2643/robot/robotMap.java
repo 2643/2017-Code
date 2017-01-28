@@ -20,16 +20,20 @@ public  class robotMap {
 	static int RIGHT_BACK_MOTOR_ENCODER_PORT_1 = -666;
 	static int RIGHT_BACK_MOTOR_ENCODER_PORT_2 = -666;
 	
+	static int GEAR_MOTOR_ENCODER_PORT_1 = 123;
+	static int GEAR_MOTOR_ENCODER_PORT_2 = 123;
+	
 	
 	//joystick port
 	static int JOYSTICK_PORT = 0;
+	static int JOYSTICK_PORT2 = 1;
 	
 	//right motor axis on joystick
 	static int RIGHT_JOYSTICK_AXIS = 5;
 	
 	//left motor axis on joystick
 	static int LEFT_JOYSTICK_AXIS = 1;
-	
+
 	
 	//toggle button
 	static int TOGGLE_ON_BUTTON = 2;
@@ -44,6 +48,9 @@ public  class robotMap {
 	//gear motor port
 	static int GEAR_MOTOR_PORT = 8;
 	
+	//potentiometer
+	static int POTENTIOMETER_PORT = 0;
+	
 	//intake motor port
 	static int INTAKE_MOTOR_PORT = 9;
 	
@@ -51,8 +58,9 @@ public  class robotMap {
 	static int AUTO_TIME_LIMIT = 2;
 	
 	//gear lift buttons
-	static int GEAR_LIFT_ON = 0;
-	static int GEAR_LIFT_OFF = 1;
+	static int GEAR_LIFT_1 = 0;
+	static int GEAR_LIFT_2 = 1;
+	static int GEAR_LIFT_3 = 2;
 	
 	//intake buttons
 	static int INTAKE_IN = 2;
@@ -63,8 +71,8 @@ public  class robotMap {
 	static int AUTO_SPEED_OFF = 0;
 	
 	//gear motor speed
-	static double GEAR_MOTOR_IN_SPEED = 0.25;
-	static double GEAR_MOTOR_OUT_SPEED = -0.25;
+	static double GEAR_MOTOR_IN_SPEED = -0.25;
+	static double GEAR_MOTOR_OUT_SPEED = 0.25;
 	static int GEAR_MOTOR_NO_SPEED = 0;
 	
 	

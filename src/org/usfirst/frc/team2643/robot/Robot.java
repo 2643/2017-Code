@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2643.robot;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2643.robot.robotMap;
@@ -22,6 +24,12 @@ import org.usfirst.frc.team2643.robot.robotMap;
  */
 public class Robot extends IterativeRobot {
 
+	//potentiometer
+	Potentiometer pot = new AnalogPotentiometer(robotMap.POTENTIOMETER_PORT, 360,0);
+	
+	
+	
+	
 	//wheel motors
 	Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_SPARK_PWM_PORT);
 	Spark lBackMotor = new Spark(robotMap.LEFT_BACK_SPARK_PWM_PORT);
@@ -34,7 +42,8 @@ public class Robot extends IterativeRobot {
 	Encoder rBackMotorEncoder = new Encoder(robotMap.RIGHT_BACK_MOTOR_ENCODER_PORT_1, robotMap.RIGHT_BACK_MOTOR_ENCODER_PORT_2,true);
 	
 	//joystick 
-	Joystick stick = new Joystick(robotMap.JOYSTICK_PORT);
+	Joystick StickofdeOperator = new Joystick(robotMap.JOYSTICK_PORT);
+	Joystick deDriverStick = new Joystick(robotMap.JOYSTICK_PORT2);
 
 	//driveToggle
 	boolean driveToggle = false;
@@ -46,6 +55,9 @@ public class Robot extends IterativeRobot {
 
 	//arcade boolean
 	boolean isArcadeOn = false;
+
+	//Encoders for Gears
+	Encoder gearEncoder = new Encoder(robotMap.GEAR_MOTOR_ENCODER_PORT_1, robotMap.GEAR_MOTOR_ENCODER_PORT_2);
 
 	//gear motor and limit switch
 	DigitalInput limitSwitch = new DigitalInput(robotMap.GEAR_LIMIT_SWITCH_PORT);
@@ -61,8 +73,9 @@ public class Robot extends IterativeRobot {
 	Timer AutoTimer = new Timer();
 
 	//gear lift buttons
-	int button = robotMap.GEAR_LIFT_ON;
-	int button2 = robotMap.GEAR_LIFT_OFF;
+	int Gearbuttonpresetmiddle = robotMap.GEAR_LIFT_1;
+	int Gearbuttonpresetout = robotMap.GEAR_LIFT_2;
+	int Gearbuttonpresetin = robotMap.GEAR_LIFT_3;
 
 	//intake buttons
 	int button3 = robotMap.INTAKE_IN;
@@ -175,13 +188,18 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	@Override
-	public void teleopPeriodic() {
-		drive();
-		toggleDrive();
-		intake();
-		gear();
-
+	public void teleopPeriodic()
+	{
 	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 	/**
 	 * This function is called periodically during test mode
@@ -192,66 +210,73 @@ public class Robot extends IterativeRobot {
 
 	public void toggleDrive() {
 		// if you press the button, then driveToggle will be true
-		if (stick.getRawButton(toggleOn)) {
+		if (deDriverStick.getRawButton(toggleOn)) {
 			driveToggle = true;
 		}
 		// if you press the button for toggleOff, then driveToggle will be false
-		else if (stick.getRawButton(toggleOff)) {
+		else if (deDriverStick.getRawButton(toggleOff)) {
 			driveToggle = false;
 		}
 
 		// if driveToggle is not on, then motors will be at the full speed
 		// of the joystick
 		if (!driveToggle) {
-			lFrontMotor.set(stick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
-			lBackMotor.set(stick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
-			rFrontMotor.set(stick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)*-1);
-			rBackMotor.set(stick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)*-1);
+			lFrontMotor.set(deDriverStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
+			lBackMotor.set(deDriverStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
+			rFrontMotor.set(deDriverStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)*-1);
+			rBackMotor.set(deDriverStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)*-1);
 		}
 		// otherwise if driveToggle is true, then the motors will be at the half
 		// speed
 		// of the joystick
 		else {
-			lFrontMotor.set((stick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS)) * slowMult);
-			lBackMotor.set((stick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS)) * slowMult);
-			rFrontMotor.set((stick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)) * -slowMult);
-			rBackMotor.set((stick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)) * -slowMult);
+			lFrontMotor.set((deDriverStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS)) * slowMult);
+			lBackMotor.set((deDriverStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS)) * slowMult);
+			rFrontMotor.set((deDriverStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)) * -slowMult);
+			rBackMotor.set((deDriverStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)) * -slowMult);
 		}
 
 	}
-
+	
+	
+	public void gear(){
+		//Prints of the value of the pot	
+		System.out.print(pot.get());
+			//if button 1 is pressed and pot angle is less than 30, set motor to 0.25
+			if(StickofdeOperator.getRawButton(Gearbuttonpresetmiddle)== true && pot.get() < 30)//whoah, cheap!
+			{
+				gearMotor.set(robotMap.GEAR_MOTOR_OUT_SPEED);
+			}
+			//if button 2 is pressed and pot angle is between 30 and 70, set motor to 0.25
+			else if(StickofdeOperator.getRawButton(Gearbuttonpresetout) == true && pot.get() > 30 && pot.get() < 70)
+			{
+				gearMotor.set(robotMap.GEAR_MOTOR_OUT_SPEED);
+			}
+			//if button 2half is pressed and pot angle is greater than 0, set motor to -0.25
+			else if(StickofdeOperator.getRawButton(Gearbuttonpresetin) == true && pot.get() > 0)
+			{
+				gearMotor.set(robotMap.GEAR_MOTOR_IN_SPEED);
+			}
+	}	
+	
+	
+	
+	
 	public void drive(){
 		//the motors are set the values of the joystick in tank drive
-		lFrontMotor.set(stick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
-		lBackMotor.set(stick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
-		rBackMotor.set(stick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)*-1);
-		rFrontMotor.set(stick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)*-1);
+		lFrontMotor.set(deDriverStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
+		lBackMotor.set(deDriverStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
+		rBackMotor.set(deDriverStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)*-1);
+		rFrontMotor.set(deDriverStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)*-1);
 	}
-
-	public void gear() {
-		//if the 0 button is pressed then, the robot will hold onto the gear
-		if (stick.getRawButton(button)) {
-			gearMotor.set(robotMap.GEAR_MOTOR_IN_SPEED);
-
-		} 
-		//if the 1 button is pressed, then the robot will release the gear
-		else if(stick.getRawButton(button2)) {
-			gearMotor.set(robotMap.GEAR_MOTOR_OUT_SPEED);
-		}
-		//otherwise, the gear mechanism will not move
-		else{
-			gearMotor.set(robotMap.GEAR_MOTOR_NO_SPEED);
-		}
-	}
-
 	public void intake() {
 		//if the 2 button is pressed , then the intake motor will take in the balls
-		if (stick.getRawButton(button3) == true)
+		if (StickofdeOperator.getRawButton(button3) == true)
 		{
 			intakeMotor.set(robotMap.INTAKE_IN_SPEED);
 		}
 		//if the 3 button is pressed, then the intake motor will release the balls
-		else if (stick.getRawButton(button4)) 
+		else if (StickofdeOperator.getRawButton(button4)) 
 		{
 			intakeMotor.set(robotMap.INTAKE_OUT_SPEED);
 		} 
