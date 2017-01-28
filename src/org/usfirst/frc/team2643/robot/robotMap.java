@@ -7,6 +7,20 @@ public  class robotMap {
 	static int RIGHT_FRONT_SPARK_PWM_PORT = 3;
 	static int RIGHT_BACK_SPARK_PWM_PORT = 2;
 	
+	//encoder ports
+	static int LEFT_FRONT_MOTOR_ENCODER_PORT_1 = -666;//CHANGE THESE TO CORRECT PORTS
+	static int LEFT_FRONT_MOTOR_ENCODER_PORT_2 = -666;
+	
+	static int LEFT_BACK_MOTOR_ENCODER_PORT_1 = -666;
+	static int LEFT_BACK_MOTOR_ENCODER_PORT_2 = -666;
+	
+	static int RIGHT_FRONT_MOTOR_ENCODER_PORT_1 = -666;
+	static int RIGHT_FRONT_MOTOR_ENCODER_PORT_2 = -666;
+	
+	static int RIGHT_BACK_MOTOR_ENCODER_PORT_1 = -666;
+	static int RIGHT_BACK_MOTOR_ENCODER_PORT_2 = -666;
+	
+	
 	//joystick port
 	static int JOYSTICK_PORT = 0;
 	

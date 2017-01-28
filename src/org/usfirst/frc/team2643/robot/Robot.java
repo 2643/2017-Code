@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
@@ -26,7 +27,12 @@ public class Robot extends IterativeRobot {
 	Spark lBackMotor = new Spark(robotMap.LEFT_BACK_SPARK_PWM_PORT);
 	Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
 	Spark rBackMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
-
+	
+	Encoder lFrontMotorEncoder = new Encoder(robotMap.LEFT_FRONT_MOTOR_ENCODER_PORT_1, robotMap.LEFT_FRONT_MOTOR_ENCODER_PORT_2);
+	Encoder lBackMotorEncoder = new Encoder(robotMap.LEFT_BACK_MOTOR_ENCODER_PORT_1, robotMap.LEFT_BACK_MOTOR_ENCODER_PORT_2);
+	Encoder rFrontMotorEncoder = new Encoder(robotMap.RIGHT_FRONT_MOTOR_ENCODER_PORT_1, robotMap.RIGHT_FRONT_MOTOR_ENCODER_PORT_2,true);
+	Encoder rBackMotorEncoder = new Encoder(robotMap.RIGHT_BACK_MOTOR_ENCODER_PORT_1, robotMap.RIGHT_BACK_MOTOR_ENCODER_PORT_2,true);
+	
 	//joystick 
 	Joystick stick = new Joystick(robotMap.JOYSTICK_PORT);
 
@@ -99,35 +105,72 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autoSelected = chooser.getSelected();
+		lFrontMotorEncoder.reset();
+		lBackMotorEncoder.reset();
+		rFrontMotorEncoder.reset();
+		rBackMotorEncoder.reset();
 		
 	}
-
+	
+	void SetAll(double speed)
+	{
+		lFrontMotor.set(speed);
+		lBackMotor.set(speed);
+		rFrontMotor.set(-speed);
+		rBackMotor.set(-speed);
+	}
+	
+	
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	@Override
 	public void autonomousPeriodic() { 
 		Scheduler.getInstance().run();
-		
+		double encoderaverage = (lFrontMotorEncoder.get()+lBackMotorEncoder.get()+rFrontMotorEncoder.get()+rBackMotorEncoder.get())/4;
+		double speed = 1;
 		switch (autoSelected) {
 		case DoNothingAuto:
 			//We do nothing 
 			break;
-		case BoilerAuto:
-			//go to boiler
+		case BoilerAuto: 
+
+			if(encoderaverage<500)//go a certain amount of space
+			{
+				SetAll(speed);//set all motors to FULL SPEED AHEAD
+			}
+			else
+			{
+				SetAll(0);//stop
+			}
 			break;
 		case HopperAuto:
-			//go to hopper
+			if(encoderaverage<50)//if it is less than a certain amount
+			{
+				SetAll(speed);//move forward
+			}
+			else
+			{
+				SetAll(0);//stop
+			}
 			break;
 		case AirshipAuto:
-			//go to airship
+			if(encoderaverage<50)
+			{
+				SetAll(speed);
+			}
+			else
+			{
+				SetAll(0);
+			}
 			break;
+			
 		default:
-			// Put default auto code here
+			// do nothing
 			break;
 		}
 	}
-
+	
 	/**
 	 * This function is called periodically during operator control
 	 */
