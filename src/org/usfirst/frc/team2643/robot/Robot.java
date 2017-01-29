@@ -120,7 +120,7 @@ public class Robot extends IterativeRobot {
 		lBackMotorEncoder.reset();
 		rFrontMotorEncoder.reset();
 		rBackMotorEncoder.reset();
-		
+		 
 	}
 	
 	void SetAll(double speed)

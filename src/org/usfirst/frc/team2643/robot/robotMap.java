@@ -58,7 +58,7 @@ public  class robotMap {
 	static int AUTO_TIME_LIMIT = 2;
 	
 	//gear lift buttons
-	static int GEAR_LIFT_1 = 0;
+	static int GEAR_LIFT_1 = 0; 
 	static int GEAR_LIFT_2 = 1;
 	static int GEAR_LIFT_3 = 2;
 	
