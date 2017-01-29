@@ -27,15 +27,13 @@ public class Robot extends IterativeRobot {
 	//potentiometer
 	Potentiometer pot = new AnalogPotentiometer(robotMap.POTENTIOMETER_PORT, 360,0);
 	
-	
-	
-	
 	//wheel motors
 	Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_SPARK_PWM_PORT);
 	Spark lBackMotor = new Spark(robotMap.LEFT_BACK_SPARK_PWM_PORT);
 	Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
 	Spark rBackMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
 	
+	//wheel encoders
 	Encoder lFrontMotorEncoder = new Encoder(robotMap.LEFT_FRONT_MOTOR_ENCODER_PORT_1, robotMap.LEFT_FRONT_MOTOR_ENCODER_PORT_2);
 	Encoder lBackMotorEncoder = new Encoder(robotMap.LEFT_BACK_MOTOR_ENCODER_PORT_1, robotMap.LEFT_BACK_MOTOR_ENCODER_PORT_2);
 	Encoder rFrontMotorEncoder = new Encoder(robotMap.RIGHT_FRONT_MOTOR_ENCODER_PORT_1, robotMap.RIGHT_FRONT_MOTOR_ENCODER_PORT_2,true);
@@ -141,16 +139,16 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() { 
 		Scheduler.getInstance().run();
 		double encoderaverage = (lFrontMotorEncoder.get()+lBackMotorEncoder.get()+rFrontMotorEncoder.get()+rBackMotorEncoder.get())/4;
-		double speed = 1;
+		 
 		switch (autoSelected) {
 		case DoNothingAuto:
-			//We do nothing 
+			SetAll(0); 
 			break;
 		case BoilerAuto: 
 
-			if(encoderaverage<500)//go a certain amount of space
+			if(encoderaverage < robotMap.BOILER_AUTO_DISTANCE)//go a certain amount of space
 			{
-				SetAll(speed);//set all motors to FULL SPEED AHEAD
+				SetAll(robotMap.AUTO_SPEED_ON);//set all motors to FULL SPEED AHEAD
 			}
 			else
 			{
@@ -158,9 +156,9 @@ public class Robot extends IterativeRobot {
 			}
 			break;
 		case HopperAuto:
-			if(encoderaverage<50)//if it is less than a certain amount
+			if(encoderaverage < robotMap.HOPPER_AUTO_DISTANCE)//if it is less than a certain amount
 			{
-				SetAll(speed);//move forward
+				SetAll(robotMap.AUTO_SPEED_ON);//move forward
 			}
 			else
 			{
@@ -168,9 +166,9 @@ public class Robot extends IterativeRobot {
 			}
 			break;
 		case AirshipAuto:
-			if(encoderaverage<50)
+			if(encoderaverage < robotMap.AIRSHIP_AUTO_DISTANCE)
 			{
-				SetAll(speed);
+				SetAll(robotMap.AUTO_SPEED_ON);
 			}
 			else
 			{
@@ -179,7 +177,7 @@ public class Robot extends IterativeRobot {
 			break;
 			
 		default:
-			// do nothing
+			//do nothing 
 			break;
 		}
 	}
@@ -190,16 +188,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic()
 	{
+		drive();
+		toggleDrive();
 	}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 	/**
 	 * This function is called periodically during test mode
@@ -240,20 +231,24 @@ public class Robot extends IterativeRobot {
 	
 	
 	public void gear(){
-		//Prints of the value of the pot	
-		System.out.print(pot.get());
-			//if button 1 is pressed and pot angle is less than 30, set motor to 0.25
-			if(StickofdeOperator.getRawButton(Gearbuttonpresetmiddle)== true && pot.get() < 30)//whoah, cheap!
+		
+			//if the potentiometer is in the "in" position, 
+			//then this will move it to the "middle" position
+			if((StickofdeOperator.getRawButton(Gearbuttonpresetmiddle) == true) && (pot.get() <= 30))//whoah, cheap!
 			{
 				gearMotor.set(robotMap.GEAR_MOTOR_OUT_SPEED);
 			}
-			//if button 2 is pressed and pot angle is between 30 and 70, set motor to 0.25
-			else if(StickofdeOperator.getRawButton(Gearbuttonpresetout) == true && pot.get() > 30 && pot.get() < 70)
+			
+			//if the potentiometer is in the "middle" position, 
+			//then this will move it to the "out" position
+			else if((StickofdeOperator.getRawButton(Gearbuttonpresetout) == true) && ((pot.get() > 31) && (pot.get() <= 70)))
 			{
 				gearMotor.set(robotMap.GEAR_MOTOR_OUT_SPEED);
 			}
-			//if button 2half is pressed and pot angle is greater than 0, set motor to -0.25
-			else if(StickofdeOperator.getRawButton(Gearbuttonpresetin) == true && pot.get() > 0)
+			
+			//if the potentiometer is in the "middle" or "out" position, 
+			//then this will move it to the "in" position
+			else if((StickofdeOperator.getRawButton(Gearbuttonpresetin) == true) && (pot.get() > 1))
 			{
 				gearMotor.set(robotMap.GEAR_MOTOR_IN_SPEED);
 			}

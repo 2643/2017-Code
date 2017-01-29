@@ -69,6 +69,9 @@ public  class robotMap {
 	//autonomous speed 
 	static double AUTO_SPEED_ON = 0.5;
 	static int AUTO_SPEED_OFF = 0;
+	static int BOILER_AUTO_DISTANCE = 500;
+	static int HOPPER_AUTO_DISTANCE = 50;
+	static int AIRSHIP_AUTO_DISTANCE = 50;
 	
 	//gear motor speed
 	static double GEAR_MOTOR_IN_SPEED = -0.25;
