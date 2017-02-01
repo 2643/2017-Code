@@ -24,31 +24,37 @@ public class Robot extends IterativeRobot {
 	
 	Potentiometer pot = new AnalogPotentiometer(0, 360, 0);
 	
+	//Declaring for Motors
 	Spark lFrontMotor = new Spark(5);
 	Spark lBackMotor = new Spark(7);
 	Spark rFrontMotor = new Spark(6);
 	Spark rBackMotor = new Spark(4);
 	Spark dumpMotor = new Spark(8);
+	Spark gearMotor = new Spark(8);
+	Spark intakeMotor = new Spark(9);
+
 	
+	//Declaring for Encoders
 	Encoder dumpEncoder = new Encoder(0,0);
 	
+	//Declaring for Joystick
 	Joystick stick = new Joystick(0);
 	
+	//Drive toggle boolean
 	boolean driveToggle = false;
 	
+	//Toggles for on & off
 	int toggleOn = 2;
 	int toggleOff = 3;
 	
+	//Slow
 	double slowMult = .5;
 	
 	boolean isArcadeOn = false;
 	
+	//Declaration for Limit Switches
 	DigitalInput limitSwitch = new DigitalInput(2);
-	
-	Spark gearMotor = new Spark(8);
-	
-	Spark intakeMotor = new Spark(9);
-	
+		
 	//Encoder leftEncoder = new Encoder(2,4);
 	//Encoder rightEncoder = new Encoder(5,6);
 	
@@ -235,16 +241,19 @@ public void drive(){
 	}
 	
  public void intake() {
+	 //If the button is pressed, then the intake motor is turned on.
 		if (stick.getRawButton(1) == true) {
 			intakeMotor.set(0.5);
+	 //If the other button is pressed, then the motor will be turned on back ways.
 		} else if (stick.getRawButton(2)) {
 			intakeMotor.set(-0.5);
+	//otherwise it won't move at all.
 		} else {
 			intakeMotor.set(0);
 		}
 	}
  public void dump(){
-		//Some Encoder
+		//Some Encoder number,(temporary)
 		int SOMENUMBER = 0;
 		
 		/*If the button is pressed and the "dumpEncoder" is less than just some number, 
@@ -254,11 +263,13 @@ public void drive(){
 			dumpMotor.set(0.5);
 		}
 		/*Else, if the other button is pressed and the limit switch has not been pressed,
-		 * then*/
+		 * then the motor will move back and then reset the encoder. That is until the 
+		 * limit switch is switched on making it true*/
 		else if(stick.getRawButton(3)&& limitSwitch.get()==false){
 			dumpMotor.set(-0.5);
 			dumpEncoder.reset();
 		}
+		//Else the motor will not move.
 		else{
 			dumpMotor.set(0);
 		}
