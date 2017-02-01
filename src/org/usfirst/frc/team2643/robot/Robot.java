@@ -18,14 +18,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
+
 	DigitalInput Switch1 = new DigitalInput(1);//HopperAuto
 	DigitalInput Switch2 = new DigitalInput(2);//AirshipAuto
 	DigitalInput Switch3 = new DigitalInput(3);//BoilerAuto
-	
-	
+
+
 	Potentiometer pot = new AnalogPotentiometer(0, 360, 0);
-	
+
 	//Declaring for Motors
 	Spark lFrontMotor = new Spark(5);
 	Spark lBackMotor = new Spark(7);
@@ -35,46 +35,48 @@ public class Robot extends IterativeRobot {
 	Spark gearMotor = new Spark(8);
 	Spark intakeMotor = new Spark(9);
 
-	
+
 	//Declaring for Encoders
 	Encoder dumpEncoder = new Encoder(0,0);
-	
+	Encoder lEncoder = new Encoder(5,7);
+	Encoder rEncoder = new Encoder(6,4,true);
+
 	//Declaring for Joystick
 	Joystick stick = new Joystick(0);
-	
+
 	//Drive toggle boolean
 	boolean driveToggle = false;
-	
+
 	//Toggles for on & off
 	int toggleOn = 2;
 	int toggleOff = 3;
-	
+
 	//Slow
 	double slowMult = .5;
-	
+
 	boolean isArcadeOn = false;
-	
+
 	//Declaration for Limit Switches
 	DigitalInput limitSwitch = new DigitalInput(2);
-		
+
 	//Encoder leftEncoder = new Encoder(2,4);
 	//Encoder rightEncoder = new Encoder(5,6);
-	
+
 	static double AUTO_SPEED_ON = 0.5;
 	static int AUTO_SPEED_OFF = 0;
 	static int BOILER_AUTO_DISTANCE = 500;
 	static int HOPPER_AUTO_DISTANCE = 50;
 	static int AIRSHIP_AUTO_DISTANCE = 50;
-	
+
 	String autoSelected = "DoNothingAuto";
-	
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-	
+
 	}
 
 	/**
@@ -112,58 +114,57 @@ public class Robot extends IterativeRobot {
 			e.printStackTrace();
 		} 
 	}
-	
-	
-	
+
+
+
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//Scheduler.getInstance().run();
-		double encoderaverage = 0;//(lFrontMotorEncoder.get()+lBackMotorEncoder.get()+rFrontMotorEncoder.get()+rBackMotorEncoder.get())/4;
-	
+		double encoderaverage = (lEncoder.get()+rEncoder.get())/2;
+
 		switch (autoSelected) {
 		case "DoNothingAuto":
-			//SetAll(0); 
+			setAll(0); 
 			break;
 		case "HopperAuto": 
 
 			if(encoderaverage < HOPPER_AUTO_DISTANCE)//go a certain amount of space
 			{
-				//SetAll(AUTO_SPEED_ON);//set all motors to FULL SPEED AHEAD
+				setAll(AUTO_SPEED_ON);//set all motors to FULL SPEED AHEAD
 			}
 			else
 			{
-				//SetAll(0);//stop
+				setAll(0);//stop
 			}
 			break;
 		case "AirshipAuto":
 			if(encoderaverage < AIRSHIP_AUTO_DISTANCE)//if it is less than a certain amount
 			{
-				//SetAll(AUTO_SPEED_ON);//move forward
+				setAll(AUTO_SPEED_ON);//move forward
 			}
 			else
 			{
-				//SetAll(0);//stop
+				setAll(0);//stop
 			}
 			break;
 		case "BoilerAuto":
 			if(encoderaverage < BOILER_AUTO_DISTANCE)
 			{
-				//SetAll(AUTO_SPEED_ON);
+				setAll(AUTO_SPEED_ON);
 			}
 			else
 			{
-				//SetAll(0);
+				setAll(0);
 			}
 			break;
-			
+
 		default:
 			//do nothing 
 			break;
 		}
-		
+
 	}
 
 	/**
@@ -171,10 +172,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
-		
+
+
 		toggleDrive();
-		
+
 	}
 
 	/**
@@ -183,7 +184,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 	}
-	
+
 	public void toggleDrive() {
 		// if you press the button, then driveToggle will be true
 		if (stick.getRawButton(toggleOn)) {
@@ -213,17 +214,17 @@ public class Robot extends IterativeRobot {
 		}
 
 	}
-	
-public void drive(){
-		
+
+	public void drive(){
+
 		lFrontMotor.set(stick.getRawAxis(1)*-1);
 		lBackMotor.set(stick.getRawAxis(1)*-1);
 		rBackMotor.set(stick.getRawAxis(5));
 		rFrontMotor.set(stick.getRawAxis(5));
 	}
 
- public void gear() {
-		
+	public void gear() {
+
 		//operator controlled
 		//if the potentiometer is in the "in" position, 
 		//then this will move it to the "middle" position
@@ -231,14 +232,14 @@ public void drive(){
 		{
 			gearMotor.set(0.25);
 		}
-		
+
 		//if the potentiometer is in the "middle" position, 
 		//then this will move it to the "out" position
 		else if((stick.getRawButton(5) == true) && ((pot.get() > 31) && (pot.get() <= 70)))
 		{
 			gearMotor.set(0.25);
 		}
-		
+
 		//if the potentiometer is in the "middle" or "out" position, 
 		//then this will move it to the "in" position
 		else if((stick.getRawButton(4) == true) && (pot.get() > 1))
@@ -246,23 +247,32 @@ public void drive(){
 			gearMotor.set(-0.25);
 		}
 	}
-	
- public void intake() {
-	 //If the button is pressed, then the intake motor is turned on.
+
+	public void intake() {
+		//If the button is pressed, then the intake motor is turned on.
 		if (stick.getRawButton(1) == true) {
 			intakeMotor.set(0.5);
-	 //If the other button is pressed, then the motor will be turned on back ways.
+			//If the other button is pressed, then the motor will be turned on back ways.
 		} else if (stick.getRawButton(2)) {
 			intakeMotor.set(-0.5);
-	//otherwise it won't move at all.
+			//otherwise it won't move at all.
 		} else {
 			intakeMotor.set(0);
 		}
 	}
- public void dump(){
+
+	public void setAll(double speed)
+	{
+		lFrontMotor.set(speed);
+		lBackMotor.set(speed);
+		rFrontMotor.set(-speed);
+		rBackMotor.set(-speed);
+	}
+
+	public void dump(){
 		//Some Encoder number,(temporary)
 		int SOMENUMBER = 0;
-		
+
 		/*If the button is pressed and the "dumpEncoder" is less than just some number, 
 		 * then the motor dump motor moves at a speed of 0.5 until the "dumpEncoder" is 
 		 * bigger than some number.*/
