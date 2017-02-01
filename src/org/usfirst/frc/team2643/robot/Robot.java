@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	
+	DigitalInput Switch1 = new DigitalInput(1);//HopperAuto
+	DigitalInput Switch2 = new DigitalInput(2);//AirshipAuto
+	DigitalInput Switch3 = new DigitalInput(3);//BoilerAuto
 	
 	
 	Potentiometer pot = new AnalogPotentiometer(0, 360, 0);
@@ -64,25 +66,15 @@ public class Robot extends IterativeRobot {
 	static int HOPPER_AUTO_DISTANCE = 50;
 	static int AIRSHIP_AUTO_DISTANCE = 50;
 	
+	String autoSelected = "DoNothingAuto";
 	
-	final String DoNothingAuto = "DoNothingAuto";
-	final String BoilerAuto = "BoilerAuto";
-	final String HopperAuto = "HopperAuto";
-	final String AirshipAuto = "AirshipAuto";
-	String autoSelected;
-	SendableChooser<String> chooser = new SendableChooser<>();
-
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault("Do Nothing", DoNothingAuto);
-		chooser.addObject("Boiler", BoilerAuto);
-		chooser.addObject("Hopper", HopperAuto);
-		chooser.addObject("Airship", AirshipAuto);
-		SmartDashboard.putData("Auto choices", chooser);
+	
 	}
 
 	/**
@@ -98,13 +90,28 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autoSelected = chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
-		System.out.println("Auto selected: " + autoSelected);
+		if(Switch1.get())//HopperAuto
+		{
+			autoSelected = "HopperAuto";
+		}
+		else if(Switch2.get())//AirshipAuto
+		{
+			autoSelected = "AirshipAuto";
+		}
+		else if(Switch3.get())//BoilerAuto
+		{
+			autoSelected = "BoilerAuto";
+		}
 	}
 
-	
+	public void Sleep(int miliseconds)
+	{
+		try {
+			Thread.sleep(miliseconds);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} 
+	}
 	
 	
 	
@@ -115,14 +122,14 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		//Scheduler.getInstance().run();
 		double encoderaverage = 0;//(lFrontMotorEncoder.get()+lBackMotorEncoder.get()+rFrontMotorEncoder.get()+rBackMotorEncoder.get())/4;
-		 
+	
 		switch (autoSelected) {
-		case DoNothingAuto:
+		case "DoNothingAuto":
 			//SetAll(0); 
 			break;
-		case BoilerAuto: 
+		case "HopperAuto": 
 
-			if(encoderaverage < BOILER_AUTO_DISTANCE)//go a certain amount of space
+			if(encoderaverage < HOPPER_AUTO_DISTANCE)//go a certain amount of space
 			{
 				//SetAll(AUTO_SPEED_ON);//set all motors to FULL SPEED AHEAD
 			}
@@ -131,8 +138,8 @@ public class Robot extends IterativeRobot {
 				//SetAll(0);//stop
 			}
 			break;
-		case HopperAuto:
-			if(encoderaverage < HOPPER_AUTO_DISTANCE)//if it is less than a certain amount
+		case "AirshipAuto":
+			if(encoderaverage < AIRSHIP_AUTO_DISTANCE)//if it is less than a certain amount
 			{
 				//SetAll(AUTO_SPEED_ON);//move forward
 			}
@@ -141,8 +148,8 @@ public class Robot extends IterativeRobot {
 				//SetAll(0);//stop
 			}
 			break;
-		case AirshipAuto:
-			if(encoderaverage < AIRSHIP_AUTO_DISTANCE)
+		case "BoilerAuto":
+			if(encoderaverage < BOILER_AUTO_DISTANCE)
 			{
 				//SetAll(AUTO_SPEED_ON);
 			}
