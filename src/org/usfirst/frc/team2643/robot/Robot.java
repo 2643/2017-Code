@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
+//import edu.wpi.first.wpilibj.DigitalInput;
+//import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -101,7 +101,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		
-		if((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2 < robotMap.AUTO_LINE_DISTANCE)
+		if((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2 < 2200)
 		{
 			setAll(0.5);
 		}
