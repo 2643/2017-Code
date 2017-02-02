@@ -5,7 +5,7 @@ public class Gear {
 		 
 	}
 	public static void gear(){
-	
+	 
 				//operator controlled
 				//if the potentiometer is in the "in" position, 
 				//then this will move it to the "middle" position

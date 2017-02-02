@@ -3,7 +3,7 @@ package org.usfirst.frc.team2643.robot;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 
-public  class robotMap {
+public  class robotMap { 
 	
 	 
 	//wheel motor ports

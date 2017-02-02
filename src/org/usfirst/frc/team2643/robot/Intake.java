@@ -3,7 +3,7 @@ package org.usfirst.frc.team2643.robot;
 public class Intake {
 	public Intake(){
 		 
-	}
+	} 
 	
 	public static void intake(){
 		if (Robot.opStick.getRawButton(robotMap.INTAKE_IN_BUTTON) == true)

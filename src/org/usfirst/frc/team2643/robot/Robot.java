@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
+	 
 	
 	static Potentiometer pot = new AnalogPotentiometer(robotMap.ANALOG_INPUT_PORT,
 			robotMap.ANALOG_INPUT_PORT1, robotMap.ANALOG_INPUT_PORT2);
