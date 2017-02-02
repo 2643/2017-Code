@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -44,17 +45,24 @@ public class Robot extends IterativeRobot {
 	//Declaring for Joystick
 	Joystick stick = new Joystick(0);
 
+
 	//Drive toggle boolean
-	boolean driveToggle = false;
+	boolean arcadeToggle = false;
 
 	//Toggles for on & off
-	int toggleOn = 2;
-	int toggleOff = 3;
+	int ArcadeOn = 2;
+	int ArcadeOff = 3;
+
+	int SlowOn = 2;
+	int SlowOff = 3;
 
 	//Slow
 	double slowMult = .5;
 
 	boolean isArcadeOn = false;
+	boolean isSlowOn = false;
+
+	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
 
 	//Declaration for Limit Switches
 	DigitalInput limitSwitch = new DigitalInput(2);
@@ -64,11 +72,9 @@ public class Robot extends IterativeRobot {
 
 	static double AUTO_SPEED_ON = 0.5;
 	static int AUTO_SPEED_OFF = 0;
-	static int BOILER_AUTO_DISTANCE = 500;
-	static int HOPPER_AUTO_DISTANCE = 50;
-	static int AIRSHIP_AUTO_DISTANCE = 50;
+	static int AUTO_DISTANCE = 500;
 
-	String autoSelected = "DoNothingAuto";
+
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -92,28 +98,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		if(Switch1.get())//HopperAuto
-		{
-			autoSelected = "HopperAuto";
-		}
-		else if(Switch2.get())//AirshipAuto
-		{
-			autoSelected = "AirshipAuto";
-		}
-		else if(Switch3.get())//BoilerAuto
-		{
-			autoSelected = "BoilerAuto";
-		}
+
 	}
 
-	public void Sleep(int miliseconds)
-	{
-		try {
-			Thread.sleep(miliseconds);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} 
-	}
 
 
 
@@ -124,47 +111,14 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		double encoderaverage = (lEncoder.get()+rEncoder.get())/2;
 
-		switch (autoSelected) {
-		case "DoNothingAuto":
-			setAll(0); 
-			break;
-		case "HopperAuto": 
-
-			if(encoderaverage < HOPPER_AUTO_DISTANCE)//go a certain amount of space
-			{
-				setAll(AUTO_SPEED_ON);//set all motors to FULL SPEED AHEAD
-			}
-			else
-			{
-				setAll(0);//stop
-			}
-			break;
-		case "AirshipAuto":
-			if(encoderaverage < AIRSHIP_AUTO_DISTANCE)//if it is less than a certain amount
-			{
-				setAll(AUTO_SPEED_ON);//move forward
-			}
-			else
-			{
-				setAll(0);//stop
-			}
-			break;
-		case "BoilerAuto":
-			if(encoderaverage < BOILER_AUTO_DISTANCE)
-			{
-				setAll(AUTO_SPEED_ON);
-			}
-			else
-			{
-				setAll(0);
-			}
-			break;
-
-		default:
-			//do nothing 
-			break;
+		if(encoderaverage < 2000)
+		{
+			setAll(0.5);
 		}
-
+		else
+		{
+			setAll(0);
+		}
 	}
 
 	/**
@@ -186,42 +140,51 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void toggleDrive() {
-		// if you press the button, then driveToggle will be true
-		if (stick.getRawButton(toggleOn)) {
-			driveToggle = true;
+		if(stick.getRawButton(ArcadeOn))//if arcade drive is being enabled
+		{
+			isArcadeOn = true;
 		}
-		// if you press the button for toggleOff, then driveToggle will be false
-		else if (stick.getRawButton(toggleOff)) {
-			driveToggle = false;
+		else if(stick.getRawButton(ArcadeOff))//if tank drive is being enabled
+		{
+			isArcadeOn = false;
 		}
 
-		// if driveToggle is not on, then motors will be at the full speed
-		// of the joystick
-		if (!driveToggle) {
-			lFrontMotor.set(stick.getRawAxis(1)*-1);
-			lBackMotor.set(stick.getRawAxis(1)*-1);
-			rFrontMotor.set(stick.getRawAxis(5));
-			rBackMotor.set(stick.getRawAxis(5));
+		if(stick.getRawButton(SlowOn))//if slow drive is being enabled
+		{
+			isSlowOn = true;
 		}
-		// otherwise if driveToggle is true, then the motors will be at the half
-		// speed
-		// of the joystick
-		else {
-			lFrontMotor.set((stick.getRawAxis(1)) * -slowMult);
-			lBackMotor.set((stick.getRawAxis(1)) * -slowMult);
-			rFrontMotor.set((stick.getRawAxis(5)) * slowMult);
-			rBackMotor.set((stick.getRawAxis(5)) * slowMult);
+		else if(stick.getRawButton(SlowOff))//if normal drive is being enabled
+		{
+			isSlowOn = false;
+		}
+
+		if(isArcadeOn == true)//if arcade is on, do arcade drive
+		{
+			drive.arcadeDrive(stick);
+		}
+		else// otherwise do tank drive
+		{
+			if(isSlowOn)
+			{
+				lFrontMotor.set(stick.getRawAxis(1) *slowMult);
+				lBackMotor.set(stick.getRawAxis(1)  *slowMult);
+				rFrontMotor.set(stick.getRawAxis(5) *slowMult);
+				rBackMotor.set(stick.getRawAxis(5)  *slowMult);
+			}
+			else
+			{
+				lFrontMotor.set(stick.getRawAxis(1));
+				lBackMotor.set(stick.getRawAxis(1));
+				rFrontMotor.set(stick.getRawAxis(5));
+				rBackMotor.set(stick.getRawAxis(5));
+			}
 		}
 
 	}
 
-	public void drive(){
 
-		lFrontMotor.set(stick.getRawAxis(1)*-1);
-		lBackMotor.set(stick.getRawAxis(1)*-1);
-		rBackMotor.set(stick.getRawAxis(5));
-		rFrontMotor.set(stick.getRawAxis(5));
-	}
+
+
 
 	public void gear() {
 
