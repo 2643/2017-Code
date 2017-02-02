@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,43 +21,32 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	
+	static Potentiometer pot = new AnalogPotentiometer(robotMap.ANALOG_INPUT_PORT,
+			robotMap.ANALOG_INPUT_PORT1, robotMap.ANALOG_INPUT_PORT2);
 	
+	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_SPARK_PWM_PORT);
+	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_SPARK_PWM_PORT);
+	static Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
+	static Spark rBackMotor = new Spark(robotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	
-	Potentiometer pot = new AnalogPotentiometer(0, 360, 0);
+	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
 	
-	//Declaring for Motors
-	Spark lFrontMotor = new Spark(5);
-	Spark lBackMotor = new Spark(7);
-	Spark rFrontMotor = new Spark(6);
-	Spark rBackMotor = new Spark(4);
-	Spark dumpMotor = new Spark(8);
-	Spark gearMotor = new Spark(8);
-	Spark intakeMotor = new Spark(9);
-
+	static Joystick driveStick = new Joystick(robotMap.JOYSTICK_PORT);
+	static Joystick opStick = new Joystick(robotMap.JOYSTICK_PORT2);
 	
-	//Declaring for Encoders
-	Encoder dumpEncoder = new Encoder(0,0);
+	static boolean driveToggle = false;
 	
-	//Declaring for Joystick
-	Joystick stick = new Joystick(0);
+	static int toggleOn = robotMap.TOGGLE_ON_BUTTON;
+	static int toggleOff = robotMap.TOGGLE_OFF_BUTTON;
 	
-	//Drive toggle boolean
-	boolean driveToggle = false;
-	
-	//Toggles for on & off
-	int toggleOn = 2;
-	int toggleOff = 3;
-	
-	//Slow
-	double slowMult = .5;
+	static double slowMult = robotMap.SLOW_MULTIPLIER;
 	
 	boolean isArcadeOn = false;
 	
-	//Declaration for Limit Switches
-	DigitalInput limitSwitch = new DigitalInput(2);
-		
-	//Encoder leftEncoder = new Encoder(2,4);
-	//Encoder rightEncoder = new Encoder(5,6);
+	static Spark gearMotor = new Spark(robotMap.GEAR_MOTOR_PORT);
+	
+	static Spark intakeMotor = new Spark(robotMap.INTAKE_MOTOR_PORT);
+	
 	
 	static double AUTO_SPEED_ON = 0.5;
 	static int AUTO_SPEED_OFF = 0;
@@ -65,10 +55,6 @@ public class Robot extends IterativeRobot {
 	static int AIRSHIP_AUTO_DISTANCE = 50;
 	
 	
-	final String DoNothingAuto = "DoNothingAuto";
-	final String BoilerAuto = "BoilerAuto";
-	final String HopperAuto = "HopperAuto";
-	final String AirshipAuto = "AirshipAuto";
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
 
@@ -78,11 +64,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault("Do Nothing", DoNothingAuto);
-		chooser.addObject("Boiler", BoilerAuto);
-		chooser.addObject("Hopper", HopperAuto);
-		chooser.addObject("Airship", AirshipAuto);
+	
 		SmartDashboard.putData("Auto choices", chooser);
+		
+		robotMap.leftEncoder.reset();
+		robotMap.rightEncoder.reset();
+		
 	}
 
 	/**
@@ -113,50 +100,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//Scheduler.getInstance().run();
-		double encoderaverage = 0;//(lFrontMotorEncoder.get()+lBackMotorEncoder.get()+rFrontMotorEncoder.get()+rBackMotorEncoder.get())/4;
-		 
-		switch (autoSelected) {
-		case DoNothingAuto:
-			//SetAll(0); 
-			break;
-		case BoilerAuto: 
-
-			if(encoderaverage < BOILER_AUTO_DISTANCE)//go a certain amount of space
-			{
-				//SetAll(AUTO_SPEED_ON);//set all motors to FULL SPEED AHEAD
-			}
-			else
-			{
-				//SetAll(0);//stop
-			}
-			break;
-		case HopperAuto:
-			if(encoderaverage < HOPPER_AUTO_DISTANCE)//if it is less than a certain amount
-			{
-				//SetAll(AUTO_SPEED_ON);//move forward
-			}
-			else
-			{
-				//SetAll(0);//stop
-			}
-			break;
-		case AirshipAuto:
-			if(encoderaverage < AIRSHIP_AUTO_DISTANCE)
-			{
-				//SetAll(AUTO_SPEED_ON);
-			}
-			else
-			{
-				//SetAll(0);
-			}
-			break;
-			
-		default:
-			//do nothing 
-			break;
-		}
 		
+		if((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2 < robotMap.AUTO_LINE_DISTANCE)
+		{
+			setAll(0.5);
+		}
+		else
+		{
+			setAll(0);
+		}
 	}
 
 	/**
@@ -165,9 +117,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
-		
-		toggleDrive();
-		
+		System.out.println((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2);
+		//Intake.intake();
+		//Gear.gear();
+		Drive.drive();
+		ToggleDrive.toggledrive();
 	}
 
 	/**
@@ -177,103 +131,16 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 	}
 	
-	public void toggleDrive() {
-		// if you press the button, then driveToggle will be true
-		if (stick.getRawButton(toggleOn)) {
-			driveToggle = true;
-		}
-		// if you press the button for toggleOff, then driveToggle will be false
-		else if (stick.getRawButton(toggleOff)) {
-			driveToggle = false;
-		}
 
-		// if driveToggle is not on, then motors will be at the full speed
-		// of the joystick
-		if (!driveToggle) {
-			lFrontMotor.set(stick.getRawAxis(1)*-1);
-			lBackMotor.set(stick.getRawAxis(1)*-1);
-			rFrontMotor.set(stick.getRawAxis(5));
-			rBackMotor.set(stick.getRawAxis(5));
-		}
-		// otherwise if driveToggle is true, then the motors will be at the half
-		// speed
-		// of the joystick
-		else {
-			lFrontMotor.set((stick.getRawAxis(1)) * -slowMult);
-			lBackMotor.set((stick.getRawAxis(1)) * -slowMult);
-			rFrontMotor.set((stick.getRawAxis(5)) * slowMult);
-			rBackMotor.set((stick.getRawAxis(5)) * slowMult);
-		}
 
-	}
-	
-public void drive(){
-		
-		lFrontMotor.set(stick.getRawAxis(1)*-1);
-		lBackMotor.set(stick.getRawAxis(1)*-1);
-		rBackMotor.set(stick.getRawAxis(5));
-		rFrontMotor.set(stick.getRawAxis(5));
-	}
-
- public void gear() {
-		
-		//operator controlled
-		//if the potentiometer is in the "in" position, 
-		//then this will move it to the "middle" position
-		if((stick.getRawButton(6) == true) && (pot.get() <= 30))//whoah, cheap!
-		{
-			gearMotor.set(0.25);
-		}
-		
-		//if the potentiometer is in the "middle" position, 
-		//then this will move it to the "out" position
-		else if((stick.getRawButton(5) == true) && ((pot.get() > 31) && (pot.get() <= 70)))
-		{
-			gearMotor.set(0.25);
-		}
-		
-		//if the potentiometer is in the "middle" or "out" position, 
-		//then this will move it to the "in" position
-		else if((stick.getRawButton(4) == true) && (pot.get() > 1))
-		{
-			gearMotor.set(-0.25);
-		}
-	}
-	
- public void intake() {
-	 //If the button is pressed, then the intake motor is turned on.
-		if (stick.getRawButton(1) == true) {
-			intakeMotor.set(0.5);
-	 //If the other button is pressed, then the motor will be turned on back ways.
-		} else if (stick.getRawButton(2)) {
-			intakeMotor.set(-0.5);
-	//otherwise it won't move at all.
-		} else {
-			intakeMotor.set(0);
-		}
-	}
- public void dump(){
-		//Some Encoder number,(temporary)
-		int SOMENUMBER = 0;
-		
-		/*If the button is pressed and the "dumpEncoder" is less than just some number, 
-		 * then the motor dump motor moves at a speed of 0.5 until the "dumpEncoder" is 
-		 * bigger than some number.*/
-		if(stick.getRawButton(4)&& dumpEncoder.get()<=SOMENUMBER ){
-			dumpMotor.set(0.5);
-		}
-		/*Else, if the other button is pressed and the limit switch has not been pressed,
-		 * then the motor will move back and then reset the encoder. That is until the 
-		 * limit switch is switched on making it true*/
-		else if(stick.getRawButton(3)&& limitSwitch.get()==false){
-			dumpMotor.set(-0.5);
-			dumpEncoder.reset();
-		}
-		//Else the motor will not move.
-		else{
-			dumpMotor.set(0);
-		}
-	}
+ 	public void setAll(double speed)
+ 	{
+ 		speed = -speed;
+ 		lFrontMotor.set(speed);
+ 		lBackMotor.set(speed);
+ 		rFrontMotor.set(speed);
+ 		rBackMotor.set(speed);
+ 	}
 }
 
 
