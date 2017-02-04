@@ -23,31 +23,39 @@ public class Robot extends IterativeRobot {
 	
 	static Potentiometer pot = new AnalogPotentiometer(robotMap.ANALOG_INPUT_PORT,
 			robotMap.ANALOG_INPUT_PORT1, robotMap.ANALOG_INPUT_PORT2);
-	
+	//Setting the motors to their ports
 	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_SPARK_PWM_PORT);
 	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_SPARK_PWM_PORT);
 	static Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
 	static Spark rBackMotor = new Spark(robotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	
+	//declaring a new robot drive
 	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
 	
+	//declaring a new joystick called stick, and another called opStick
 	static Joystick driveStick = new Joystick(robotMap.JOYSTICK_PORT);
 	static Joystick opStick = new Joystick(robotMap.JOYSTICK_PORT2);
 	
+	//boolean for drive toggle
 	static boolean driveToggle = false;
 	
+	//booleana for toggleOn & toggleOff
 	static int toggleOn = robotMap.TOGGLE_ON_BUTTON;
 	static int toggleOff = robotMap.TOGGLE_OFF_BUTTON;
 	
+	//the number to make the speed of the robot slower
 	static double slowMult = robotMap.SLOW_MULTIPLIER;
 	
+	//boolean to see if arcade is toggled on or off/true or false
 	boolean isArcadeOn = false;
 	
+	//declaring the gear motor
 	static Spark gearMotor = new Spark(robotMap.GEAR_MOTOR_PORT);
 	
+	//declaring the intake motor
 	static Spark intakeMotor = new Spark(robotMap.INTAKE_MOTOR_PORT);
 	
-	
+	//Imported from robotMap.java for speeds and distances
 	static double AUTO_SPEED_ON = 0.5;
 	static int AUTO_SPEED_OFF = 0;
 	static int BOILER_AUTO_DISTANCE = 500;
@@ -66,7 +74,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 	
 		SmartDashboard.putData("Auto choices", chooser);
-		
+		//reseting the encoders
 		robotMap.leftEncoder.reset();
 		robotMap.rightEncoder.reset();
 		
@@ -100,13 +108,16 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		
+		//if the leftencoder and the rightencoder, divided by two is less than 2200, then it will make the robot
+		//all 4 motors move at half speed.
 		if((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2 < 2200)
 		{
+			//a method defined up above to make all four motors move at half speed.
 			setAll(0.5);
 		}
 		else
 		{
+			//seting all 4 motors to zero.
 			setAll(0);
 		}
 	}
@@ -116,7 +127,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
+		//prints out the leftencoder and the right encoder divided by 2
 		System.out.println((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2);
 		//Intake.intake();
 		//Gear.gear();
@@ -135,6 +146,7 @@ public class Robot extends IterativeRobot {
 
  	public void setAll(double speed)
  	{
+ 		//making all the motors go to a set speed which will be told later.
  		speed = -speed;
  		lFrontMotor.set(speed);
  		lBackMotor.set(speed);

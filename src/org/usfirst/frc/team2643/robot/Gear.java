@@ -2,7 +2,7 @@
 
 public class Gear {
 	public Gear(){
-		 
+
 	}
 	public static void gear(){
 	 

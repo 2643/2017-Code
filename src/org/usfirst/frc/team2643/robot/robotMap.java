@@ -107,6 +107,4 @@ public  class robotMap {
 	//auto line distance 
 	static int AUTO_LINE_DISTANCE = 2200;
 	
-	
-	
 }

@@ -6,7 +6,6 @@ public class ToggleDrive {
 	}
 	public static void toggledrive(){
 
-		
 			// if you press the button, then driveToggle will be true
 			if (Robot.driveStick.getRawButton(Robot.toggleOn)) {
 				Robot.driveToggle = true;
