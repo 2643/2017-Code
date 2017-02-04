@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
+import java.awt.Color;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 //import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.Encoder;
@@ -30,7 +32,7 @@ public class Robot extends IterativeRobot {
 	static Spark rBackMotor = new Spark(robotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	
 	//declaring a new robot drive
-	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
+//	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
 	
 	//declaring a new joystick called stick, and another called opStick
 	static Joystick driveStick = new Joystick(robotMap.JOYSTICK_PORT);
@@ -65,7 +67,11 @@ public class Robot extends IterativeRobot {
 	
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
-
+	
+	//leds
+	public static final int LEDNUMBER = 48;
+	LEDController led = new LEDController(LEDNUMBER);
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -78,6 +84,11 @@ public class Robot extends IterativeRobot {
 		robotMap.leftEncoder.reset();
 		robotMap.rightEncoder.reset();
 		
+		LedStrip allLEDs = new LedStrip(LEDNUMBER,1.0f);
+		allLEDs.allOff();
+		allLEDs.update();
+		led.initialize();
+		led.reset();
 	}
 
 	/**
@@ -122,6 +133,7 @@ public class Robot extends IterativeRobot {
 		}
 	}
 
+	
 	/**
 	 * This function is called periodically during operator control
 	 */
@@ -133,6 +145,7 @@ public class Robot extends IterativeRobot {
 		//Gear.gear();
 		Drive.drive();
 		ToggleDrive.toggledrive();
+		colors();
 	}
 
 	/**
@@ -142,8 +155,6 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 	}
 	
-
-
  	public void setAll(double speed)
  	{
  		//making all the motors go to a set speed which will be told later.
@@ -152,6 +163,11 @@ public class Robot extends IterativeRobot {
  		lBackMotor.set(speed);
  		rFrontMotor.set(speed);
  		rBackMotor.set(speed);
+ 	}
+ 	
+ 	public void colors()
+ 	{
+ 		led.bars();
  	}
 }
 
