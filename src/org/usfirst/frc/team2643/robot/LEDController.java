@@ -48,7 +48,7 @@ public class LEDController//this class provides useful methods for controlling t
 		green = 0;
 		blue = 0;
 	}
-	
+	 
 	public void hook( int n )//does stuff
 	{
 		System.out.println( n );
