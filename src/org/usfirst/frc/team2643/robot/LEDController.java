@@ -8,48 +8,48 @@ package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class LEDController
+public class LEDController//this class provides useful methods for controlling the leds. 
 {
-	LedStrip strip;
-	Timer timer = new Timer();
-	private int currentColor;
-	private int lightNumber;
-	private int barHeight;
+	LedStrip strip;//this is the strip that the led controller
+	Timer timer = new Timer();//this is a timer. It can be used to 
+	private int currentColor;//the color of he bar
+	private int lightNumber;//the number of lights. 
+	private int barHeight;//the height of the bars of led.
 	
-	private int red;
+	private int red;//RGBs for all of the leds
 	private int blue;
 	private int green;
 	
-	private int rainbowMode;
+	private int rainbowMode;// which part of the rainbow it is in.
 	
-	public LEDController( int ln )
+	public LEDController( int ln )//the constructor
 	{
-		lightNumber = ln;
-		strip = new LedStrip( ln , 1.0f );
+		lightNumber = ln;//the number
+		strip = new LedStrip( ln , 1.0f );//defines a new led strip
 	}
 	
 	public void initialize()
 	{
-		timer.start();
-		strip.fill( 0 , 0 , 0 );
+		timer.start();//start timer
+		strip.fill( 0 , 0 , 0 );//switch off all lights
 	}
 	
 	public void reset()
 	{
-		currentColor = 1;
-		barHeight = 0;
+		currentColor = 1;//sets all leds to red
+		barHeight = 0;//sets the bar height to 0
 	}
 	
 	public void teleopInit()
 	{
-		rainbowMode = 0;
+		rainbowMode = 0;//red
 		
-		red = 255;
+		red = 255;//red
 		green = 0;
 		blue = 0;
 	}
-	
-	public void hook( int n )
+	 
+	public void hook( int n )//does stuff
 	{
 		System.out.println( n );
 		n = (int)( ( double )( n ) * LEDV.encoderFactor );
@@ -63,15 +63,15 @@ public class LEDController
 			n = 1;
 		}
 		
-		strip.fill( red , green , blue , 1 , n );
+		strip.fill( red , green , blue , 1 , n );//fill it with colors
 		strip.fill( 0 , 0 , 0 , n + 1 , lightNumber );
 		strip.update();
 		
-		if( timer.get() >= LEDV.timeInterval )
+		if( timer.get() >= LEDV.timeInterval )//if it has been a certain amount of time
 		{
-			timer.reset();
+			timer.reset();//reset timer
 			
-			switch( rainbowMode )
+			switch( rainbowMode )//changes colors slowly!
 			{
 				case 0:
 					if( green < 255 )
@@ -142,28 +142,28 @@ public class LEDController
 		}
 	}
 	
-	public void bars()
+	public void bars()//starts and updates bars.
 	{
-		if( timer.get() >= LEDV.timeInterval )
+		if( timer.get() >= LEDV.timeInterval )//if the timer interval is more than the time interval
 		{
-			timer.reset();
-			barHeight++;
-			if( barHeight > lightNumber * 2 )
+			timer.reset();//reset timer 
+			barHeight++;//increase the height of the bar
+			if( barHeight > lightNumber * 2 )//if the barheight is greater than the number of lights
 			{
 				barHeight = 1;
 				currentColor++;
-				if( currentColor > 6 )
+				if( currentColor > 6 )//reset
 				{
 					currentColor = 1;
 				}
 				updateColor();
 			}
-			if( barHeight < lightNumber )
+			if( barHeight < lightNumber )//if the barheight is still less than the number of lights, move the bar of lights up
 			{
 				strip.fill( red , green , blue , 1 , barHeight );
 				strip.fill( 0 , 0 , 0 , barHeight + 1 , lightNumber );
 			}
-			else if( barHeight > lightNumber )
+			else if( barHeight > lightNumber )//if the barheight is greater than light number start moving the lights up from the bottom
 			{
 				strip.fill( red , green, blue , barHeight - lightNumber , lightNumber );
 				strip.fill( 0 , 0 , 0 , 1 , barHeight - lightNumber );
@@ -172,15 +172,15 @@ public class LEDController
 			{
 				strip.fill( red , green , blue );
 			}
-			strip.update();
+			strip.update();//update
 		}
 	}
 	
-	public void updateColor()
+	public void updateColor()//changes the color to whatever the current color is
 	{
-		switch( currentColor )
+		switch( currentColor )//current color
 		{
-			case 1: //Red
+			case 1: //if current color is 1, make it red
 				red = 255;
 				green = 0;
 				blue = 0;
