@@ -18,19 +18,19 @@ public class ToggleDrive {
 			// if driveToggle is not on, then motors will be at the full speed
 			// of the joystick
 			if (!Robot.driveToggle) {
-				Robot.lFrontMotor.set(Robot.driveStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
-				Robot.lBackMotor.set(Robot.driveStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS));
-				Robot.rFrontMotor.set(Robot.driveStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS));
-				Robot.rBackMotor.set(Robot.driveStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS));
+				Robot.lFrontMotor.set(Robot.driveStick.getRawAxis(RobotMap.LEFT_JOYSTICK_AXIS));
+				Robot.lBackMotor.set(Robot.driveStick.getRawAxis(RobotMap.LEFT_JOYSTICK_AXIS));
+				Robot.rFrontMotor.set(Robot.driveStick.getRawAxis(RobotMap.RIGHT_JOYSTICK_AXIS));
+				Robot.rBackMotor.set(Robot.driveStick.getRawAxis(RobotMap.RIGHT_JOYSTICK_AXIS));
 			}
 			// otherwise if driveToggle is true, then the motors will be at the half
 			// speed
 			// of the joystick
 			else {
-				Robot.lFrontMotor.set((Robot.driveStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS)) * Robot.slowMult);
-				Robot.lBackMotor.set((Robot.driveStick.getRawAxis(robotMap.LEFT_JOYSTICK_AXIS)) * Robot.slowMult);
-				Robot.rFrontMotor.set((Robot.driveStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)) * Robot.slowMult);
-				Robot.rBackMotor.set((Robot.driveStick.getRawAxis(robotMap.RIGHT_JOYSTICK_AXIS)) * Robot.slowMult);
+				Robot.lFrontMotor.set((Robot.driveStick.getRawAxis(RobotMap.LEFT_JOYSTICK_AXIS)) * Robot.slowMult);
+				Robot.lBackMotor.set((Robot.driveStick.getRawAxis(RobotMap.LEFT_JOYSTICK_AXIS)) * Robot.slowMult);
+				Robot.rFrontMotor.set((Robot.driveStick.getRawAxis(RobotMap.RIGHT_JOYSTICK_AXIS)) * Robot.slowMult);
+				Robot.rBackMotor.set((Robot.driveStick.getRawAxis(RobotMap.RIGHT_JOYSTICK_AXIS)) * Robot.slowMult);
 			}
 
 		

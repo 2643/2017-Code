@@ -22,39 +22,39 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	 
 	
-	static Potentiometer pot = new AnalogPotentiometer(robotMap.ANALOG_INPUT_PORT,
-			robotMap.ANALOG_INPUT_PORT1, robotMap.ANALOG_INPUT_PORT2);
+	static Potentiometer pot = new AnalogPotentiometer(RobotMap.ANALOG_INPUT_PORT,
+			RobotMap.ANALOG_INPUT_PORT1, RobotMap.ANALOG_INPUT_PORT2);
 	//Setting the motors to their ports
-	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_TALON_PWM_PORT);
-	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_TALON_PWM_PORT);
-	static Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
-	static Spark rBackMotor = new Spark(robotMap.RIGHT_BACK_SPARK_PWM_PORT);
+	static Spark lFrontMotor = new Spark(RobotMap.LEFT_FRONT_TALON_PWM_PORT);
+	static Spark lBackMotor = new Spark(RobotMap.LEFT_BACK_TALON_PWM_PORT);
+	static Spark rFrontMotor = new Spark(RobotMap.RIGHT_FRONT_SPARK_PWM_PORT);
+	static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	
 	//declaring a new robot drive
 //	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
 	
 	//declaring a new joystick called stick, and another called opStick
-	static Joystick driveStick = new Joystick(robotMap.JOYSTICK_PORT);
-	static Joystick opStick = new Joystick(robotMap.JOYSTICK_PORT2);
+	static Joystick driveStick = new Joystick(RobotMap.JOYSTICK_PORT);
+	static Joystick opStick = new Joystick(RobotMap.JOYSTICK_PORT2);
 	
 	//boolean for drive toggle
 	static boolean driveToggle = false;
 	
 	//booleana for toggleOn & toggleOff
-	static int toggleOn = robotMap.TOGGLE_ON_BUTTON;
-	static int toggleOff = robotMap.TOGGLE_OFF_BUTTON;
+	static int toggleOn = RobotMap.TOGGLE_ON_BUTTON;
+	static int toggleOff = RobotMap.TOGGLE_OFF_BUTTON;
 	
 	//the number to make the speed of the robot slower
-	static double slowMult = robotMap.SLOW_MULTIPLIER;
+	static double slowMult = RobotMap.SLOW_MULTIPLIER;
 	
 	//boolean to see if arcade is toggled on or off/true or false
 	boolean isArcadeOn = false;
 	
 	//declaring the gear motor
-	static Spark gearMotor = new Spark(robotMap.GEAR_MOTOR_PORT);
+	static Spark gearMotor = new Spark(RobotMap.GEAR_MOTOR_PORT);
 	
 	//declaring the intake motor
-	static Spark intakeMotor = new Spark(robotMap.INTAKE_MOTOR_PORT);
+	static Spark intakeMotor = new Spark(RobotMap.INTAKE_MOTOR_PORT);
 	
 	//Imported from robotMap.java for speeds and distances
 	static double AUTO_SPEED_ON = 0.5;
@@ -80,8 +80,8 @@ public class Robot extends IterativeRobot {
 	
 		SmartDashboard.putData("Auto choices", chooser);
 		//reseting the encoders
-		robotMap.leftEncoder.reset();
-		robotMap.rightEncoder.reset();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
 		
 		LedStrip allLEDs = new LedStrip(LEDNUMBER,1.0f);
 		allLEDs.allOff();
@@ -120,7 +120,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		//if the leftencoder and the rightencoder, divided by two is less than 2200, then it will make the robot
 		//all 4 motors move at half speed.
-		if((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2 < 2200)
+		if((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get()))/2 < 2200)
 		{
 			//a method defined up above to make all four motors move at half speed.
 			setAll(0.5);
@@ -139,7 +139,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		//prints out the left encoder and the right encoder divided by 2
-		System.out.println((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2);
+		System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get()))/2);
 		//Intake.intake();
 		//Gear.gear();
 		Drive.drive();
