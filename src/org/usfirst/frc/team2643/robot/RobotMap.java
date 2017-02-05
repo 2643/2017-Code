@@ -90,4 +90,6 @@ public class RobotMap {
 	// auto line distance
 	static int AUTO_LINE_DISTANCE = 2200;
 
+	// climber motor
+	//static int CLIMBER_MOTOR = 5;
 }
