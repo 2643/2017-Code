@@ -88,15 +88,23 @@ public final class LedStrip {
 		}
 
 		// This specific class, makes the varible tittled, "numberOfLeds" equal
-		// to then same variable, "numberOfLeds".
+		// to the same variable, "numberOfLeds".
 		this.numberOfLeds = numberOfLeds;
+
 		// This specific class, makes the empty array tittled, "ledBuffer" equal
-		// to
+		// to a new array named,"numberOfLeds".
 		this.ledBuffer = new RGBLed[numberOfLeds];
+
+		// For loop saying,(the int, "i" is equal to 0. if "i" is less than the
+		// numberOfLeds, then an action will occur. Then it will add 1 to "i".
 		for (int i = 0; i < numberOfLeds; i++) {
+
+			// The action is, ledBuffer "i" is equal to a new "RGBLed" array.
 			ledBuffer[i] = new RGBLed();
 		}
 
+		// This specific class, makes the varible tittled, "brightness" equal
+		// to the same variable, "brightness".
 		this.brightness = brightness;
 	}
 
