@@ -8,15 +8,15 @@ package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class LEDController//this class provides useful methods for controlling the leds. 
+public class LEDController    //this class provides useful methods for controlling the leds. 
 {
-	LedStrip strip;//this is the strip that the led controller
+	LedStrip strip;           //this is the strip that the led controller
 	Timer timer = new Timer();//this is a timer. It can be used to 
-	private int currentColor;//the color of he bar
-	private int lightNumber;//the number of lights. 
-	private int barHeight;//the height of the bars of led.
+	private int currentColor; //the color of he bar
+	private int lightNumber;  //the number of lights. 
+	private int barHeight;    //the height of the bars of led.
 	
-	private int red;//RGBs for all of the leds
+	private int red;          //RGBs for all of the leds
 	private int blue;
 	private int green;
 	
@@ -69,73 +69,84 @@ public class LEDController//this class provides useful methods for controlling t
 		
 		if( timer.get() >= LEDV.timeInterval )//if it has been a certain amount of time
 		{
-			timer.reset();//reset timer
+			timer.reset();                    //reset timer
 			
-			switch( rainbowMode )//changes colors slowly!
+			switch( rainbowMode )             //changes colors slowly!
 			{
 				case 0:
-					if( green < 255 )
+					if( green < 125 ) 
 					{
-						green += 5;
-					}
+						green += 5;           //changes the LED to orange
+					}                         //green = 125; red = 255; blue = 0;
 					else
 					{
-						rainbowMode = 1;
+						rainbowMode = 1; 
 					}
 					break;
-				
 				case 1:
-					if( red > 0 )
+					if(green < 255)
 					{
-						red -= 5;
-					}
-					else
+						green += 5;           //changes the LED to yellow
+					}                         //green = 255; red = 255; blue = 0;
+					else 
 					{
 						rainbowMode = 2;
 					}
-					break;
-				
 				case 2:
-					if( blue < 255 )
+					if( red > 0 )   
 					{
-						blue += 5;
-					}
+						red -= 5;            //changes the LED to green
+					}                        //green = 255; red = 0; blue = 0;
 					else
 					{
 						rainbowMode = 3;
 					}
 					break;
-					
+				
 				case 3:
-					if( green > 0 )
+					if( blue < 255 && green > 0 )
 					{
-						green -= 5;
+						blue += 5;           //changes the LED to blue
+						green -= 5;          //green = 0; red = 0; blue = 255;
 					}
 					else
 					{
 						rainbowMode = 4;
 					}
 					break;
-				
+					
 				case 4:
-					if( red < 255 )
+					if( blue > 155)
 					{
-						red += 5;
+						blue -= 5;          //changes the LED to indigo
+					}                       //green = 0; red = 0; blue = 155;
+					else
+					{
+						rainbowMode = 4;
 					}
+					break;
+				
+				case 5:
+					if( red < 125 && blue < 255 )
+					{
+						red += 5;    
+						blue += 5;          //changes the LED to violet
+					}                       //green = 0; red = 125; blue = 255;
 					else
 					{
 						rainbowMode = 5;
 					}
 					break;
 				
-				case 5:
-					if( blue > 0 )
+				case 6:
+					if( red < 255 && blue > 0 )
 					{
-						blue -= 5;
-					}
+						blue -= 5;   
+						red += 5;           //changes LED back to red
+					}                       //green = 0; red = 255; blue = 0;
 					else
 					{
-						rainbowMode = 0;
+						rainbowMode = 0;    //repeats process again
 					}
 					break;
 			}

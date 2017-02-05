@@ -2,11 +2,11 @@ package org.usfirst.frc.team2643.robot;
 
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -25,8 +25,8 @@ public class Robot extends IterativeRobot {
 	static Potentiometer pot = new AnalogPotentiometer(robotMap.ANALOG_INPUT_PORT,
 			robotMap.ANALOG_INPUT_PORT1, robotMap.ANALOG_INPUT_PORT2);
 	//Setting the motors to their ports
-	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_SPARK_PWM_PORT);
-	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_SPARK_PWM_PORT);
+	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_TALON_PWM_PORT);
+	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_TALON_PWM_PORT);
 	static Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
 	static Spark rBackMotor = new Spark(robotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	
@@ -55,6 +55,15 @@ public class Robot extends IterativeRobot {
 	
 	//declaring the intake motor
 	static Spark intakeMotor = new Spark(robotMap.INTAKE_MOTOR_PORT);
+	
+	//declaring the climber motor
+	static Spark climberMotor = new Spark(robotMap.CLIMBER_MOTOR_PORT);
+	
+	//declaring the dump motor
+	static Spark dumpMotor = new Spark(robotMap.DUMP_MOTOR_PORT);
+	
+	//dump limit switch
+	static DigitalInput limitSwitch = new DigitalInput(robotMap.DUMP_LIMIT_SWITCH_PORT);
 	
 	//Imported from robotMap.java for speeds and distances
 	static double AUTO_SPEED_ON = 0.5;
@@ -168,6 +177,8 @@ public class Robot extends IterativeRobot {
  	{
  		led.bars();
  	}
-}
+
+ }
+
 
 

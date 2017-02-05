@@ -17,12 +17,11 @@ public class robotMap {
 	static int ANALOG_INPUT_PORT2 = 0;
 
 	// encoder ports
-  
-	static int GEAR_MOTOR_ENCODER_PORT_1 = 123;
-	static int GEAR_MOTOR_ENCODER_PORT_2 = 123;
-
 	static Encoder leftEncoder = new Encoder(1, 2);
 	static Encoder rightEncoder = new Encoder(3, 4);
+	
+	//dump encoder
+	static Encoder dumpEncoder = new Encoder(5, 6);
 
 	// joystick port
 	static int JOYSTICK_PORT = 0;
@@ -37,9 +36,6 @@ public class robotMap {
 	// slow multiplier
 	static double SLOW_MULTIPLIER = 0.5;
 
-	// gear limit switch
-	static int GEAR_LIMIT_SWITCH_PORT = 2;
-
 	// gear motor port
 	static int GEAR_MOTOR_PORT = 8;
 
@@ -49,14 +45,15 @@ public class robotMap {
 	// intake motor port
 	static int INTAKE_MOTOR_PORT = 9;
 
-	// time limit for autonomous
-	static int AUTO_TIME_LIMIT = 2;
-
-	// gear lift buttons
-	static int GEAR_LIFT_1 = 0;
-	static int GEAR_LIFT_2 = 1;
-	static int GEAR_LIFT_3 = 2;
-
+	//climber motor port
+	static int CLIMBER_MOTOR_PORT = 666;   //need to change this later
+	
+	//dump motor port
+	static int DUMP_MOTOR_PORT = -666;     //need to change this later
+	
+	//dump limit switch
+	static int DUMP_LIMIT_SWITCH_PORT = -666;   //need to change this later
+	
 	// autonomous speed
 	static double AUTO_SPEED_ON = 0.5;
 	static int AUTO_SPEED_OFF = 0;
@@ -75,16 +72,16 @@ public class robotMap {
 	static int INTAKE_NO_SPEED = 0;
 
 	// intake buttons
-	static int INTAKE_IN_BUTTON = 1;
-	static int INTAKE_OUT_BUTTON = 2;
+	static int INTAKE_IN_BUTTON = 5;
+	static int INTAKE_OUT_BUTTON = 6;
 
 	// toggle button
-	static int TOGGLE_ON_BUTTON = 2;
-	static int TOGGLE_OFF_BUTTON = 3;
+	static int TOGGLE_ON_BUTTON = 1;
+	static int TOGGLE_OFF_BUTTON = 2;
 
 	// gear button motors
-	static int GEAR_IN_BUTTON = 1;
-	static int GEAR_OUT_BUTTON = 1;
+	static int GEAR_IN_BUTTON = 3;
+	static int GEAR_OUT_BUTTON = 2;
 	static int GEAR_MIDDLE_BUTTON = 1;
 
 	// auto line distance
