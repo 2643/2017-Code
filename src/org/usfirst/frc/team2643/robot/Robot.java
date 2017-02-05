@@ -25,8 +25,8 @@ public class Robot extends IterativeRobot {
 	static Potentiometer pot = new AnalogPotentiometer(robotMap.ANALOG_INPUT_PORT,
 			robotMap.ANALOG_INPUT_PORT1, robotMap.ANALOG_INPUT_PORT2);
 	//Setting the motors to their ports
-	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_SPARK_PWM_PORT);
-	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_SPARK_PWM_PORT);
+	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_TALON_PWM_PORT);
+	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_TALON_PWM_PORT);
 	static Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
 	static Spark rBackMotor = new Spark(robotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	
