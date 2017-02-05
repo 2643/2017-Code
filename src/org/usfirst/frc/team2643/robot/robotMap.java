@@ -17,7 +17,7 @@ public class robotMap {
 	static int ANALOG_INPUT_PORT2 = 0;
 
 	// encoder ports
- 
+  
 	static int GEAR_MOTOR_ENCODER_PORT_1 = 123;
 	static int GEAR_MOTOR_ENCODER_PORT_2 = 123;
 
