@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.Encoder;
 public class robotMap {
 
 	// wheel motor ports
-	static int LEFT_FRONT_SPARK_PWM_PORT = 7;
-	static int LEFT_BACK_SPARK_PWM_PORT = 5;
+	static int LEFT_FRONT_TALON_PWM_PORT = 7;
+	static int LEFT_BACK_TALON_PWM_PORT = 5;
 	static int RIGHT_FRONT_SPARK_PWM_PORT = 6;
 	static int RIGHT_BACK_SPARK_PWM_PORT = 4;
 
@@ -17,19 +17,7 @@ public class robotMap {
 	static int ANALOG_INPUT_PORT2 = 0;
 
 	// encoder ports
-	static int LEFT_FRONT_MOTOR_ENCODER_PORT_1 = -666;// CHANGE THESE TO CORRECT
-														// PORTS
-	static int LEFT_FRONT_MOTOR_ENCODER_PORT_2 = -666;
-
-	static int LEFT_BACK_MOTOR_ENCODER_PORT_1 = -666;
-	static int LEFT_BACK_MOTOR_ENCODER_PORT_2 = -666;
-
-	static int RIGHT_FRONT_MOTOR_ENCODER_PORT_1 = -666;
-	static int RIGHT_FRONT_MOTOR_ENCODER_PORT_2 = -666;
-
-	static int RIGHT_BACK_MOTOR_ENCODER_PORT_1 = -666;
-	static int RIGHT_BACK_MOTOR_ENCODER_PORT_2 = -666;
-
+  
 	static int GEAR_MOTOR_ENCODER_PORT_1 = 123;
 	static int GEAR_MOTOR_ENCODER_PORT_2 = 123;
 
