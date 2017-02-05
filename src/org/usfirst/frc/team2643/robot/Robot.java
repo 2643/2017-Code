@@ -1,13 +1,12 @@
 package org.usfirst.frc.team2643.robot;
 
-import java.awt.Color;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 //import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
+
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -128,7 +127,7 @@ public class Robot extends IterativeRobot {
 		}
 		else
 		{
-			//seting all 4 motors to zero.
+			//Setting all 4 motors to zero.
 			setAll(0);
 		}
 	}
@@ -139,7 +138,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		//prints out the leftencoder and the right encoder divided by 2
+		//prints out the left encoder and the right encoder divided by 2
 		System.out.println((Math.abs(robotMap.leftEncoder.get()) + Math.abs(robotMap.rightEncoder.get()))/2);
 		//Intake.intake();
 		//Gear.gear();
