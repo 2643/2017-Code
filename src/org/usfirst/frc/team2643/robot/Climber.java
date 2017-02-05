@@ -10,5 +10,5 @@ public class Climber {
 			Robot.climberMotor.set(0.5);
 		else if(Robot.opStick.getPOV() == 4)
 			Robot.climberMotor.set(-0.5);
-	}
-}
+	} 
+} 
