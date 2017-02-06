@@ -1,11 +1,11 @@
 package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -30,15 +30,23 @@ public class Robot extends IterativeRobot {
 
 	//static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR);
 	
-	// declaring a new robot drive
-	// RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor,
-	// rBackMotor);
 
-	// declaring a new joystick called stick, and another called opStick
-	static Joystick driveStick = new Joystick(RobotMap.JOYSTICK_PORT);
-	static Joystick opStick = new Joystick(RobotMap.JOYSTICK_PORT2);
-
-	// boolean for drive toggle
+	static Potentiometer pot = new AnalogPotentiometer(robotMap.ANALOG_INPUT_PORT,
+			robotMap.ANALOG_INPUT_PORT1, robotMap.ANALOG_INPUT_PORT2);
+	//Setting the motors to their ports
+	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_TALON_PWM_PORT);
+	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_TALON_PWM_PORT);
+	static Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
+	static Spark rBackMotor = new Spark(robotMap.RIGHT_BACK_SPARK_PWM_PORT);
+	
+	//declaring a new robot drive
+//	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
+	
+	//declaring a new joystick called stick, and another called opStick
+	static Joystick driveStick = new Joystick(robotMap.JOYSTICK_PORT);
+	static Joystick opStick = new Joystick(robotMap.JOYSTICK_PORT2);
+	
+	//boolean for drive toggle
 	static boolean driveToggle = false;
 
 	// booleana for toggleOn & toggleOff
@@ -51,13 +59,23 @@ public class Robot extends IterativeRobot {
 	// boolean to see if arcade is toggled on or off/true or false
 	boolean isArcadeOn = false;
 
-	// declaring the gear motor
+	
+	//declaring the gear motor
 	static Spark gearMotor = new Spark(RobotMap.GEAR_MOTOR_PORT);
-
-	// declaring the intake motor
+	
+	//declaring the intake motor
 	static Spark intakeMotor = new Spark(RobotMap.INTAKE_MOTOR_PORT);
-
-	// Imported from robotMap.java for speeds and distances
+	
+	//declaring the climber motor
+	static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR_PORT);
+	
+	//declaring the dump motor
+	static Spark dumpMotor = new Spark(RobotMap.DUMP_MOTOR_PORT);
+	
+	//dump limit switch
+	static DigitalInput limitSwitch = new DigitalInput(RobotMap.DUMP_LIMIT_SWITCH_PORT);
+	
+	//Imported from robotMap.java for speeds and distances
 	static double AUTO_SPEED_ON = 0.5;
 	static int AUTO_SPEED_OFF = 0;
 	static int BOILER_AUTO_DISTANCE = 500;
