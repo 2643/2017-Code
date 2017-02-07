@@ -30,21 +30,12 @@ public class Robot extends IterativeRobot {
 
 	//static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR);
 	
-
-	static Potentiometer pot = new AnalogPotentiometer(robotMap.ANALOG_INPUT_PORT,
-			robotMap.ANALOG_INPUT_PORT1, robotMap.ANALOG_INPUT_PORT2);
-	//Setting the motors to their ports
-	static Spark lFrontMotor = new Spark(robotMap.LEFT_FRONT_TALON_PWM_PORT);
-	static Spark lBackMotor = new Spark(robotMap.LEFT_BACK_TALON_PWM_PORT);
-	static Spark rFrontMotor = new Spark(robotMap.RIGHT_FRONT_SPARK_PWM_PORT);
-	static Spark rBackMotor = new Spark(robotMap.RIGHT_BACK_SPARK_PWM_PORT);
-	
 	//declaring a new robot drive
 //	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
 	
 	//declaring a new joystick called stick, and another called opStick
-	static Joystick driveStick = new Joystick(robotMap.JOYSTICK_PORT);
-	static Joystick opStick = new Joystick(robotMap.JOYSTICK_PORT2);
+	static Joystick driveStick = new Joystick(RobotMap.JOYSTICK_PORT);
+	static Joystick opStick = new Joystick(RobotMap.JOYSTICK_PORT2);
 	
 	//boolean for drive toggle
 	static boolean driveToggle = false;
