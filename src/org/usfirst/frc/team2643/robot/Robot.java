@@ -63,8 +63,8 @@ public class Robot extends IterativeRobot {
 	static Spark dumpMotor = new Spark(RobotMap.DUMP_MOTOR_PORT);
 	
 	//dump limit switch
-	static DigitalInput topLimitSwitch = new DigitalInput(RobotMap.TOP_DUMP_LIMIT_SWITCH_PORT);
-	static DigitalInput bottomLimitSwitch = new DigitalInput(RobotMap.BOTTOM_DUMP_LIMIT_SWITCH_PORT);
+	static DigitalInput hallEffectTop = new DigitalInput(RobotMap.TOP_DUMP_LIMIT_SWITCH_PORT);
+	static DigitalInput hallEffectBottom = new DigitalInput(RobotMap.BOTTOM_DUMP_LIMIT_SWITCH_PORT);
 	
 	//Imported from robotMap.java for speeds and distances
 	static double AUTO_SPEED_ON = 0.5;

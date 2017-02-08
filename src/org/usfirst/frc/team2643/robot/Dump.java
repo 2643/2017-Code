@@ -12,14 +12,14 @@ public class Dump extends Robot {
 		 * motor dump motor moves at a speed of 0.5 until the bottom limit
 		 * switch is gotten.
 		 */
-		if (Robot.opStick.getPOV() == 0 && topLimitSwitch.get() == false) {
+		if (Robot.opStick.getPOV() == 0 && hallEffectTop.get() == false) {
 			Robot.dumpMotor.set(0.5);
 		}
 		/*
 		 * Else, if the down dpad is pressed and the limit switch has not been
 		 * pressed, then
 		 */
-		else if (Robot.opStick.getPOV() == 180 && bottomLimitSwitch.get() == false) {
+		else if (Robot.opStick.getPOV() == 180 && hallEffectBottom.get() == false) {
 			Robot.dumpMotor.set(-0.5);
 		} else {
 			Robot.dumpMotor.set(0);
