@@ -22,16 +22,19 @@ public class Intake extends Robot{
 		if (intake == 1)
 		{
 			Robot.intakeMotor.set(RobotMap.INTAKE_IN_SPEED);
+			System.out.println("Intake set to 'IN'");
 		} 
 		//else if the opStick button 2 will make the intake motor preform outake.
 		else if (intake == 2) 
 		{
 			Robot.intakeMotor.set(RobotMap.INTAKE_OUT_SPEED);
+			System.out.println("Intake set to 'OUT'");
 		} 
 		//else the intake motor will be set to no speed.
 		else if(intake == 3) 
 		{
 			Robot.intakeMotor.set(RobotMap.INTAKE_NO_SPEED);
+			System.out.println("Intake set to 'OFF'");
 		}
 	}
 }
