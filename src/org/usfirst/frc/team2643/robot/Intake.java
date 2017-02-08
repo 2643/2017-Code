@@ -10,10 +10,10 @@ public class Intake extends Robot{
 		if(opStick.getRawButton(5)){
 			intake = 1;
 		}
-		if(opStick.getRawButton(6)){
+		else if(opStick.getRawButton(6)){
 			intake = 2;
 		}
-		if(opStick.getRawButton(7)){
+		else if(opStick.getRawButton(7)){
 			intake = 3;
 		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
