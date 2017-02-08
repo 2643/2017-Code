@@ -52,7 +52,8 @@ public class RobotMap {
 	static int DUMP_MOTOR_PORT = -666;     //need to change this later
 	
 	//dump limit switch
-	static int DUMP_LIMIT_SWITCH_PORT = -666;   //need to change this later
+	static int TOP_DUMP_LIMIT_SWITCH_PORT = -666;   //need to change this later
+	static int BOTTOM_DUMP_LIMIT_SWITCH_PORT = -666;   //need to change this later
 	
 	// autonomous speed
 	static double AUTO_SPEED_ON = 0.5;
