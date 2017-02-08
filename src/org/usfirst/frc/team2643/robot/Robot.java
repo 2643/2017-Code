@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 	//boolean for drive toggle
 	static boolean driveToggle = false;
 
-	// booleana for toggleOn & toggleOff
+	// boolean for toggleOn & toggleOff
 	static int toggleOn = RobotMap.TOGGLE_ON_BUTTON;
 	static int toggleOff = RobotMap.TOGGLE_OFF_BUTTON;
 
@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	static double slowMult = RobotMap.SLOW_MULTIPLIER;
 
 	// boolean to see if arcade is toggled on or off/true or false
-	boolean isArcadeOn = false;
+	static boolean isArcadeOn = false;
 
 	
 	//declaring the gear motor
@@ -157,7 +157,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 	}
 
-	public void setAll(double speed) {
+	public static void setAll(double speed) {
 		// making all the motors go to a set speed which will be told later.
 		speed = -speed;
 		lFrontMotor.set(speed);
@@ -169,4 +169,6 @@ public class Robot extends IterativeRobot {
 	public void colors() {
 		led.bars();
 	}
+	
+
 }
