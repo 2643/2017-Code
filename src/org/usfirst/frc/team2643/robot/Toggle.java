@@ -1,12 +1,13 @@
 package org.usfirst.frc.team2643.robot;
 
-
+import edu.wpi.first.wpilibj.RobotDrive;
 
 public class Toggle extends Robot {
 	//Declare section
 	static boolean speedToggle = false;
 	static double yPosition = driveStick.getY();
 	static double xPosition = driveStick.getX();
+	RobotDrive testdrive = new RobotDrive(lFrontMotor,rFrontMotor,lBackMotor,rBackMotor);
 
 
 	public static void testToggle () {
@@ -30,18 +31,19 @@ public class Toggle extends Robot {
 		//If the arcade is on, then the slow or normal speed will occur on arcade drive//
 		if (isArcadeOn == true){
 			if (speedToggle == true){
-				rFrontMotor.set((yPosition - xPosition)*0.5);
-				rBackMotor.set((yPosition - xPosition)*0.5);
+				rFrontMotor.set((yPosition + xPosition)*0.5);
+				rBackMotor.set((yPosition + xPosition)*0.5);
 				lFrontMotor.set((yPosition - xPosition)*-0.5);
 				lBackMotor.set((yPosition - xPosition)*-0.5);
 			}
 			
 			else if(speedToggle == false){
-				rFrontMotor.set(yPosition - xPosition);
-				rBackMotor.set(yPosition - xPosition);
+				rFrontMotor.set(yPosition + xPosition);
+				rBackMotor.set(yPosition + xPosition);
 				lFrontMotor.set(-(yPosition - xPosition));
 				lBackMotor.set(-(yPosition - xPosition));
 
+				
 			}		
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

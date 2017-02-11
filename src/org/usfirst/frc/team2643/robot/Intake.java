@@ -3,7 +3,9 @@ package org.usfirst.frc.team2643.robot;
 public class Intake extends Robot{
 	public Intake(){
 	} 
-	
+	/**
+	 * This is the intake function
+	 */
 	public static void intake(){
 		int intake = 3;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

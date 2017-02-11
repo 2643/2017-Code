@@ -158,9 +158,8 @@ public class Robot extends IterativeRobot {
 
 	public static void setAll(double speed) {
 		// making all the motors go to a set speed which will be told later.
-		speed = -speed;
-		lFrontMotor.set(speed);
-		lBackMotor.set(speed);
+		lFrontMotor.set(-speed);
+		lBackMotor.set(-speed);
 		rFrontMotor.set(speed);
 		rBackMotor.set(speed);
 	}
