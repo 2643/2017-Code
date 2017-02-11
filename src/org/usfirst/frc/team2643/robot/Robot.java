@@ -152,64 +152,113 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during test mode
 	 * 
-	 * @button1
+	 * @button1: A button
 	 * 		lFrontMotor is set to the left y axis, otherwise it is set to 0
-	 * @button2
+	 * @button2: B button
 	 * 		lBackMotor is set to the left y axis, otherwise it is set to 0
-	 * @button3
+	 * @button3: X button
 	 * 		rFrontMotor is set to the left y axis, otherwise it is set to 0
-	 * @button4
+	 * @button4: Y button
 	 * 		rBackMotor is set to the left y axis, otherwise it is set to 0
-	 * @button5
+	 * @button5: back left button
 	 * 		gearMotor is set to the left y axis, otherwise it is set to 0
-	 * @button6
+	 * @button6: back right button
 	 * 		dumpMotor is set to the left y axis, otherwise it is set to 0
-	 * @button7
+	 * @button7: back button
 	 * 		intakeMotor is set to the left y axis, otherwise it is set to 0
-	 * @button8
+	 * @button8: start button
 	 * 		climberMotor is set to the left y axis. otherwise it is set to 0
 	 */ 
 	@Override
 	public void testPeriodic() { 
 		if(driveStick.getRawButton(1))
+		{
 			lFrontMotor.set(driveStick.getRawAxis(1));
+			if(driveStick.getRawAxis(5) > 0)
+				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+			else if(driveStick.getRawAxis(5) < 0)
+				System.out.println("Potentiometer: " + pot.get());
+		}
 		else 
 			lFrontMotor.set(0);
 		
 		if(driveStick.getRawButton(2))
+		{
 			lBackMotor.set(driveStick.getRawAxis(1));
+			if(driveStick.getRawAxis(5) > 0)
+				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+			else if(driveStick.getRawAxis(5) < 0)
+				System.out.println("Potentiometer: " + pot.get());
+		}
 		else 
 			lBackMotor.set(0);
 		
 		if(driveStick.getRawButton(3))
+		{
 			rFrontMotor.set(driveStick.getRawAxis(1));
+			if(driveStick.getRawAxis(5) > 0)
+				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+			else if(driveStick.getRawAxis(5) < 0)
+				System.out.println("Potentiometer: " + pot.get());
+		}
 		else 
 			rFrontMotor.set(0);
 		
 		if(driveStick.getRawButton(4))
+		{
 			rBackMotor.set(driveStick.getRawAxis(1));
+			if(driveStick.getRawAxis(5) > 0)
+				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+			else if(driveStick.getRawAxis(5) < 0)
+				System.out.println("Potentiometer: " + pot.get());
+		}
 		else 
 			rBackMotor.set(0);
 		
 		if(driveStick.getRawButton(5))
+		{
 			gearMotor.set(driveStick.getRawAxis(1));
+			if(driveStick.getRawAxis(5) > 0)
+				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+			else if(driveStick.getRawAxis(5) < 0)
+				System.out.println("Potentiometer: " + pot.get());
+		}
 		else 
 			gearMotor.set(0);
 		
 		if(driveStick.getRawButton(6))
+		{
 			dumpMotor.set(driveStick.getRawAxis(1));
+			if(driveStick.getRawAxis(5) > 0)
+				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+			else if(driveStick.getRawAxis(5) < 0)
+				System.out.println("Potentiometer: " + pot.get());
+		}
 		else 
 			dumpMotor.set(0);
 		
 		if(driveStick.getRawButton(7))
+		{
 			intakeMotor.set(driveStick.getRawAxis(1));
+			if(driveStick.getRawAxis(5) > 0)
+				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+			else if(driveStick.getRawAxis(5) < 0)
+				System.out.println("Potentiometer: " + pot.get());
+		}
 		else 
 			intakeMotor.set(0);	
 		
 		if(driveStick.getRawButton(8))
+		{
 			climberMotor.set(driveStick.getRawAxis(1));
+			if(driveStick.getRawAxis(5) > 0)
+				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+			else if(driveStick.getRawAxis(5) < 0)
+				System.out.println("Potentiometer: " + pot.get());
+		}
 		else 
 			climberMotor.set(0);
+		
 	}
 
 	/**
