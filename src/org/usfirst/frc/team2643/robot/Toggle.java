@@ -27,7 +27,7 @@ public class Toggle extends Robot {
 	public static void testToggle () {
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//If button 1 is pressed, then it will go to slow speed, else it if by default on normal speed//
-		if (driveStick.getRawButton(1)) {
+		if (driveStick.getRawButton(1))  {
 			speedToggle = true;
 		}
 		else if (driveStick.getRawButton(2)){

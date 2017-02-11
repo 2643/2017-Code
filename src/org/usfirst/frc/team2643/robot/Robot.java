@@ -168,7 +168,7 @@ public class Robot extends IterativeRobot {
 	 * 		intakeMotor is set to the left y axis, otherwise it is set to 0
 	 * @button8
 	 * 		climberMotor is set to the left y axis. otherwise it is set to 0
-	 */
+	 */ 
 	@Override
 	public void testPeriodic() { 
 		if(driveStick.getRawButton(1))
