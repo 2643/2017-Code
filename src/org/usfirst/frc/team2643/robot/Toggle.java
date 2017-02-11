@@ -25,7 +25,7 @@ public class Toggle extends Robot {
 		} else if (driveStick.getRawButton(4)) {
 			isArcadeOn = false;
 		}
-
+		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//If the arcade is on, then the slow or normal speed will occur on arcade drive//
 		if (isArcadeOn == true){
@@ -35,7 +35,7 @@ public class Toggle extends Robot {
 				lFrontMotor.set((yPosition - xPosition)*-0.5);
 				lBackMotor.set((yPosition - xPosition)*-0.5);
 			}
-
+			
 			else if(speedToggle == false){
 				rFrontMotor.set(yPosition - xPosition);
 				rBackMotor.set(yPosition - xPosition);
@@ -53,7 +53,7 @@ public class Toggle extends Robot {
 				lFrontMotor.set((driveStick.getRawAxis(5))*-0.5);
 				lBackMotor.set((driveStick.getRawAxis(5))*-0.5);
 			}
-
+			
 			else if(speedToggle == false){
 				rFrontMotor.set(driveStick.getRawAxis(1));
 				rBackMotor.set(driveStick.getRawAxis(1));
