@@ -10,6 +10,20 @@ public class Toggle extends Robot {
 	RobotDrive testdrive = new RobotDrive(lFrontMotor,rFrontMotor,lBackMotor,rBackMotor);
 
 
+	/**
+	 * @button1
+	 * 		speed toggle is on
+	 * @button2
+	 * 		speed toggle is off
+	 * @button3
+	 * 		arcade mode is on 
+	 * @button4 
+	 * 		arcade mode is off
+	 * @xPosition
+	 * 		x position of the joystick axis
+	 * @yPosition
+	 * 		y position of the joystick axis
+	 */
 	public static void testToggle () {
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//If button 1 is pressed, then it will go to slow speed, else it if by default on normal speed//

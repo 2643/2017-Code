@@ -151,11 +151,73 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * This function is called periodically during test mode
+	 * 
+	 * @button1
+	 * 		lFrontMotor is set to the left y axis, otherwise it is set to 0
+	 * @button2
+	 * 		lBackMotor is set to the left y axis, otherwise it is set to 0
+	 * @button3
+	 * 		rFrontMotor is set to the left y axis, otherwise it is set to 0
+	 * @button4
+	 * 		rBackMotor is set to the left y axis, otherwise it is set to 0
+	 * @button5
+	 * 		gearMotor is set to the left y axis, otherwise it is set to 0
+	 * @button6
+	 * 		dumpMotor is set to the left y axis, otherwise it is set to 0
+	 * @button7
+	 * 		intakeMotor is set to the left y axis, otherwise it is set to 0
+	 * @button8
+	 * 		climberMotor is set to the left y axis. otherwise it is set to 0
 	 */
 	@Override
 	public void testPeriodic() {
+		if(driveStick.getRawButton(1))
+			lFrontMotor.set(driveStick.getRawAxis(1));
+		else 
+			lFrontMotor.set(0);
+		
+		if(driveStick.getRawButton(2))
+			lBackMotor.set(driveStick.getRawAxis(1));
+		else 
+			lBackMotor.set(0);
+		
+		if(driveStick.getRawButton(3))
+			rFrontMotor.set(driveStick.getRawAxis(1));
+		else 
+			rFrontMotor.set(0);
+		
+		if(driveStick.getRawButton(4))
+			rBackMotor.set(driveStick.getRawAxis(1));
+		else 
+			rBackMotor.set(0);
+		
+		if(driveStick.getRawButton(5))
+			gearMotor.set(driveStick.getRawAxis(1));
+		else 
+			gearMotor.set(0);
+		
+		if(driveStick.getRawButton(6))
+			dumpMotor.set(driveStick.getRawAxis(1));
+		else 
+			dumpMotor.set(0);
+		
+		if(driveStick.getRawButton(7))
+			intakeMotor.set(driveStick.getRawAxis(1));
+		else 
+			intakeMotor.set(0);	
+		
+		if(driveStick.getRawButton(8))
+			climberMotor.set(driveStick.getRawAxis(1));
+		else 
+			climberMotor.set(0);
 	}
 
+	/**
+	 * Sets all motors to parameter speed
+	 * 
+	 * @param speed
+	 * 		speed of the robot
+	 */
 	public static void setAll(double speed) {
 		// making all the motors go to a set speed which will be told later.
 		lFrontMotor.set(-speed);
@@ -164,6 +226,9 @@ public class Robot extends IterativeRobot {
 		rBackMotor.set(speed);
 	}
 
+	/**
+	 *  Starts and updates the led bars
+	 */
 	public void colors() {
 		led.bars();
 	}
