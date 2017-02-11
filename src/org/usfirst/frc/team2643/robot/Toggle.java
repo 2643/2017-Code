@@ -13,7 +13,7 @@ public class Toggle extends Robot {
 	/**
 	 * @button1
 	 * 		speed toggle is on
-	 * @button2
+	 * @button2 
 	 * 		speed toggle is off
 	 * @button3
 	 * 		arcade mode is on 

@@ -170,7 +170,7 @@ public class Robot extends IterativeRobot {
 	 * 		climberMotor is set to the left y axis. otherwise it is set to 0
 	 */
 	@Override
-	public void testPeriodic() {
+	public void testPeriodic() { 
 		if(driveStick.getRawButton(1))
 			lFrontMotor.set(driveStick.getRawAxis(1));
 		else 
