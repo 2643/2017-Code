@@ -194,6 +194,23 @@ public class RobotMap {
 	 */
 	static int INTAKE_OUT_BUTTON = 6;
 
+	/**
+	 * @DUMP_UP_SPEED
+	 * 		speed of the motor when going up
+	 */
+	static double DUMP_UP_SPEED = 0.25;
+	
+	/**
+	 * @DUMP_DOWN_SPEED
+	 * 		speed of the motor, when releasing the fuel
+	 */
+	static double DUMP_DOWN_SPEED = -0.25;
+	
+	/**
+	 * @DUMP_NO_SPEED
+	 * 		speed of the dump motor, when it is not running
+	 */
+	static int DUMP_NO_SPEED = 0;
 	// toggle button
 	/**
 	 * @TOGGLE_ON_BUTTON

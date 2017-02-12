@@ -22,7 +22,7 @@ public class Dump extends Robot {
 		 */
 		if (Robot.opStick.getPOV() == 0 && hallEffectTop.get() == false) 
 		{
-			Robot.dumpMotor.set(0.25);
+			Robot.dumpMotor.set(RobotMap.DUMP_UP_SPEED);
 		}
 		
 		/*
@@ -31,12 +31,12 @@ public class Dump extends Robot {
 		 */
 		else if (Robot.opStick.getPOV() == 180 && hallEffectBottom.get() == false)
 		{
-			Robot.dumpMotor.set(-0.25);
+			Robot.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
 		} 
 		
 		else 
 		{
-			Robot.dumpMotor.set(0);
+			Robot.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
 		}
 	}
 }

@@ -48,12 +48,6 @@ public class Robot extends IterativeRobot {
 	 * 		right back motor
 	 */
 	static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
-
-	/**
-	 * @climberMotor
-	 * 		motor for climber, that may or may not be used
-	 */
-	//static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR);
 	
 	//declaring a new joystick called stick, and another called opStick
 	/**
@@ -126,7 +120,8 @@ public class Robot extends IterativeRobot {
 	
 	//declaring the climber motor
 	/**
-	 * motor for the climber, that currently does not exist
+	 * This is the motor for the climber.
+	 * It currently is not on the robot. Only exists in testPeriodic.
 	 */
 	static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR_PORT);
 	
@@ -259,97 +254,68 @@ public class Robot extends IterativeRobot {
 	 * 		intakeMotor is set to the left y axis, otherwise it is set to 0
 	 * @button8: start button
 	 * 		climberMotor is set to the left y axis. otherwise it is set to 0
+	 * @leftJoystickUp:
+	 * 		prints the average of the encoders
+	 * @leftJoystickDown: 
+	 * 		prints the potentiometer value
 	 */ 
 	@Override
 	public void testPeriodic() { 
+		//this prints the encoder or the potentiomter value
+		if(driveStick.getRawAxis(5) > 0)
+			System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+		else if(driveStick.getRawAxis(5) < 0)
+			System.out.println("Potentiometer: " + pot.get());
+		else 
+			System.out.println("Neither being tested.");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//This tests the left front wheel motor
 		if(driveStick.getRawButton(1))
-		{
 			lFrontMotor.set(driveStick.getRawAxis(1));
-			if(driveStick.getRawAxis(5) > 0)
-				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
-			else if(driveStick.getRawAxis(5) < 0)
-				System.out.println("Potentiometer: " + pot.get());
-		}
 		else 
 			lFrontMotor.set(0);
-		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//This tests the left back wheel motor
 		if(driveStick.getRawButton(2))
-		{
 			lBackMotor.set(driveStick.getRawAxis(1));
-			if(driveStick.getRawAxis(5) > 0)
-				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
-			else if(driveStick.getRawAxis(5) < 0)
-				System.out.println("Potentiometer: " + pot.get());
-		}
 		else 
 			lBackMotor.set(0);
-		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//this tests the right front wheel motor
 		if(driveStick.getRawButton(3))
-		{
 			rFrontMotor.set(driveStick.getRawAxis(1));
-			if(driveStick.getRawAxis(5) > 0)
-				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
-			else if(driveStick.getRawAxis(5) < 0)
-				System.out.println("Potentiometer: " + pot.get());
-		}
 		else 
 			rFrontMotor.set(0);
-		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		//this thest the right back wheel motor
 		if(driveStick.getRawButton(4))
-		{
 			rBackMotor.set(driveStick.getRawAxis(1));
-			if(driveStick.getRawAxis(5) > 0)
-				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
-			else if(driveStick.getRawAxis(5) < 0)
-				System.out.println("Potentiometer: " + pot.get());
-		}
 		else 
 			rBackMotor.set(0);
-		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//this tests the gear motor
 		if(driveStick.getRawButton(5))
-		{
-			gearMotor.set(driveStick.getRawAxis(1));
-			if(driveStick.getRawAxis(5) > 0)
-				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
-			else if(driveStick.getRawAxis(5) < 0)
-				System.out.println("Potentiometer: " + pot.get());
-		}
+			gearMotor.set(driveStick.getRawAxis(1)*0.25);
 		else 
 			gearMotor.set(0);
-		
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//this tests the dump motor
 		if(driveStick.getRawButton(6))
-		{
-			dumpMotor.set(driveStick.getRawAxis(1));
-			if(driveStick.getRawAxis(5) > 0)
-				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
-			else if(driveStick.getRawAxis(5) < 0)
-				System.out.println("Potentiometer: " + pot.get());
-		}
+			dumpMotor.set(driveStick.getRawAxis(1)*0.25);
 		else 
 			dumpMotor.set(0);
-		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//this tests the intake motor
 		if(driveStick.getRawButton(7))
-		{
 			intakeMotor.set(driveStick.getRawAxis(1));
-			if(driveStick.getRawAxis(5) > 0)
-				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
-			else if(driveStick.getRawAxis(5) < 0)
-				System.out.println("Potentiometer: " + pot.get());
-		}
 		else 
 			intakeMotor.set(0);	
-		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		//this tests the climber motor
 		if(driveStick.getRawButton(8))
-		{
 			climberMotor.set(driveStick.getRawAxis(1));
-			if(driveStick.getRawAxis(5) > 0)
-				System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
-			else if(driveStick.getRawAxis(5) < 0)
-				System.out.println("Potentiometer: " + pot.get());
-		}
 		else 
 			climberMotor.set(0);
-		
 	}
 
 	/**
