@@ -5,7 +5,11 @@ public class Drive {
 	public Drive(){
 		  
 	}
-	//making a new Drive
+	/**
+	 * {@code drive()}: 
+	 * 		Sets the motors to the values of the y axis from both of the joysticks on the gamepad.
+	 * 		Tank Drive.
+	 */
 	public static void drive(){
 		//The left front motor is set to the stick on the joystick, y axis (1).
 			Robot.lFrontMotor.set(Robot.driveStick.getRawAxis(RobotMap.LEFT_JOYSTICK_AXIS));
