@@ -28,26 +28,6 @@ public class Robot extends IterativeRobot {
 			RobotMap.ANALOG_INPUT_PORT2);
 	
 	// Setting the motors to their ports
-	/**
-	 * @lFrontMotor
-	 * 		left front wheel motor
-	 */
-	static Spark lFrontMotor = new Spark(RobotMap.LEFT_FRONT_SPARK_PWM_PORT);
-	/**
-	 * @lBackMotor
-	 * 		left back motor
-	 */
-	static Spark lBackMotor = new Spark(RobotMap.LEFT_BACK_SPARK_PWM_PORT);
-	/**
-	 * @rFrontMotor
-	 * 		right front motor
-	 */
-	static Spark rFrontMotor = new Spark(RobotMap.RIGHT_FRONT_SPARK_PWM_PORT);
-	/**
-	 * @rBackMotor
-	 * 		right back motor
-	 */
-	static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	
 	//declaring a new joystick called stick, and another called opStick
 	/**
@@ -231,7 +211,7 @@ public class Robot extends IterativeRobot {
 		System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
 		// Intake.intake();
 		// Gear.gear(); 
-		Drive.drive();
+		Drive();
 		colors();
 		Temorary_Dump.dump();
 		Dump.dump();

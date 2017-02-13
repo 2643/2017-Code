@@ -18,7 +18,7 @@ public class Dump extends Robot {
 	 *		speed for about 10 balls - (0.3)
 	 *
 	 */
-	public void static dump() {
+	public void dump() {
 		if (Robot.opStick.getPOV() == 0 && hallEffectTop.get() == false) 
 		{
 			Robot.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
