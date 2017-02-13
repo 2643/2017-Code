@@ -195,17 +195,21 @@ public class RobotMap {
 	static int INTAKE_OUT_BUTTON = 6;
 
 	/**
-	 * @DUMP_UP_SPEED
-	 * 		speed of the motor when going up
+	 * @DUMP_UP_FULL_SPEED
+	 * 		speed of the motor when the dump is full
 	 */
-	static double DUMP_UP_SPEED = 0.25;
+	static double DUMP_UP_FULL_SPEED = 0.25;
 	
 	/**
-	 * @DUMP_DOWN_SPEED
-	 * 		speed of the motor, when releasing the fuel
+	 * @DUMP_UP_HALF_SPEED
+	 * 		speed of the motor, when the dump is holding only 10 balls
 	 */
-	static double DUMP_DOWN_SPEED = -0.25;
-	
+	static double DUMP_UP_HALF_SPEED = 0.3;
+	/**
+	 * @DUMP_DOWN_SPEED
+	 * 		dump motor speed when going down
+	 */
+	static double DUMP_DOWN_SPEED = 0.3;
 	/**
 	 * @DUMP_NO_SPEED
 	 * 		speed of the dump motor, when it is not running

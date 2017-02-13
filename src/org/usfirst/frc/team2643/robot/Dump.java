@@ -22,18 +22,22 @@ public class Dump extends Robot {
 		 */
 		if (Robot.opStick.getPOV() == 0 && hallEffectTop.get() == false) 
 		{
-			Robot.dumpMotor.set(RobotMap.DUMP_UP_SPEED);
+			Robot.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
 		}
 		
 		/*
 		 * Else, if the down dpad is pressed and the limit switch has not been
 		 * pressed, then
 		 */
-		else if (Robot.opStick.getPOV() == 180 && hallEffectBottom.get() == false)
+		else if (Robot.opStick.getPOV() == 90 && hallEffectTop.get() == false)
 		{
-			Robot.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
+			Robot.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
 		} 
 		
+		else if(Robot.opStick.getPOV() == 180 && hallEffectBottom.get() == false)
+		{
+			Robot.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
+		}
 		else 
 		{
 			Robot.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
