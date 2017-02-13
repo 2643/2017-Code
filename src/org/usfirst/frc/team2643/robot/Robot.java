@@ -84,7 +84,7 @@ public class Robot extends Declaration{
 		// prints out the left encoder and the right encoder divided by 2
 		System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
 		// Intake.intake();
-		// Gear.gear();
+		// Gear.gear(); 
 		Drive.drive();
 		colors();
 		Temorary_Dump.dump();

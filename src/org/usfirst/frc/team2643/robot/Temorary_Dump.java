@@ -4,7 +4,7 @@ public class Temorary_Dump
 {
 	public Temorary_Dump(){
 		
-	}
+	} 
 	
 	public static void dump(){
 		if (Robot.opStick.getPOV() == 0) 

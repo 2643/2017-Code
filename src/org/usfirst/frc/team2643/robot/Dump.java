@@ -6,7 +6,7 @@ public class Dump extends Robot {
 	}
 	
 	/**
-	 *{@code dump()}:
+	 *{@code dump()}: 
 	 *
 	 *		if the dPad is pressed up and the top limit switch is not pressed, 
 	 *		then the dumpMotor will move forward, else if the dPad is pressed down
