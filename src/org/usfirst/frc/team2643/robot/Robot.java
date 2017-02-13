@@ -233,6 +233,8 @@ public class Robot extends IterativeRobot {
 		// Gear.gear();
 		Drive.drive();
 		colors();
+		Temorary_Dump.dump();
+		Dump.dump();
 	}
 
 	/**
