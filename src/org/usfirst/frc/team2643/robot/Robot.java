@@ -308,7 +308,7 @@ public class Robot extends IterativeRobot {
 		else 
 			climberMotor.set(0);
 	}
-
+	
 	/**
 	 * Sets all motors to parameter speed
 	 * 
@@ -322,7 +322,7 @@ public class Robot extends IterativeRobot {
 		rFrontMotor.set(speed);
 		rBackMotor.set(speed);
 	}
-
+	
 	/**
 	 *  Starts and updates the led bars
 	 */
