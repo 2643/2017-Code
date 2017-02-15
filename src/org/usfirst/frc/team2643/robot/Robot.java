@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	 * @pot
 	 * 		not used anymore; only used in testPeriodic
 	 */
-	static Potentiometer pot = new AnalogPotentiometer(RobotMap.ANALOG_INPUT_PORT, RobotMap.ANALOG_INPUT_PORT1,
+	public static Potentiometer pot = new AnalogPotentiometer(RobotMap.ANALOG_INPUT_PORT, RobotMap.ANALOG_INPUT_PORT1,
 			RobotMap.ANALOG_INPUT_PORT2);
 	
 	// Setting the motors to their ports
@@ -34,47 +34,27 @@ public class Robot extends IterativeRobot {
 	 * @driveStick
 	 * 		driver joystick
 	 */
-	static Joystick driveStick = new Joystick(RobotMap.JOYSTICK_PORT);
+	public static Joystick driveStick = new Joystick(RobotMap.JOYSTICK_PORT);
 	/**
 	 * @opStick
 	 * 		operator joystick
 	 */
-	static Joystick opStick = new Joystick(RobotMap.JOYSTICK_PORT2);
+	public static Joystick opStick = new Joystick(RobotMap.JOYSTICK_PORT2);
 	
 
-	/**
-	 * @lFrontMotor
-	 * 		left front wheel motor
-	 */
-	static Spark lFrontMotor = new Spark(RobotMap.LEFT_FRONT_SPARK_PWM_PORT);
-	/**
-	 * @lBackMotor
-	 * 		left back motor
-	 */
-	static Spark lBackMotor = new Spark(RobotMap.LEFT_BACK_SPARK_PWM_PORT);
-	/**
-	 * @rFrontMotor
-	 * 		right front motor
-	 */
-	static Spark rFrontMotor = new Spark(RobotMap.RIGHT_FRONT_SPARK_PWM_PORT);
-	/**
-	 * @rBackMotor
-	 * 		right back motor
-	 */
-   static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	//toggleOn & toggleOff buttons
 	/**
 	 * @toggleOn
 	 * 		button to turn the speed toggle on
 	 *		used in Toggle.class
 	 */
-	static int toggleOn = RobotMap.TOGGLE_ON_BUTTON;
+	public static int toggleOn = RobotMap.TOGGLE_ON_BUTTON;
 	/**
 	 * @toggleOff
 	 * 		button to turn speed toggle off
 	 * 		used in Toggle.class
 	 */
-	static int toggleOff = RobotMap.TOGGLE_OFF_BUTTON;
+	public static int toggleOff = RobotMap.TOGGLE_OFF_BUTTON;
 
 	//arcadeToggle
 	/**
@@ -82,67 +62,74 @@ public class Robot extends IterativeRobot {
 	 * 		button to turn on arcade mode
 	 * 		used in Toggle.class
 	 */
-	static int arcadeToggleOn = RobotMap.ARCADE_TOGGLE_ON_BUTTON;
+	public static int arcadeToggleOn = RobotMap.ARCADE_TOGGLE_ON_BUTTON;
 	/**
 	 * @arcadeToggleOff
 	 * 		button to turn arcade mode odd
 	 * 		used in Toggle.class
 	 */
-	static int arcadeToggleOff = RobotMap.ARCADE_TOGGLE_OFF_BUTTON;
+	public static int arcadeToggleOff = RobotMap.ARCADE_TOGGLE_OFF_BUTTON;
 	
 	// the number to make the speed of the robot slower
 	/**
 	 * @slowMult
 	 * 		used in Toggle.class
 	 */
-	static double slowMult = RobotMap.SLOW_MULTIPLIER;
+	public static double slowMult = RobotMap.SLOW_MULTIPLIER;
 
 	// boolean to see if arcade is toggled on or off/true or false
 	/**
 	 * @isArcadeOn
 	 * 		used in Toggle.class
 	 */
-	static boolean isArcadeOn = false;
+	public static boolean isArcadeOn = false;
 	
 	//declaring the gear motor
 	/**
 	 * @gearMotor
 	 * 		motor for the gear
 	 */
-	static Spark gearMotor = new Spark(RobotMap.GEAR_MOTOR_PORT);
+	public static Spark gearMotor = new Spark(RobotMap.GEAR_MOTOR_PORT);
 	
 	//declaring the intake motor
 	/**
 	 * @intakeMotor
 	 * 		motor for the intake
 	 */
-	static Spark intakeMotor = new Spark(RobotMap.INTAKE_MOTOR_PORT);
+	public static Spark intakeMotor = new Spark(RobotMap.INTAKE_MOTOR_PORT);
 	
 	//declaring the climber motor
 	/**
 	 * This is the motor for the climber.
 	 * It currently is not on the robot. Only exists in testPeriodic.
 	 */
-	static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR_PORT);
+	public static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR_PORT);
 	
 	//declaring the dump motor
 	/**
 	 * @dumpMotor
 	 * 		the motor for the dump
 	 */
-	static Spark dumpMotor = new Spark(RobotMap.DUMP_MOTOR_PORT);
+	public static Spark dumpMotor = new Spark(RobotMap.DUMP_MOTOR_PORT);
+	
+	public static Spark lFrontMotor = new Spark(RobotMap.LEFT_FRONT_SPARK_PWM_PORT);
+	public static Spark lBackMotor = new Spark(RobotMap.LEFT_BACK_SPARK_PWM_PORT);
+	
+	public static Spark rFrontMotor = new Spark(RobotMap.RIGHT_FRONT_SPARK_PWM_PORT);
+	public static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
+	
 	
 	//dump limit switch
 	/**
 	 * @hallEffectTop
 	 * 		the top limit switch for the dump
 	 */
-	static DigitalInput hallEffectTop = new DigitalInput(RobotMap.TOP_DUMP_LIMIT_SWITCH_PORT);
+	public static DigitalInput hallEffectTop = new DigitalInput(RobotMap.TOP_DUMP_LIMIT_SWITCH_PORT);
 	/**
 	 * @hallEffectBottom
 	 * 		the bottom limit switch for the dump
 	 */
-	static DigitalInput hallEffectBottom = new DigitalInput(RobotMap.BOTTOM_DUMP_LIMIT_SWITCH_PORT);
+	public static DigitalInput hallEffectBottom = new DigitalInput(RobotMap.BOTTOM_DUMP_LIMIT_SWITCH_PORT);
 	
 	//Imported from robotMap.java for speeds and distances
 	/**
@@ -153,11 +140,11 @@ public class Robot extends IterativeRobot {
 	 * @AIRSHIP_AUTO_DISTANCE
 	 * 		Already is defined in RobotMap
 	 */
-	static double AUTO_SPEED_ON = RobotMap.AUTO_SPEED_ON;
-	static int AUTO_SPEED_OFF = RobotMap.AUTO_SPEED_OFF;
-	static int BOILER_AUTO_DISTANCE = RobotMap.BOILER_AUTO_DISTANCE;
-	static int HOPPER_AUTO_DISTANCE = RobotMap.HOPPER_AUTO_DISTANCE;
-	static int AIRSHIP_AUTO_DISTANCE = RobotMap.AIRSHIP_AUTO_DISTANCE;
+	public static double AUTO_SPEED_ON = RobotMap.AUTO_SPEED_ON;
+	public static int AUTO_SPEED_OFF = RobotMap.AUTO_SPEED_OFF;
+	public static int BOILER_AUTO_DISTANCE = RobotMap.BOILER_AUTO_DISTANCE;
+	public static int HOPPER_AUTO_DISTANCE = RobotMap.HOPPER_AUTO_DISTANCE;
+	public static int AIRSHIP_AUTO_DISTANCE = RobotMap.AIRSHIP_AUTO_DISTANCE;
 
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
@@ -165,7 +152,9 @@ public class Robot extends IterativeRobot {
 	// leds
 	public static final int LEDNUMBER = 48;
 	LEDController led = new LEDController(LEDNUMBER);
-
+	
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -228,16 +217,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		// prints out the left encoder and the right encoder divided by 2
-		//System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
+		System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
 		// Intake.intake();
 		// Gear.gear(); 
-		//Drive.drive();
-		//colors();
-		//Temorary_Dump.dump();
-		//Dump.dump();
-		TestRun.intakeTest();
-		TestRun.manualTest();
-		TestRun.autoTest();
+		Drive.drive();
+		colors();
+		Temorary_Dump.dump();
+		Dump.dump();
 	}
 
 	/**
