@@ -42,6 +42,26 @@ public class Robot extends IterativeRobot {
 	static Joystick opStick = new Joystick(RobotMap.JOYSTICK_PORT2);
 	
 
+	/**
+	 * @lFrontMotor
+	 * 		left front wheel motor
+	 */
+	static Spark lFrontMotor = new Spark(RobotMap.LEFT_FRONT_SPARK_PWM_PORT);
+	/**
+	 * @lBackMotor
+	 * 		left back motor
+	 */
+	static Spark lBackMotor = new Spark(RobotMap.LEFT_BACK_SPARK_PWM_PORT);
+	/**
+	 * @rFrontMotor
+	 * 		right front motor
+	 */
+	static Spark rFrontMotor = new Spark(RobotMap.RIGHT_FRONT_SPARK_PWM_PORT);
+	/**
+	 * @rBackMotor
+	 * 		right back motor
+	 */
+   static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
 	//toggleOn & toggleOff buttons
 	/**
 	 * @toggleOn
@@ -208,13 +228,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		// prints out the left encoder and the right encoder divided by 2
-		System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
+		//System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
 		// Intake.intake();
 		// Gear.gear(); 
-		Drive();
-		colors();
-		Temorary_Dump.dump();
-		Dump.dump();
+		//Drive.drive();
+		//colors();
+		//Temorary_Dump.dump();
+		//Dump.dump();
+		TestRun.intakeTest();
+		TestRun.manualTest();
+		TestRun.autoTest();
 	}
 
 	/**
