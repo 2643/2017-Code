@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
 public class Gear {
-	public static void temp()
+	public static void gear()
 	{
 		/*if(stick.getRawButton(1))
 		{
