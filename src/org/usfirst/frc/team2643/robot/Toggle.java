@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2643.robot;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 
 public class Toggle extends Robot {
@@ -17,7 +16,7 @@ public class Toggle extends Robot {
 	 * 		Else if the arcadeToggleOff button is pressed, then tank mode will be on. 
 	 */
 	
-	public static void testToggle () {
+	public static void toggle () {
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//If button 1 is pressed, then it will go to slow speed, else it if by default on normal speed//
 		if (driveStick.getRawButton(Robot.toggleOn))  {
