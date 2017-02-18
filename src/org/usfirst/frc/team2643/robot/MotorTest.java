@@ -130,12 +130,7 @@ public class MotorTest extends Robot{
 
 		}
 	}
-	public static void gearMotorTest()
-	{
-
-	}
 	public static void intakeTest()
-
 	{
 		if(driveStick.getRawButton(1)){
 			intakeMotor.set(1);
