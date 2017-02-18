@@ -10,16 +10,19 @@ public class Intake extends Robot{
 	 * Else the intake motor will set to 0.
 	 * 
 	 * @see 
-	 * 	  {@code RobotMap}: Intake variables
+	 * 	  {@code RobotMap}: intake variables
 	 */
 	public static void intake(){
-		int intake = 3;
+		int intake;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		if(opStick.getRawButton(RobotMap.INTAKE_IN_BUTTON)){
 			intake = 1;
 		}
 		else if(opStick.getRawButton(RobotMap.INTAKE_OUT_BUTTON)){
 			intake = 2;
+		}
+		else{
+			intake = 3;
 		}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

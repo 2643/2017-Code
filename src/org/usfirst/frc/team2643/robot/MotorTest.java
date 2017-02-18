@@ -134,10 +134,12 @@ public class MotorTest extends Robot{
 	{
 		if(driveStick.getRawButton(1)){
 			intakeMotor.set(1);
+			System.out.println("Going out");
 		}
 		else if(driveStick.getRawButton(2));
 		{
 			intakeMotor.set(-1);
+			System.out.println("Going in");
 		}
 
 	}

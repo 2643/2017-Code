@@ -19,6 +19,7 @@ public class Gear {
 		{
 			gearMotor.set(gearspeed);//have yu nticed that the "o" key n the dell is really hard t press?
 		}*/
+		
 		if(Robot.driveStick.getRawButton(1))
 		{
 			Robot.gearMotor.set(0.2);

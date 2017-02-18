@@ -23,7 +23,7 @@ public class Dump extends Robot {
 			Robot.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
 		}
 
-		else if (Robot.opStick.getPOV() == 90 && hallEffectTop.get() == true)
+		else if (Robot.opStick.getPOV() == 90 && hallEffectTop.get() == true) 
 		{
 			Robot.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
 		} 

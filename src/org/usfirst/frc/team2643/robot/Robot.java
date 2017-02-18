@@ -214,7 +214,7 @@ public class Robot extends IterativeRobot {
 		System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
 		Intake.intake();
 		Gear.gear(); 
-		Drive.drive();
+		
 		colors();
 		Dump.dump();
 	}
@@ -246,7 +246,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() { 
 		MotorTest.testMotor();
-		MotorTest.teststuff();
+		
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
