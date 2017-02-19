@@ -35,14 +35,14 @@ public class MotorTest extends Robot{
 		else {RobotMap.intakeMotor.set(0);}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//this tests the climber motor
-		if(RobotMap.driveStick.getRawButton(8)){RobotMap.climberMotor.set(RobotMap.driveStick.getRawAxis(1));}
-		else {RobotMap.climberMotor.set(0);}
+	//	if(RobotMap.driveStick.getRawButton(8)){RobotMap.climberMotor.set(RobotMap.driveStick.getRawAxis(1));}
+	//	else {RobotMap.climberMotor.set(0);}
 	}
 	public static void encoderTest()
 	{
 		//this prints the encoder or the potentiomter value
-		if(RobotMap.driveStick.getRawAxis(5) > 0)
-			System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
+	//	if(RobotMap.driveStick.getRawAxis(5) > 0)
+	//		System.out.println("Encoder Value: " + (Math.abs(RobotMap.leftEncoder.get() + RobotMap.rightEncoder.get())/2));
 	}
 	public static void autoTest()
 	{
