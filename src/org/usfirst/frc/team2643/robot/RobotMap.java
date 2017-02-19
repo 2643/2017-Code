@@ -153,7 +153,7 @@ public class RobotMap {
 	 * 		speed of the intake motor when taking in fuel
 	 * 		because the intake in speed needs to be faster than out 
 	 */
-		static double INTAKE_IN_SPEED = -0.6;
+		static double INTAKE_IN_SPEED = -0.8;//increased from 0.6, where it did not always intake, although it did some times. 
 		/**
 		 * @INTAKE_OUT_SPEED
 	 * 		intake speed when releasing fuel
@@ -184,12 +184,12 @@ public class RobotMap {
 	 	* @DUMP_DOWN_SPEED
 	 * 		dump motor speed when going down
 	 */
-		static double DUMP_DOWN_SPEED = -0.3;
+		static double DUMP_DOWN_SPEED = 0;
 	/**
 	 	* @DUMP_NO_SPEED
 	 * 		speed of the dump motor, when it is not running
 	 */
-		static int DUMP_NO_SPEED = 0;
+		static double DUMP_HOVER_SPEED = 0.2;
 	
 
 	

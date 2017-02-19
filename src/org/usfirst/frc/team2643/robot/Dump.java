@@ -18,39 +18,46 @@ public class Dump extends Robot {
 	 *		speed for about 10 balls - (0.3)
 	 *
 	 */
-	static Timer dumptimer = new Timer();
-	public static void dump() {
-		if(RobotMap.hallEffectTop.get() == true)
+	static int dumptimer = 100;//this timer is for pausing when the dump hits the hall effect
+	public static void dump() 
+	{
+		if(RobotMap.hallEffectTop.get() == true)//if it is not hit
 		{
-			System.out.println("Hall Effect Hit");
-			if(dumptimer.get() > 10)
+			dumptimer +=1; //increase the timer//1 = 20ms
+	//		System.out.println(dumptimer);//100 for dumptimer = 2000 ms = 2 seconds
+			if(dumptimer > 100)//if the pause timer is not activated, then let controls work 
 			{
-				if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON) //if not hit
+				if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON) 
 				{
-					System.out.println("Hall Effect Hit at full speed");
-					//RobotMap.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
+					RobotMap.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
 				}
 
 				else if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON) 
 				{
-					System.out.println("Hall Effect Hit at half speed");
-					//RobotMap.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
+					RobotMap.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
 				} 
 				else
 				{
-					RobotMap.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
+					RobotMap.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
 				}
-				/*else if(RobotMap.driveStick.getPOV() == RobotMap.DUMP_DOWN_BUTTON)
-				{
-				RobotMap.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
-				}*/
+			}
+			else
+			{
+				RobotMap.dumpMotor.set(RobotMap.DUMP_HOVER_SPEED);
 			}
 		}
-		else
+		else if(RobotMap.hallEffectTop.get() == false)
 		{
-			RobotMap.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
-			dumptimer.reset();
-			dumptimer.start();
+			//if the up button is still being held
+			if(RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON || RobotMap.driveStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON)
+			{
+				RobotMap.dumpMotor.set(RobotMap.DUMP_HOVER_SPEED);
+				dumptimer = 0;//set the timer to zero
+			}
+			else
+			{
+				RobotMap.dumpMotor.set(0);
+			}
 		}
 	}
 }

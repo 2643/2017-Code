@@ -53,13 +53,16 @@ public class Gear {
 		//		}
 		if(RobotMap.driveStick.getRawButton(RobotMap.GEAR_MANUAL_RELEASE_BUTTON))
 		{
-			if(RobotMap.gearBottomLimit.get() == true)//if it is not hit
+			
+			
+			if(RobotMap.gearBottomLimit.get() == true)//if it is not hitting the limit
 			{
 				RobotMap.gearMotor.set(-0.4);
 			}
-			else
+			else //if it is hitting the limit
 			{
-				RobotMap.gearMotor.set(-0.4);
+				//at -0.25 when at hover position, the plate ends up bending, but we are leaving it alone
+				RobotMap.gearMotor.set(-0.25);
 			}
 		}
 		else 

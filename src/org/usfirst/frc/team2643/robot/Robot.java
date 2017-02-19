@@ -59,8 +59,7 @@ public class Robot extends IterativeRobot {
 		allLEDs.update();
 		led.initialize();
 		led.reset();
-		
-		   
+
 			
 	}
 
@@ -104,11 +103,16 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		// prints out the left encoder and the right encoder divided by 2
 		//System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
-		Intake.intake();
+		//Intake.intake();
 		Gear.gear(); 
-		Toggle.toggle();
+		//Toggle.toggle();
 		//colors();
-		Dump.dump();
+		//Dump.dump();
+		System.out.println(
+				RobotMap.gearBottomLimit.get() + " " +
+				RobotMap.hallEffectTop.get() + " " +
+				RobotMap.gearTopLimit.get() + " " 
+		);
 	}
 	/**
 	 * This function is called periodically during test mode
