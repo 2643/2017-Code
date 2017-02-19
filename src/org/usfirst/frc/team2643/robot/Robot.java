@@ -158,8 +158,7 @@ public class Robot extends IterativeRobot {
 	
 	public static int intake = 3;
 	public static int gear = 2;
-	String autoSelected;
-	SendableChooser<String> chooser = new SendableChooser<>();
+
 
 	// leds
 	public static final int LEDNUMBER = 48;
@@ -175,11 +174,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 	
-		SmartDashboard.putData("Auto choices", chooser);
-		// reseting the encoders
-		//RobotMap.leftEncoder.reset();
-		//RobotMap.rightEncoder.reset();
-
 		LedStrip allLEDs = new LedStrip(LEDNUMBER, 1.0f);
 		allLEDs.allOff();
 		allLEDs.update();
@@ -203,10 +197,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autoSelected = chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
-		System.out.println("Auto selected: " + autoSelected);
 	}
 
 	/**

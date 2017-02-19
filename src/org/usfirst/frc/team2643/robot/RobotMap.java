@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
-
-
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class RobotMap {
 
@@ -10,12 +10,12 @@ public class RobotMap {
 	 * @LEFT_FRONT_SPARK_PWN_PORT
   	 * 		left front wheel motor port
 	 */
-	static int LEFT_FRONT_SPARK_PWM_PORT = 5;
+	static int LEFT_FRONT_SPARK_PWM_PORT = 7;
 	/**
 	 * @LEFT_BACK_SPARK_PWN_PORT
 	 * 		left back wheel motor port
 	 */
-	static int LEFT_BACK_SPARK_PWM_PORT = 2;
+	static int LEFT_BACK_SPARK_PWM_PORT = 5;
 	/**
 	 * @RIGHT_FRONT_SPARK_PWN_PORT
 	 * 		right front motor wheel port
@@ -25,43 +25,26 @@ public class RobotMap {
 	 * @RIGHT_BACK_SPARK_PWN_PORT
 	 * 		right back wheel motor port
 	 */
-	static int RIGHT_BACK_SPARK_PWM_PORT = 1;
-
-	//potentiometer ports
-	 /** 
-	  * @ANALOG_INPUT_PORT 
-	  * 		the analog port for the analog potentiometer
-	  */
-	//static AnalogInput ANALOG_INPUT_PORT = new AnalogInput(0);
-	/**
-	 * @ANALOG_INPUT_PORT1
-	 * 		the scale for the potentiometer
-	 */
-	//static int ANALOG_INPUT_PORT1 = 360;
-	/**
-	 * @ANALOG_INPUT_PORT2
-	 * 		the starting point for the potentiometer
-	 */
-	//static int ANALOG_INPUT_PORT2 = 0;
+	static int RIGHT_BACK_SPARK_PWM_PORT = 4;
 
 	// encoder ports
 	/**
 	 * @leftEncoder
 	 * 		the encoder for the left side wheels
 	 */
-	//static Encoder leftEncoder = new Encoder(1, 2);
+	static Encoder leftEncoder = new Encoder(1, 2);
 	/**
 	 * @rightEncoder
 	 * 		the encoder for the right side wheels
 	 */
-	//static Encoder rightEncoder = new Encoder(3, 4);
+	static Encoder rightEncoder = new Encoder(3, 4);
 	
 	//dump encoder
 	/**
 	 * @dumpEncoder
 	 * 		the encoder for the dump
 	 */
-	//static Encoder dumpEncoder = new Encoder(5, 6);
+	static Encoder dumpEncoder = new Encoder(5, 6);
 
 	// joystick port
 	/**
@@ -87,7 +70,7 @@ public class RobotMap {
 	 * @LEFT_JOYSTICK_AXIS
 	 * 		the y axis used for the wheels on the left side of the robot
 	 */
-	static int LEFT_JOYSTICK_AXIS = 1;
+	static int LEFT_JOYSTICK_AXIS =1;
 
 	// slow multiplier
 	/**
@@ -101,14 +84,14 @@ public class RobotMap {
 	 * @GEAR_MOTOR_PORT
 	 * 		port for the gear motor
 	 */
-	static int GEAR_MOTOR_PORT = 7;
+	static int GEAR_MOTOR_PORT = 8;
 
 	// intake motor port
 	/**
 	 * @INTAKE_MOTOR_PORT
 	 * 		port for the intake motor
 	 */
-	static int INTAKE_MOTOR_PORT = 4;
+	static int INTAKE_MOTOR_PORT = 9;
 
 	//climber motor port
 	/**
@@ -116,7 +99,7 @@ public class RobotMap {
 	 * 		port for the climber motor
 	 * 		*currently does not exist on the robot
 	 */
-	//static int CLIMBER_MOTOR_PORT = 666;   //need to change this later
+	static int CLIMBER_MOTOR_PORT = 666;   //need to change this later
 	
 	//dump motor port
 	/**
@@ -130,12 +113,12 @@ public class RobotMap {
 	 * @TOP_DUMP_LIMIT_SWITCH_PORT
 	 * 		port for the HalEffect sensor
 	 */
-	static int TOP_DUMP_LIMIT_SWITCH_PORT = 8;   //not sure about this
+	static int TOP_DUMP_LIMIT_SWITCH_PORT = -666;   //need to change this later
 	/**
 	 * @BOTTOM_DUMP_LIMIT_SWITCH_PORT
 	 * 		port for the HalEffect sensor
 	 */
-	static int BOTTOM_DUMP_LIMIT_SWITCH_PORT = 9;   //not sure about thisS
+	static int BOTTOM_DUMP_LIMIT_SWITCH_PORT = -666;   //need to change this later
 	
 	// autonomous speed
 	/**
@@ -170,12 +153,12 @@ public class RobotMap {
 	 * @INTAKE_IN_SPEED
 	 * 		speed of the intake motor when taking in fuel
 	 */
-	static double INTAKE_IN_SPEED = -0.8;
+	static double INTAKE_IN_SPEED = 0.5;
 	/**
 	 * @INTAKE_OUT_SPEED
 	 * 		intake speed when releasing fuel
 	 */
-	static double INTAKE_OUT_SPEED = 0.3;
+	static double INTAKE_OUT_SPEED = -0.5;
 	/**
 	 * @INTAKE_NO_SPEED
 	 * 	 	intake speed when nothing is happening
@@ -187,18 +170,18 @@ public class RobotMap {
 	 * @INTAKE_IN_BUTTON
 	 * 		the button for intake in
 	 */
-	static int INTAKE_IN_BUTTON = 1;
+	static int INTAKE_IN_BUTTON = 5;
 	/**
 	 * @INTAKE_OUT_BUTTON
 	 * 		the button for intake out
 	 */
-	static int INTAKE_OUT_BUTTON = 2;
-	static int INTAKE_NO_BUTTON = 3;
+	static int INTAKE_OUT_BUTTON = 6;
+
 	/**
 	 * @DUMP_UP_FULL_SPEED
 	 * 		speed of the motor when the dump is full
 	 */
-	static double DUMP_UP_FULL_SPEED = 0.45;
+	static double DUMP_UP_FULL_SPEED = 0.25;
 	
 	/**
 	 * @DUMP_UP_HALF_SPEED
@@ -209,7 +192,7 @@ public class RobotMap {
 	 * @DUMP_DOWN_SPEED
 	 * 		dump motor speed when going down
 	 */
-	static double DUMP_DOWN_SPEED = -0.3;
+	static double DUMP_DOWN_SPEED = 0.3;
 	/**
 	 * @DUMP_NO_SPEED
 	 * 		speed of the dump motor, when it is not running
@@ -220,12 +203,12 @@ public class RobotMap {
 	 * @TOGGLE_ON_BUTTON
 	 * 		speed toggle button on
 	 */
-	static int TOGGLE_ON_BUTTON = 7;
+	static int TOGGLE_ON_BUTTON = 1;
 	/**
 	 * @TOGGLE_OFF_BUTTON
 	 * 		speed toggle off button
 	 */
-	static int TOGGLE_OFF_BUTTON = 8;
+	static int TOGGLE_OFF_BUTTON = 2;
 	/**
 	 * @ARCADE_TOGGLE_ON_BUTTON
 	 * 		the button to turn on arcade mode
