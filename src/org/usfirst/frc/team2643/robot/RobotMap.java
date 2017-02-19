@@ -176,6 +176,11 @@ public class RobotMap {
 	 * 		the button for intake out
 	 */
 	static int INTAKE_OUT_BUTTON = 6;
+	/**
+	 * @INTAKE_OUT_BUTTON
+	 * 		the button for intake out
+	 */
+	static int INTAKE_NO_BUTTON = ;//TODO
 
 	/**
 	 * @DUMP_UP_FULL_SPEED
@@ -219,6 +224,13 @@ public class RobotMap {
 	 * 		the button to turn arcade mode off
 	 */
 	static int ARCADE_TOGGLE_OFF_BUTTON = 6;
+	
+	/**
+	 * @GEAR_MANUAL_RELEASE_BUTTON
+	 * 	the button that releases the gear
+	 */
+	static int GEAR_MANUAL_RELEASE_BUTTON = 4;
+	
 
 
 	// auto line distance

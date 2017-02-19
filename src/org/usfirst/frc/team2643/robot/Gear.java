@@ -51,7 +51,7 @@ public class Gear {
 		//		if(Robot.gearTopLimit.get() == false){
 		//			System.out.println("Top limit hit");	
 		//		}
-		if(Robot.driveStick.getRawButton(4))
+		if(Robot.driveStick.getRawButton(RobotMap.GEAR_MANUAL_RELEASE_BUTTON))
 		{
 			if(Robot.gearBottomLimit.get() == true)//if it is not hit
 			{
