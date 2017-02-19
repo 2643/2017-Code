@@ -7,7 +7,7 @@ public class Toggle extends Robot {
 	static boolean speedToggle = false;
 	static double yPosition = RobotMap.driveStick.getY();
 	static double xPosition = RobotMap.driveStick.getX();
-	static boolean isArcadeOn;
+	static boolean isArcadeOn = false;
 	/** 
 	 * {@code testToggle()}:  
 	 * 		If the toggleOn button is pressed, then the speed will be greatly reduced. 

@@ -12,21 +12,24 @@ public class RobotMap {
 	 * @WheelMotors
 	 * 		These are the wheel motors
 	 */
-	public static Spark lFrontMotor = new Spark(1); //TODO The port
-	public static Spark lBackMotor = new Spark(2);  //TODO The port
-	public static Spark rFrontMotor = new Spark(5); //TODO The port
-	public static Spark rBackMotor = new Spark(6);  //TODO The port
+	public static Spark lFrontMotor = new Spark(5); 
+	public static Spark lBackMotor = new Spark(2);  
+	public static Spark rFrontMotor = new Spark(6); 
+	public static Spark rBackMotor = new Spark(1);  
 
 	/**
 	 * @gearMotor
 	 * 		motor for the gear
 	 */
-	public static Spark gearMotor = new Spark(8); //TODO Check the port
+	public static Spark gearMotor = new Spark(7); 
 	/**
 	 * @intakeMotor
 	 * 		motor for the intake
+	 * 		the motor is inverted.
+	 * 		to do intake out, put a positive speed
+	 * 		to do intake in, put a negative speed
 	 */
-	public static Spark intakeMotor = new Spark(9); //TODO check the port
+	public static Spark intakeMotor = new Spark(4);
 //	/**
 //	 * @CLIMBER_MOTOR_PORT
 //	 * 		port for the climber motor
@@ -95,7 +98,7 @@ public class RobotMap {
 		/** @hallEffectTop
 		 * 		the top limit switch for the dump
 		 */
-		public static DigitalInput hallEffectTop = new DigitalInput(1);  //TODO The port is not right
+		public static DigitalInput hallEffectTop = new DigitalInput(8);  //TODO The port is not right
 	
 		//gear limit switches
 	/**
@@ -146,15 +149,17 @@ public class RobotMap {
 	//motor speeds
 		//intake speeds
 	/**
-	 	* @INTAKE_IN_SPEED
+	 * @INTAKE_IN_SPEED
 	 * 		speed of the intake motor when taking in fuel
+	 * 		because the intake in speed needs to be faster than out 
 	 */
-		static double INTAKE_IN_SPEED = 0.5;
+		static double INTAKE_IN_SPEED = -0.6;
 		/**
 		 * @INTAKE_OUT_SPEED
 	 * 		intake speed when releasing fuel
+	 * 		because the out speed needs to be slower than the in speed
 	 */
-		static double INTAKE_OUT_SPEED = -0.5;
+		static double INTAKE_OUT_SPEED = 0.4;
 	/**
 	 	* @INTAKE_NO_SPEED
 	 * 	 	intake speed when nothing is happening
@@ -166,18 +171,20 @@ public class RobotMap {
 	/**
 	 	* @DUMP_UP_FULL_SPEED
 	 * 		speed of the motor when the dump is full
+	 * 		because 0.3 is not strong enough to lift a full load
 	 */
-		static double DUMP_UP_FULL_SPEED = 0.25;
+		static double DUMP_UP_FULL_SPEED = 0.45;
 	/**
 	 	* @DUMP_UP_HALF_SPEED
 	 * 		speed of the motor, when the dump is holding only 10 balls
+	 * 		because 0.5 was too strong to lift 10 balls
 	 */
 		static double DUMP_UP_HALF_SPEED = 0.3;
 	/**
 	 	* @DUMP_DOWN_SPEED
 	 * 		dump motor speed when going down
 	 */
-		static double DUMP_DOWN_SPEED = 0.3;
+		static double DUMP_DOWN_SPEED = -0.3;
 	/**
 	 	* @DUMP_NO_SPEED
 	 * 		speed of the dump motor, when it is not running
@@ -195,26 +202,26 @@ public class RobotMap {
 	 * 		button to turn the speed toggle on
 	 *		used in Toggle.class
 	 */
-	public static int toggleOn = 1;
+	public static int toggleOn = 5;
 	/**
 	 * @toggleOff
 	 * 		button to turn speed toggle off
 	 * 		used in Toggle.class
 	 */
-	public static int toggleOff = 2;
+	public static int toggleOff = 6;
 	//arcadeToggle
 	/**
 	 * @arcadeToggleOn
 	 * 		button to turn on arcade mode
 	 * 		used in Toggle.class
 	 */
-	public static int arcadeToggleOn = 5;
+	public static int arcadeToggleOn = 7;
 	/**
 	 * @arcadeToggleOff
 	 * 		button to turn arcade mode odd
 	 * 		used in Toggle.class
 	 */
-	public static int arcadeToggleOff = 6; 
+	public static int arcadeToggleOff = 8; 
 	
 	//gear buttons
 	/**
@@ -228,17 +235,17 @@ public class RobotMap {
 	 * @INTAKE_IN_BUTTON
 	 * 		the button for intake in
 	 */
-	static int INTAKE_IN_BUTTON = 5;   //TODO get the right button
+	static int INTAKE_IN_BUTTON = 1;   //TODO get the right button
 	/**
 	 * @INTAKE_OUT_BUTTON
 	 * 		the button for intake out
 	 */
-	static int INTAKE_OUT_BUTTON = 6;  //TODO get the right button
+	static int INTAKE_OUT_BUTTON = 2;  //TODO get the right button
 	/**
 	 * @INTAKE_OUT_BUTTON
 	 * 		the button for intake out
 	 */
-	static int INTAKE_NO_BUTTON = 666;//TODO get the right button
+	static int INTAKE_NO_BUTTON = 3;//TODO get the right button
 	 
 	//dump buttons(on the dpad)
 	public static int DUMP_FULL_UP_BUTTON = 0;

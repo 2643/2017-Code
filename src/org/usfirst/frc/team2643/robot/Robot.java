@@ -104,9 +104,9 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		// prints out the left encoder and the right encoder divided by 2
 		//System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
-//		Intake.intake();
-//		Gear.gear(); 
-//		Toggle.toggle();
+		Intake.intake();
+		Gear.gear(); 
+		Toggle.toggle();
 		//colors();
 		Dump.dump();
 	}
