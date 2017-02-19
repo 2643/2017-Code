@@ -1,76 +1,86 @@
 package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Spark;
+
 
 public class RobotMap {
+	/**
+	 * @WheelMotors
+	 * 		These are the wheel motors
+	 */
+	public static Spark lFrontMotor = new Spark(1); //TODO The port
+	public static Spark lBackMotor = new Spark(2);  //TODO The port
+	public static Spark rFrontMotor = new Spark(5); //TODO The port
+	public static Spark rBackMotor = new Spark(6);  //TODO The port
 
-	//wheel motor ports
 	/**
-	 * @LEFT_FRONT_SPARK_PWN_PORT
-  	 * 		left front wheel motor port
+	 * @gearMotor
+	 * 		motor for the gear
 	 */
-	static int LEFT_FRONT_SPARK_PWM_PORT = 7;
+	public static Spark gearMotor = new Spark(8); //TODO Check the port
 	/**
-	 * @LEFT_BACK_SPARK_PWN_PORT
-	 * 		left back wheel motor port
+	 * @intakeMotor
+	 * 		motor for the intake
 	 */
-	static int LEFT_BACK_SPARK_PWM_PORT = 5;
+	public static Spark intakeMotor = new Spark(9); //TODO check the port
+//	/**
+//	 * @CLIMBER_MOTOR_PORT
+//	 * 		port for the climber motor
+//	 * 		*currently does not exist on the robot
+//	 */
+//	public static Spark climberMotor = new Spark(666);	
 	/**
-	 * @RIGHT_FRONT_SPARK_PWN_PORT
-	 * 		right front motor wheel port
+	 * @dumpMotor
+	 * 		the motor for the dump
 	 */
-	static int RIGHT_FRONT_SPARK_PWM_PORT = 6;
-	/**
-	 * @RIGHT_BACK_SPARK_PWN_PORT
-	 * 		right back wheel motor port
-	 */
-	static int RIGHT_BACK_SPARK_PWM_PORT = 4;
-
-	// encoder ports
-	/**
-	 * @leftEncoder
-	 * 		the encoder for the left side wheels
-	 */
-	static Encoder leftEncoder = new Encoder(1, 2);
-	/**
-	 * @rightEncoder
-	 * 		the encoder for the right side wheels
-	 */
-	static Encoder rightEncoder = new Encoder(3, 4);
+	public static Spark dumpMotor = new Spark(3); 
 	
-	//dump encoder
-	/**
-	 * @dumpEncoder
-	 * 		the encoder for the dump
-	 */
-	static Encoder dumpEncoder = new Encoder(5, 6);
+	
+	//Encoders
+//	/**
+//	 * @leftEncoder
+//	 * 		the encoder for the left side wheels
+//	 */
+//	static Encoder leftEncoder = new Encoder(1, 2);
+//	/**
+//	 * @rightEncoder
+//	 * 		the encoder for the right side wheels
+//	 */
+//	static Encoder rightEncoder = new Encoder(3, 4);
+//	/**
+//	 * @dumpEncoder
+//	 * 		the encoder for the dump
+//	 */
+//	static Encoder dumpEncoder = new Encoder(5, 6);
 
-	// joystick port
+	//Joysticks
 	/**
-	 * @JOYSTICK_PORT
-	 * 		driver joystick port
+	 * @driveStick
+	 * 		driver joystick
 	 */
-	static int JOYSTICK_PORT = 0;
+	public static Joystick driveStick = new Joystick(0);
 	/**
-	 * @JOYSTICK_PORT2
-	 * 		operator stick port
+	 * @opStick
+	 * 		operator joystick
 	 */
-	static int JOYSTICK_PORT2 = 1;
-
-	// right motor axis on joystick
+	public static Joystick opStick = new Joystick(1);
+			// right motor axis on joystick
 	/**
-	 * @RIGHT_JOYSTICK_AXIS
+	 		* @RIGHT_JOYSTICK_AXIS
 	 * 			the axis used for the wheels on the right side
 	 */
-	static int RIGHT_JOYSTICK_AXIS = 5;
+			static int RIGHT_JOYSTICK_AXIS = 5;
 
-	// left motor axis on joystick
+			// left motor axis on joystick
 	/**
-	 * @LEFT_JOYSTICK_AXIS
+	 		* @LEFT_JOYSTICK_AXIS
 	 * 		the y axis used for the wheels on the left side of the robot
 	 */
-	static int LEFT_JOYSTICK_AXIS =1;
+			static int LEFT_JOYSTICK_AXIS = 1;
 
 	// slow multiplier
 	/**
@@ -79,48 +89,28 @@ public class RobotMap {
 	 */
 	static double SLOW_MULTIPLIER = 0.5;
 
-	// gear motor port
-	/**
-	 * @GEAR_MOTOR_PORT
-	 * 		port for the gear motor
-	 */
-	static int GEAR_MOTOR_PORT = 8;
 
-	// intake motor port
-	/**
-	 * @INTAKE_MOTOR_PORT
-	 * 		port for the intake motor
-	 */
-	static int INTAKE_MOTOR_PORT = 9;
-
-	//climber motor port
-	/**
-	 * @CLIMBER_MOTOR_PORT
-	 * 		port for the climber motor
-	 * 		*currently does not exist on the robot
-	 */
-	static int CLIMBER_MOTOR_PORT = 666;   //need to change this later
+	//limit switches
+		///dump limit switches
+		/** @hallEffectTop
+		 * 		the top limit switch for the dump
+		 */
+		public static DigitalInput hallEffectTop = new DigitalInput(1);  //TODO The port is not right
 	
-	//dump motor port
+		//gear limit switches
 	/**
-	 * @DUMP_MOTOR_PORT
-	 * 		port for the dump motor
+	 	* @gearTopLimit
+	 * 		the top limit switch for the gear
 	 */
-	static int DUMP_MOTOR_PORT = 3;
+		public static DigitalInput gearTopLimit = new DigitalInput(5);  //TODO Check the port
+	/**
+	 	* @gearBottomLimit
+	 * 		the bottom limit switch for the gear
+	 */
+		public static DigitalInput gearBottomLimit = new DigitalInput(6);//TODO Check the port
 	
-	//dump limit switch
-	/**
-	 * @TOP_DUMP_LIMIT_SWITCH_PORT
-	 * 		port for the HalEffect sensor
-	 */
-	static int TOP_DUMP_LIMIT_SWITCH_PORT = -666;   //need to change this later
-	/**
-	 * @BOTTOM_DUMP_LIMIT_SWITCH_PORT
-	 * 		port for the HalEffect sensor
-	 */
-	static int BOTTOM_DUMP_LIMIT_SWITCH_PORT = -666;   //need to change this later
 	
-	// autonomous speed
+	//constants in autonomous
 	/**
 	 * @AUTO_SPEED_ON
 	 * 		the speed for autonomous
@@ -146,98 +136,116 @@ public class RobotMap {
 	 * 		distance to the airship
 	 */
 	static int AIRSHIP_AUTO_DISTANCE = 50;
-
-
-	// intake motor speed
-	/**
-	 * @INTAKE_IN_SPEED
-	 * 		speed of the intake motor when taking in fuel
-	 */
-	static double INTAKE_IN_SPEED = 0.5;
-	/**
-	 * @INTAKE_OUT_SPEED
-	 * 		intake speed when releasing fuel
-	 */
-	static double INTAKE_OUT_SPEED = -0.5;
-	/**
-	 * @INTAKE_NO_SPEED
-	 * 	 	intake speed when nothing is happening
-	 */
-	static int INTAKE_NO_SPEED = 0;
-
-	// intake buttons
-	/**
-	 * @INTAKE_IN_BUTTON
-	 * 		the button for intake in
-	 */
-	static int INTAKE_IN_BUTTON = 5;
-	/**
-	 * @INTAKE_OUT_BUTTON
-	 * 		the button for intake out
-	 */
-	static int INTAKE_OUT_BUTTON = 6;
-	/**
-	 * @INTAKE_OUT_BUTTON
-	 * 		the button for intake out
-	 */
-	static int INTAKE_NO_BUTTON = ;//TODO
-
-	/**
-	 * @DUMP_UP_FULL_SPEED
-	 * 		speed of the motor when the dump is full
-	 */
-	static double DUMP_UP_FULL_SPEED = 0.25;
-	
-	/**
-	 * @DUMP_UP_HALF_SPEED
-	 * 		speed of the motor, when the dump is holding only 10 balls
-	 */
-	static double DUMP_UP_HALF_SPEED = 0.3;
-	/**
-	 * @DUMP_DOWN_SPEED
-	 * 		dump motor speed when going down
-	 */
-	static double DUMP_DOWN_SPEED = 0.3;
-	/**
-	 * @DUMP_NO_SPEED
-	 * 		speed of the dump motor, when it is not running
-	 */
-	static int DUMP_NO_SPEED = 0;
-	// toggle button
-	/**
-	 * @TOGGLE_ON_BUTTON
-	 * 		speed toggle button on
-	 */
-	static int TOGGLE_ON_BUTTON = 1;
-	/**
-	 * @TOGGLE_OFF_BUTTON
-	 * 		speed toggle off button
-	 */
-	static int TOGGLE_OFF_BUTTON = 2;
-	/**
-	 * @ARCADE_TOGGLE_ON_BUTTON
-	 * 		the button to turn on arcade mode
-	 */
-	static int ARCADE_TOGGLE_ON_BUTTON = 5;
-	/**
-	 * @ARCADE_TOGGLE_OFF_BUTTON
-	 * 		the button to turn arcade mode off
-	 */
-	static int ARCADE_TOGGLE_OFF_BUTTON = 6;
-	
-	/**
-	 * @GEAR_MANUAL_RELEASE_BUTTON
-	 * 	the button that releases the gear
-	 */
-	static int GEAR_MANUAL_RELEASE_BUTTON = 4;
-	
-
-
-	// auto line distance
 	/**
 	 * @AUTO_LINE_DISTANCE
 	 * 		distance to the auto line
 	 */
 	static int AUTO_LINE_DISTANCE = 2200;
 
+
+	//motor speeds
+		//intake speeds
+	/**
+	 	* @INTAKE_IN_SPEED
+	 * 		speed of the intake motor when taking in fuel
+	 */
+		static double INTAKE_IN_SPEED = 0.5;
+		/**
+		 * @INTAKE_OUT_SPEED
+	 * 		intake speed when releasing fuel
+	 */
+		static double INTAKE_OUT_SPEED = -0.5;
+	/**
+	 	* @INTAKE_NO_SPEED
+	 * 	 	intake speed when nothing is happening
+	 */
+		static int INTAKE_NO_SPEED = 0;
+
+
+		//dump speeds
+	/**
+	 	* @DUMP_UP_FULL_SPEED
+	 * 		speed of the motor when the dump is full
+	 */
+		static double DUMP_UP_FULL_SPEED = 0.25;
+	/**
+	 	* @DUMP_UP_HALF_SPEED
+	 * 		speed of the motor, when the dump is holding only 10 balls
+	 */
+		static double DUMP_UP_HALF_SPEED = 0.3;
+	/**
+	 	* @DUMP_DOWN_SPEED
+	 * 		dump motor speed when going down
+	 */
+		static double DUMP_DOWN_SPEED = 0.3;
+	/**
+	 	* @DUMP_NO_SPEED
+	 * 		speed of the dump motor, when it is not running
+	 */
+		static int DUMP_NO_SPEED = 0;
+	
+
+	
+/*
+ * The Buttons
+ */
+	//toggle buttons
+	/**
+	 * @toggleOn
+	 * 		button to turn the speed toggle on
+	 *		used in Toggle.class
+	 */
+	public static int toggleOn = 1;
+	/**
+	 * @toggleOff
+	 * 		button to turn speed toggle off
+	 * 		used in Toggle.class
+	 */
+	public static int toggleOff = 2;
+	//arcadeToggle
+	/**
+	 * @arcadeToggleOn
+	 * 		button to turn on arcade mode
+	 * 		used in Toggle.class
+	 */
+	public static int arcadeToggleOn = 5;
+	/**
+	 * @arcadeToggleOff
+	 * 		button to turn arcade mode odd
+	 * 		used in Toggle.class
+	 */
+	public static int arcadeToggleOff = 6; 
+	
+	//gear buttons
+	/**
+	 * @GEAR_MANUAL_RELEASE_BUTTON
+	 * 	the button that releases the gear
+	 */
+	public static int GEAR_MANUAL_RELEASE_BUTTON = 4; //TODO get the right button
+	
+	// intake buttons
+	/**
+	 * @INTAKE_IN_BUTTON
+	 * 		the button for intake in
+	 */
+	static int INTAKE_IN_BUTTON = 5;   //TODO get the right button
+	/**
+	 * @INTAKE_OUT_BUTTON
+	 * 		the button for intake out
+	 */
+	static int INTAKE_OUT_BUTTON = 6;  //TODO get the right button
+	/**
+	 * @INTAKE_OUT_BUTTON
+	 * 		the button for intake out
+	 */
+	static int INTAKE_NO_BUTTON = 666;//TODO get the right button
+	 
+	//dump buttons(on the dpad)
+	public static int DUMP_FULL_UP_BUTTON = 0;
+	public static int DUMP_HALF_UP_BUTTON = 90;
+	public static int DUMP_DOWN_BUTTON = 180;
+
+//Preset conditions for each function
+	public static int intake = 3; //the intake does nothing
+	public static int gear = 2; // the gear motor will do nothing
 }

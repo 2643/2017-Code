@@ -20,126 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
-
-	
-	public static Spark lFrontMotor = new Spark(RobotMap.LEFT_FRONT_SPARK_PWM_PORT);
-	public static Spark lBackMotor = new Spark(RobotMap.LEFT_BACK_SPARK_PWM_PORT);
-	
-	public static Spark rFrontMotor = new Spark(RobotMap.RIGHT_FRONT_SPARK_PWM_PORT);
-	public static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
-	
-	
-	
-	// Setting the motors to their ports
-	
-	//declaring a new joystick called stick, and another called opStick
-	/**
-	 * @driveStick
-	 * 		driver joystick
-	 */
-	public static Joystick driveStick = new Joystick(RobotMap.JOYSTICK_PORT);
-	/**
-	 * @opStick
-	 * 		operator joystick
-	 */
-	public static Joystick opStick = new Joystick(RobotMap.JOYSTICK_PORT2);
-	
-
-	//toggleOn & toggleOff buttons
-	/**
-	 * @toggleOn
-	 * 		button to turn the speed toggle on
-	 *		used in Toggle.class
-	 */
-	public static int toggleOn = RobotMap.TOGGLE_ON_BUTTON;
-	/**
-	 * @toggleOff
-	 * 		button to turn speed toggle off
-	 * 		used in Toggle.class
-	 */
-	public static int toggleOff = RobotMap.TOGGLE_OFF_BUTTON;
-
-	//arcadeToggle
-	/**
-	 * @arcadeToggleOn
-	 * 		button to turn on arcade mode
-	 * 		used in Toggle.class
-	 */
-	public static int arcadeToggleOn = RobotMap.ARCADE_TOGGLE_ON_BUTTON;
-	/**
-	 * @arcadeToggleOff
-	 * 		button to turn arcade mode odd
-	 * 		used in Toggle.class
-	 */
-	public static int arcadeToggleOff = RobotMap.ARCADE_TOGGLE_OFF_BUTTON;
-	
-	// the number to make the speed of the robot slower
-	/**
-	 * @slowMult
-	 * 		used in Toggle.class
-	 */
-	public static double slowMult = RobotMap.SLOW_MULTIPLIER;
-
-	// boolean to see if arcade is toggled on or off/true or false
-	/**
-	 * @isArcadeOn
-	 * 		used in Toggle.class
-	 */
-	public static boolean isArcadeOn = false;
-	
-	//declaring the gear motor
-	/**
-	 * @gearMotor
-	 * 		motor for the gear
-	 */
-	public static Spark gearMotor = new Spark(RobotMap.GEAR_MOTOR_PORT);
-	
-	//declaring the intake motor
-	/**
-	 * @intakeMotor
-	 * 		motor for the intake
-	 */
-	public static Spark intakeMotor = new Spark(RobotMap.INTAKE_MOTOR_PORT);
-	
-	//declaring the climber motor
-	/**
-	 * This is the motor for the climber.
-	 * It currently is not on the robot. Only exists in testPeriodic.
-	 */
-	//public static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR_PORT);
-	
-	//declaring the dump motor
-	/**
-	 * @dumpMotor
-	 * 		the motor for the dump
-	 */
-	public static Spark dumpMotor = new Spark(RobotMap.DUMP_MOTOR_PORT);
-	
-
-	//dump limit switch
-	/**
-	 * @hallEffectTop
-	 * 		the top limit switch for the dump
-	 */
-	public static DigitalInput hallEffectTop = new DigitalInput(RobotMap.TOP_DUMP_LIMIT_SWITCH_PORT);
-	/**
-	 * @hallEffectBottom
-	 * 		the bottom limit switch for the dump
-	 */
-	public static DigitalInput hallEffectBottom = new DigitalInput(RobotMap.BOTTOM_DUMP_LIMIT_SWITCH_PORT);
-	
-	/**
-	 * @gearTopLimit
-	 * 		the top limit switch for the gear
-	 */
-	public static DigitalInput gearTopLimit = new DigitalInput(5);
-	/**
-	 * @gearBottomLimit
-	 * 		the bottom limit switch for the gear
-	 */
-	public static DigitalInput gearBottomLimit = new DigitalInput(6);
-	
+public class Robot extends IterativeRobot {	
 	
 	//Imported from robotMap.java for speeds and distances
 	/**
@@ -156,8 +37,7 @@ public class Robot extends IterativeRobot {
 	public static int HOPPER_AUTO_DISTANCE = RobotMap.HOPPER_AUTO_DISTANCE;
 	public static int AIRSHIP_AUTO_DISTANCE = RobotMap.AIRSHIP_AUTO_DISTANCE;
 	
-	public static int intake = 3;
-	public static int gear = 2;
+
 
 
 	// leds
@@ -224,9 +104,9 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		// prints out the left encoder and the right encoder divided by 2
 		//System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
-		Intake.intake();
-		Gear.gear(); 
-		Toggle.toggle();
+//		Intake.intake();
+//		Gear.gear(); 
+//		Toggle.toggle();
 		//colors();
 		Dump.dump();
 	}
@@ -267,13 +147,13 @@ public class Robot extends IterativeRobot {
 	 * @param speed
 	 * 		speed of the robot
 	 */
-//	public static void setAll(double speed) {
-//		// making all the motors go to a set speed which will be told later.
-//		lFrontMotor.set(-speed);
-//		lBackMotor.set(-speed);
-//		rFrontMotor.set(speed);
-//		rBackMotor.set(speed);
-//	}
+	public static void setAll(double speed) {
+		// making all the motors go to a set speed which will be told later.
+		RobotMap.lFrontMotor.set(-speed);
+		RobotMap.lBackMotor.set(-speed);
+		RobotMap.rFrontMotor.set(speed);
+		RobotMap.rBackMotor.set(speed);
+	}
 	
 	/**
 	 *  Starts and updates the led bars

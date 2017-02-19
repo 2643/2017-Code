@@ -18,23 +18,23 @@ public class Dump extends Robot {
 	 */
 
 	public static void dump() {
-		if (Robot.driveStick.getPOV() == 0/* && hallEffectTop.get() == true*/) //if not hit
+		if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON && RobotMap.hallEffectTop.get() == true) //if not hit
 		{
-			Robot.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
+			RobotMap.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
 		}
 
-		else if (Robot.driveStick.getPOV() == 90/* && hallEffectTop.get() == true*/) 
+		else if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON && RobotMap.hallEffectTop.get() == true) 
 		{
-			Robot.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
+			RobotMap.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
 		} 
 
-		else if(Robot.driveStick.getPOV() == 180 /*&& hallEffectBottom.get() == true*/)
+		else if(RobotMap.driveStick.getPOV() == RobotMap.DUMP_DOWN_BUTTON)
 		{
-			Robot.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
+			RobotMap.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
 		}
 		else
 		{
-			Robot.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
+			RobotMap.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
 		}
 	}
 }

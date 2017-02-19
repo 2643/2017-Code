@@ -15,34 +15,34 @@ public class Intake extends Robot{
 	public static void intake(){
 		
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		if(driveStick.getRawButton(RobotMap.INTAKE_IN_BUTTON)){
-			intake = 1;
+		if(RobotMap.driveStick.getRawButton(RobotMap.INTAKE_IN_BUTTON)){
+			RobotMap.intake = 1;
 		}
-		else if(driveStick.getRawButton(RobotMap.INTAKE_OUT_BUTTON)){
-			intake = 2;
+		else if(RobotMap.driveStick.getRawButton(RobotMap.INTAKE_OUT_BUTTON)){
+			RobotMap.intake = 2;
 		}
-		else if(driveStick.getRawButton(RobotMap.INTAKE_NO_BUTTON)){
-			intake = 3;
+		else if(RobotMap.driveStick.getRawButton(RobotMap.INTAKE_NO_BUTTON)){
+			RobotMap.intake = 3;
 		}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//if the driveStick button 1 is pressed is true, then the robot intake motor will 
 		//be set to the intake motor speed.
-		if (intake == 1)
+		if (RobotMap.intake == 1)
 		{
-			Robot.intakeMotor.set(RobotMap.INTAKE_IN_SPEED);
+			RobotMap.intakeMotor.set(RobotMap.INTAKE_IN_SPEED);
 			//System.out.println("IN");
 		} 
 		//else if the driveStick button 2 will make the intake motor preform outake.
-		else if (intake == 2) 
+		else if (RobotMap.intake == 2) 
 		{
-			Robot.intakeMotor.set(RobotMap.INTAKE_OUT_SPEED);
+			RobotMap.intakeMotor.set(RobotMap.INTAKE_OUT_SPEED);
 			//System.out.println("OUT");
 		} 
 		//else the intake motor will be set to no speed.
-		else if(intake == 3) 
+		else if(RobotMap.intake == 3) 
 		{
-			Robot.intakeMotor.set(RobotMap.INTAKE_NO_SPEED);
+			RobotMap.intakeMotor.set(RobotMap.INTAKE_NO_SPEED);
 			//System.out.println("NOTHING");
 		}
 	}

@@ -5,12 +5,9 @@ package org.usfirst.frc.team2643.robot;
 public class Toggle extends Robot {
 	//Declare section
 	static boolean speedToggle = false;
-	static double yPosition = driveStick.getY();
-	static double xPosition = driveStick.getX();
-
-	
-	
-	
+	static double yPosition = RobotMap.driveStick.getY();
+	static double xPosition = RobotMap.driveStick.getX();
+	static boolean isArcadeOn;
 	/** 
 	 * {@code testToggle()}:  
 	 * 		If the toggleOn button is pressed, then the speed will be greatly reduced. 
@@ -23,17 +20,17 @@ public class Toggle extends Robot {
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//If button 1 is pressed, then it will go to slow speed, else it if by default on normal speed//
-		if (driveStick.getRawButton(Robot.toggleOn))  {
+		if (RobotMap.driveStick.getRawButton(RobotMap.toggleOn))  {
 			speedToggle = true;
 		}
-		else if (driveStick.getRawButton(Robot.toggleOff)){
+		else if (RobotMap.driveStick.getRawButton(RobotMap.toggleOff)){
 			speedToggle = false;
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// If the button is pressed the Arcade drive is toggled on otherwise it is by default on tank drive//
-		if (driveStick.getRawButton(Robot.arcadeToggleOn)) {
+		if (RobotMap.driveStick.getRawButton(RobotMap.arcadeToggleOn)) {
 			isArcadeOn = true;
-		} else if (driveStick.getRawButton(Robot.arcadeToggleOff)) {
+		} else if (RobotMap.driveStick.getRawButton(RobotMap.arcadeToggleOff)) {
 			isArcadeOn = false;
 		}
 		
@@ -61,19 +58,19 @@ public class Toggle extends Robot {
 			if(speedToggle == true){
 				
 				//System.out.println("TANK");
-				rFrontMotor.set((driveStick.getRawAxis(5))*0.5);
-				rBackMotor.set((driveStick.getRawAxis(5))*0.5);
-				lFrontMotor.set((driveStick.getRawAxis(1))*-0.5);
-				lBackMotor.set((driveStick.getRawAxis(1))*-0.5);
+				RobotMap.rFrontMotor.set((RobotMap.driveStick.getRawAxis(5))*RobotMap.SLOW_MULTIPLIER);
+				RobotMap.rBackMotor.set((RobotMap.driveStick.getRawAxis(5))*RobotMap.SLOW_MULTIPLIER);
+				RobotMap.lFrontMotor.set((RobotMap.driveStick.getRawAxis(1))*-RobotMap.SLOW_MULTIPLIER);
+				RobotMap.lBackMotor.set((RobotMap.driveStick.getRawAxis(1))*-RobotMap.SLOW_MULTIPLIER);
 			}
 			
 			else if(speedToggle == false){
 				
 				//System.out.println("TANK");
-				rFrontMotor.set(driveStick.getRawAxis(5));
-				rBackMotor.set(driveStick.getRawAxis(5));
-				lFrontMotor.set(-driveStick.getRawAxis(1));
-				lBackMotor.set(-driveStick.getRawAxis(1));
+				RobotMap.rFrontMotor.set(RobotMap.driveStick.getRawAxis(5));
+				RobotMap.rBackMotor.set(RobotMap.driveStick.getRawAxis(5));
+				RobotMap.lFrontMotor.set(-RobotMap.driveStick.getRawAxis(1));
+				RobotMap.lBackMotor.set(-RobotMap.driveStick.getRawAxis(1));
 			}
 		}
 

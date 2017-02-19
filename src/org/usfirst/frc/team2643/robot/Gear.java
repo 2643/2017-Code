@@ -51,20 +51,20 @@ public class Gear {
 		//		if(Robot.gearTopLimit.get() == false){
 		//			System.out.println("Top limit hit");	
 		//		}
-		if(Robot.driveStick.getRawButton(RobotMap.GEAR_MANUAL_RELEASE_BUTTON))
+		if(RobotMap.driveStick.getRawButton(RobotMap.GEAR_MANUAL_RELEASE_BUTTON))
 		{
-			if(Robot.gearBottomLimit.get() == true)//if it is not hit
+			if(RobotMap.gearBottomLimit.get() == true)//if it is not hit
 			{
-				Robot.gearMotor.set(-0.4);
+				RobotMap.gearMotor.set(-0.4);
 			}
 			else
 			{
-				Robot.gearMotor.set(-0.4);
+				RobotMap.gearMotor.set(-0.4);
 			}
 		}
 		else 
 		{
-			Robot.gearMotor.set(0);
+			RobotMap.gearMotor.set(0);
 		}
 			
 	}
