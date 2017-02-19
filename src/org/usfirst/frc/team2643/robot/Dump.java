@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class Dump extends Robot {
 
 	/**
@@ -16,25 +18,39 @@ public class Dump extends Robot {
 	 *		speed for about 10 balls - (0.3)
 	 *
 	 */
-
+	static Timer dumptimer = new Timer();
 	public static void dump() {
-		if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON && RobotMap.hallEffectTop.get() == true) //if not hit
+		if(RobotMap.hallEffectTop.get() == true)
 		{
-			RobotMap.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
-		}
+			System.out.println("Hall Effect Hit");
+			if(dumptimer.get() > 10)
+			{
+				if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON) //if not hit
+				{
+					System.out.println("Hall Effect Hit at full speed");
+					//RobotMap.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
+				}
 
-		else if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON && RobotMap.hallEffectTop.get() == true) 
-		{
-			RobotMap.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
-		} 
-
-		else if(RobotMap.driveStick.getPOV() == RobotMap.DUMP_DOWN_BUTTON)
-		{
-			RobotMap.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
+				else if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON) 
+				{
+					System.out.println("Hall Effect Hit at half speed");
+					//RobotMap.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
+				} 
+				else
+				{
+					RobotMap.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
+				}
+				/*else if(RobotMap.driveStick.getPOV() == RobotMap.DUMP_DOWN_BUTTON)
+				{
+				RobotMap.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
+				}*/
+			}
 		}
 		else
 		{
 			RobotMap.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
+			dumptimer.reset();
+			dumptimer.start();
 		}
 	}
 }
