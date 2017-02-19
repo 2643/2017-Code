@@ -18,17 +18,17 @@ public class Dump extends Robot {
 	 */
 
 	public static void dump() {
-		if (Robot.opStick.getPOV() == 0 && hallEffectTop.get() == true) //if not hit
+		if (Robot.driveStick.getPOV() == 0/* && hallEffectTop.get() == true*/) //if not hit
 		{
 			Robot.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
 		}
 
-		else if (Robot.opStick.getPOV() == 90 && hallEffectTop.get() == true) 
+		else if (Robot.driveStick.getPOV() == 90/* && hallEffectTop.get() == true*/) 
 		{
 			Robot.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
 		} 
 
-		else if(Robot.opStick.getPOV() == 180 && hallEffectBottom.get() == true)
+		else if(Robot.driveStick.getPOV() == 180 /*&& hallEffectBottom.get() == true*/)
 		{
 			Robot.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
 		}

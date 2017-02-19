@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,6 +22,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	
+	public static Spark lFrontMotor = new Spark(RobotMap.LEFT_FRONT_SPARK_PWM_PORT);
+	public static Spark lBackMotor = new Spark(RobotMap.LEFT_BACK_SPARK_PWM_PORT);
+	
+	public static Spark rFrontMotor = new Spark(RobotMap.RIGHT_FRONT_SPARK_PWM_PORT);
+	public static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
+	
+	
 	
 	// Setting the motors to their ports
 	
@@ -97,7 +107,7 @@ public class Robot extends IterativeRobot {
 	 * This is the motor for the climber.
 	 * It currently is not on the robot. Only exists in testPeriodic.
 	 */
-	public static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR_PORT);
+	//public static Spark climberMotor = new Spark(RobotMap.CLIMBER_MOTOR_PORT);
 	
 	//declaring the dump motor
 	/**
@@ -106,13 +116,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public static Spark dumpMotor = new Spark(RobotMap.DUMP_MOTOR_PORT);
 	
-	public static Spark lFrontMotor = new Spark(RobotMap.LEFT_FRONT_SPARK_PWM_PORT);
-	public static Spark lBackMotor = new Spark(RobotMap.LEFT_BACK_SPARK_PWM_PORT);
-	
-	public static Spark rFrontMotor = new Spark(RobotMap.RIGHT_FRONT_SPARK_PWM_PORT);
-	public static Spark rBackMotor = new Spark(RobotMap.RIGHT_BACK_SPARK_PWM_PORT);
-	
-	
+
 	//dump limit switch
 	/**
 	 * @hallEffectTop
@@ -124,6 +128,18 @@ public class Robot extends IterativeRobot {
 	 * 		the bottom limit switch for the dump
 	 */
 	public static DigitalInput hallEffectBottom = new DigitalInput(RobotMap.BOTTOM_DUMP_LIMIT_SWITCH_PORT);
+	
+	/**
+	 * @gearTopLimit
+	 * 		the top limit switch for the gear
+	 */
+	public static DigitalInput gearTopLimit = new DigitalInput(5);
+	/**
+	 * @gearBottomLimit
+	 * 		the bottom limit switch for the gear
+	 */
+	public static DigitalInput gearBottomLimit = new DigitalInput(6);
+	
 	
 	//Imported from robotMap.java for speeds and distances
 	/**
@@ -139,7 +155,9 @@ public class Robot extends IterativeRobot {
 	public static int BOILER_AUTO_DISTANCE = RobotMap.BOILER_AUTO_DISTANCE;
 	public static int HOPPER_AUTO_DISTANCE = RobotMap.HOPPER_AUTO_DISTANCE;
 	public static int AIRSHIP_AUTO_DISTANCE = RobotMap.AIRSHIP_AUTO_DISTANCE;
-
+	
+	public static int intake = 3;
+	public static int gear = 2;
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
 
@@ -153,19 +171,23 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	
 	@Override
 	public void robotInit() {
-
+	
 		SmartDashboard.putData("Auto choices", chooser);
 		// reseting the encoders
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
+		//RobotMap.leftEncoder.reset();
+		//RobotMap.rightEncoder.reset();
 
 		LedStrip allLEDs = new LedStrip(LEDNUMBER, 1.0f);
 		allLEDs.allOff();
 		allLEDs.update();
 		led.initialize();
 		led.reset();
+		
+		   
+			
 	}
 
 	/**
@@ -195,14 +217,14 @@ public class Robot extends IterativeRobot {
 		// if the leftencoder and the rightencoder, divided by two is less than
 		// 2200, then it will make the robot
 		// all 4 motors move at half speed.
-		if ((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2 < 2200) {
-			// a method defined up above to make all four motors move at half
-			// speed.
-			setAll(0.5);
-		} else {
-			// Setting all 4 motors to zero.
-			setAll(0);
-		}
+//		if ((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2 < 2200) {
+//			// a method defined up above to make all four motors move at half
+//			// speed.
+//			setAll(0.5);
+//		} else {
+//			// Setting all 4 motors to zero.
+//			setAll(0);
+//		}
 	}
 
 	/**
@@ -211,14 +233,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		// prints out the left encoder and the right encoder divided by 2
-		System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
+		//System.out.println((Math.abs(RobotMap.leftEncoder.get()) + Math.abs(RobotMap.rightEncoder.get())) / 2);
 		Intake.intake();
 		Gear.gear(); 
-		
-		colors();
+		Toggle.toggle();
+		//colors();
 		Dump.dump();
 	}
-
 	/**
 	 * This function is called periodically during test mode
 	 * 
@@ -245,7 +266,7 @@ public class Robot extends IterativeRobot {
 	 */ 
 	@Override
 	public void testPeriodic() { 
-		MotorTest.testMotor();
+		//MotorTest.testMotor();
 		
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -256,13 +277,13 @@ public class Robot extends IterativeRobot {
 	 * @param speed
 	 * 		speed of the robot
 	 */
-	public static void setAll(double speed) {
-		// making all the motors go to a set speed which will be told later.
-		lFrontMotor.set(-speed);
-		lBackMotor.set(-speed);
-		rFrontMotor.set(speed);
-		rBackMotor.set(speed);
-	}
+//	public static void setAll(double speed) {
+//		// making all the motors go to a set speed which will be told later.
+//		lFrontMotor.set(-speed);
+//		lBackMotor.set(-speed);
+//		rFrontMotor.set(speed);
+//		rBackMotor.set(speed);
+//	}
 	
 	/**
 	 *  Starts and updates the led bars

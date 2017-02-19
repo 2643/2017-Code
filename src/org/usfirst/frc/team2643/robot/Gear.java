@@ -15,23 +15,62 @@ public class Gear {
 		{
 			//gear.autoassist();
 		}
-			
+
 		{
 			gearMotor.set(gearspeed);//have yu nticed that the "o" key n the dell is really hard t press?
 		}*/
-		
-		if(Robot.driveStick.getRawButton(1))
+		//		if(Robot.driveStick.getRawButton(9))
+		//		{
+		//			Robot.gear = 1;
+		//		}
+		//		if(Robot.driveStick.getRawButton(10))
+		//		{
+		//			Robot.gear = 2;
+		//		}
+		//		
+		//		
+		//		if(Robot.gear == 1)
+		//		{
+		//			Robot.gearMotor.set(0.2);
+		//		}
+		//		
+		//		else if(Robot.gear == 2)
+		//		{
+		//			if(Robot.gearBottomLimit.get() == false)
+		//			{
+		//				Robot.gearMotor.set(0);
+		//				
+		//				System.out.println("bottom limit hit");
+		//			}
+		//			else if(Robot.gearBottomLimit.get() == true)
+		//			{
+		//				Robot.gearMotor.set(-0.5);
+		//			}
+		//			
+		//		}
+		//		if(Robot.gearTopLimit.get() == false){
+		//			System.out.println("Top limit hit");	
+		//		}
+		if(Robot.driveStick.getRawButton(4))
 		{
-			Robot.gearMotor.set(0.2);
+			if(Robot.gearBottomLimit.get() == true)//if it is not hit
+			{
+				Robot.gearMotor.set(-0.4);
+			}
+			else
+			{
+				Robot.gearMotor.set(-0.4);
+			}
 		}
-		else if(Robot.driveStick.getRawButton(2))
+		else 
 		{
 			Robot.gearMotor.set(0);
 		}
-		else if(Robot.driveStick.getRawButton(3))
-		{
-			//gear.autoassist();
-		}
+			
 	}
+
 }
-//Im leaving nw
+
+
+
+
