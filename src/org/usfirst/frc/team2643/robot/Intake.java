@@ -15,13 +15,13 @@ public class Intake extends Robot{
 	public static void intake(){
 		
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		if(RobotMap.driveStick.getRawButton(RobotMap.INTAKE_IN_BUTTON)){
+		if(RobotMap.opStick.getRawButton(RobotMap.INTAKE_IN_BUTTON)){
 			RobotMap.intake = 1;
 		}
-		else if(RobotMap.driveStick.getRawButton(RobotMap.INTAKE_OUT_BUTTON)){
+		else if(RobotMap.opStick.getRawButton(RobotMap.INTAKE_OUT_BUTTON)){
 			RobotMap.intake = 2;
 		}
-		else if(RobotMap.driveStick.getRawButton(RobotMap.INTAKE_NO_BUTTON)){
+		else if(RobotMap.opStick.getRawButton(RobotMap.INTAKE_NO_BUTTON)){
 			RobotMap.intake = 3;
 		}
 

@@ -27,12 +27,12 @@ public class Dump extends Robot {
 			//System.out.println(dumptimer);//100 for dumptimer = 2000 ms = 2 seconds
 			if(dumptimer > 100)//if the pause timer is not activated, then let controls work 
 			{
-				if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON) 
+				if (RobotMap.opStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON) 
 				{
 					RobotMap.dumpMotor.set(RobotMap.DUMP_UP_FULL_SPEED);
 				}
 
-				else if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON) 
+				else if (RobotMap.opStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON) 
 				{
 					RobotMap.dumpMotor.set(RobotMap.DUMP_UP_HALF_SPEED);
 				} 
@@ -40,7 +40,7 @@ public class Dump extends Robot {
 				{
 					RobotMap.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
 				}
-			}
+			}	
 			else
 			{
 				RobotMap.dumpMotor.set(RobotMap.DUMP_HOVER_SPEED);
@@ -49,7 +49,7 @@ public class Dump extends Robot {
 		else if(RobotMap.hallEffectTop.get() == false)
 		{
 			//if the up button is still being held
-			if(RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON || RobotMap.driveStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON)
+			if(RobotMap.opStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON || RobotMap.opStick.getPOV() == RobotMap.DUMP_HALF_UP_BUTTON)
 			{
 				RobotMap.dumpMotor.set(RobotMap.DUMP_HOVER_SPEED);
 				dumptimer = 0;//set the timer to zero
