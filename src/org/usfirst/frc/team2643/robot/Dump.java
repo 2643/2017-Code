@@ -24,7 +24,7 @@ public class Dump extends Robot {
 		if(RobotMap.hallEffectTop.get() == true)//if it is not hit
 		{
 			dumptimer +=1; //increase the timer//1 = 20ms
-	//		System.out.println(dumptimer);//100 for dumptimer = 2000 ms = 2 seconds
+			//System.out.println(dumptimer);//100 for dumptimer = 2000 ms = 2 seconds
 			if(dumptimer > 100)//if the pause timer is not activated, then let controls work 
 			{
 				if (RobotMap.driveStick.getPOV() == RobotMap.DUMP_FULL_UP_BUTTON) 
@@ -38,7 +38,7 @@ public class Dump extends Robot {
 				} 
 				else
 				{
-					RobotMap.dumpMotor.set(RobotMap.DUMP_DOWN_SPEED);
+					RobotMap.dumpMotor.set(RobotMap.DUMP_NO_SPEED);
 				}
 			}
 			else

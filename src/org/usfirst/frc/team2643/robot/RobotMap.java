@@ -98,19 +98,19 @@ public class RobotMap {
 		/** @hallEffectTop
 		 * 		the top limit switch for the dump
 		 */
-		public static DigitalInput hallEffectTop = new DigitalInput(8);  //TODO The port is not right
+		public static DigitalInput hallEffectTop = new DigitalInput(8);  
 	
 		//gear limit switches
 	/**
 	 	* @gearTopLimit
 	 * 		the top limit switch for the gear
 	 */
-		public static DigitalInput gearTopLimit = new DigitalInput(5);  //TODO Check the port
+		public static DigitalInput gearTopLimit = new DigitalInput(5); 
 	/**
 	 	* @gearBottomLimit
 	 * 		the bottom limit switch for the gear
 	 */
-		public static DigitalInput gearBottomLimit = new DigitalInput(6);//TODO Check the port
+		public static DigitalInput gearBottomLimit = new DigitalInput(6);
 	
 	
 	//constants in autonomous
@@ -184,7 +184,7 @@ public class RobotMap {
 	 	* @DUMP_DOWN_SPEED
 	 * 		dump motor speed when going down
 	 */
-		static double DUMP_DOWN_SPEED = 0;
+		static int DUMP_NO_SPEED = 0;
 	/**
 	 	* @DUMP_NO_SPEED
 	 * 		speed of the dump motor, when it is not running
@@ -202,50 +202,50 @@ public class RobotMap {
 	 * 		button to turn the speed toggle on
 	 *		used in Toggle.class
 	 */
-	public static int toggleOn = 5;
+	public static int toggleOn = 2;
 	/**
 	 * @toggleOff
 	 * 		button to turn speed toggle off
 	 * 		used in Toggle.class
 	 */
-	public static int toggleOff = 6;
+	public static int toggleOff = 1;
 	//arcadeToggle
 	/**
 	 * @arcadeToggleOn
 	 * 		button to turn on arcade mode
 	 * 		used in Toggle.class
 	 */
-	public static int arcadeToggleOn = 7;
+	public static int arcadeToggleOn = 5;
 	/**
 	 * @arcadeToggleOff
 	 * 		button to turn arcade mode odd
 	 * 		used in Toggle.class
 	 */
-	public static int arcadeToggleOff = 8; 
+	public static int arcadeToggleOff = 6; 
 	
 	//gear buttons
 	/**
 	 * @GEAR_MANUAL_RELEASE_BUTTON
 	 * 	the button that releases the gear
 	 */
-	public static int GEAR_MANUAL_RELEASE_BUTTON = 4; //TODO get the right button
+	public static int GEAR_MANUAL_RELEASE_BUTTON = 4; 
 	
 	// intake buttons
 	/**
 	 * @INTAKE_IN_BUTTON
 	 * 		the button for intake in
 	 */
-	static int INTAKE_IN_BUTTON = 1;   //TODO get the right button
+	static int INTAKE_IN_BUTTON = 1;  
 	/**
 	 * @INTAKE_OUT_BUTTON
 	 * 		the button for intake out
 	 */
-	static int INTAKE_OUT_BUTTON = 2;  //TODO get the right button
+	static int INTAKE_OUT_BUTTON = 4;
 	/**
 	 * @INTAKE_OUT_BUTTON
 	 * 		the button for intake out
 	 */
-	static int INTAKE_NO_BUTTON = 3;//TODO get the right button
+	static int INTAKE_NO_BUTTON = 3;
 	 
 	//dump buttons(on the dpad)
 	public static int DUMP_FULL_UP_BUTTON = 0;
