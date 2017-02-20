@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
-
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
 public class Toggle extends Robot {
 	//Declare section
@@ -8,6 +9,7 @@ public class Toggle extends Robot {
 	static double yPosition = RobotMap.driveStick.getY();
 	static double xPosition = RobotMap.driveStick.getX();
 	static boolean isArcadeOn = false;
+	static RobotDrive drive = new RobotDrive(RobotMap.lFrontMotor, RobotMap.lBackMotor, RobotMap.rFrontMotor, RobotMap.rBackMotor);
 	/** 
 	 * {@code testToggle()}:  
 	 * 		If the toggleOn button is pressed, then the speed will be greatly reduced. 
@@ -37,24 +39,32 @@ public class Toggle extends Robot {
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//If the arcade is on, then the slow or normal speed will occur on arcade drive//
 		if (isArcadeOn == true){
-		
-		    
+			drive.setSafetyEnabled(false);
+			drive.setInvertedMotor(MotorType.kRearRight , true);
+			drive.setInvertedMotor(MotorType.kFrontLeft, true);
+			drive.setInvertedMotor(MotorType.kFrontRight, true);
+			drive.setInvertedMotor(MotorType.kRearLeft, true);
 			
 			if (speedToggle == true){
-				
-				//slow arcade drive with gyro
+				drive.arcadeDrive(RobotMap.driveStick.getY()*0.5, RobotMap.driveStick.getX()*0.5, true);
+				System.out.println("Speed Toggle On Arcade");
 			}
 			
 			else if(speedToggle == false){
 				
-				//aracade drive with gyro
+				drive.arcadeDrive(RobotMap.driveStick);
+				System.out.println("Speed Toggle Off Arcade");
 				
 			}		
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//If the arcade is off, then the slow or normal speed will occur on tank drive//
 		else if (isArcadeOn == false){
-			
+			drive.setSafetyEnabled(false);
+			drive.setInvertedMotor(MotorType.kRearRight , false);
+			drive.setInvertedMotor(MotorType.kFrontLeft, false);
+			drive.setInvertedMotor(MotorType.kFrontRight, false);
+			drive.setInvertedMotor(MotorType.kRearLeft, false);
 			if(speedToggle == true){
 				
 				//System.out.println("TANK");
