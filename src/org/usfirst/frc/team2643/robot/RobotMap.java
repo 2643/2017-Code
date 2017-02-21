@@ -148,23 +148,29 @@ public class RobotMap {
 
 	//motor speeds
 		//intake speeds
-	/**
-	 * @INTAKE_IN_SPEED
-	 * 		speed of the intake motor when taking in fuel
-	 * 		because the intake in speed needs to be faster than out 
-	 */
-		static double INTAKE_IN_SPEED = -0.7;//increased from 0.6, where it did not always intake, although it did some times. 
+		/**
+		 * @INTAKE_IN_SPEED
+		 * 		speed of the intake motor when taking in fuel
+		 * 		because the intake in speed needs to be faster than out 
+		 */
+		static double INTAKE_IN_SPEED = -0.6;//increased from 0.6, where it did not always intake, although it did some times. 
 		/**
 		 * @INTAKE_OUT_SPEED
-	 * 		intake speed when releasing fuel
-	 * 		because the out speed needs to be slower than the in speed
-	 */
-		static double INTAKE_OUT_SPEED = 0.45;
-	/**
-	 	* @INTAKE_NO_SPEED
-	 * 	 	intake speed when nothing is happening
-	 */
+		 * 		intake speed when releasing fuel
+		 * 		because the out speed needs to be slower than the in speed
+		 */
+		static double INTAKE_OUT_SPEED = 0.6;
+		/**
+		 * @INTAKE_NO_SPEED
+		 * 	 	intake speed when nothing is happening
+		 */
 		static int INTAKE_NO_SPEED = 0;
+		/**
+	 	*@INTAKE_IN_FASTER
+	 	*	 intake speed is faster than that of the original
+	 	*/
+		static double INTAKE_IN_FASTER = -0.8;
+		
 
 
 		//dump speeds
@@ -241,6 +247,11 @@ public class RobotMap {
 	 * 		the button for intake out
 	 */
 	static int INTAKE_OUT_BUTTON = 4;
+	/**
+	 * @INTAKE_IN_FAST_BUTTON
+	 * 		the button for intake in but at a faster speed
+	 */
+	static int INTAKE_IN_FAST_BUTTON = 3;
 	/**
 	 * @INTAKE_OUT_BUTTON
 	 * 		the button for intake out

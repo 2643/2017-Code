@@ -21,6 +21,9 @@ public class Intake extends Robot{
 		else if(RobotMap.opStick.getRawButton(RobotMap.INTAKE_OUT_BUTTON)){
 			RobotMap.intake = 2;
 		}
+		else if(RobotMap.opStick.getRawButton(RobotMap.INTAKE_IN_FAST_BUTTON)){
+			RobotMap.intake = 4;
+		}
 		else if(RobotMap.opStick.getRawButton(RobotMap.INTAKE_NO_BUTTON)){
 			RobotMap.intake = 3;
 		}
@@ -38,7 +41,11 @@ public class Intake extends Robot{
 		{
 			RobotMap.intakeMotor.set(RobotMap.INTAKE_OUT_SPEED);
 			//System.out.println("OUT");
-		} 
+		}
+		//else if the opStick button 3 is pressed, it will perform the intake task but at a faster speed
+		else if (RobotMap.intake == 4){
+			RobotMap.intakeMotor.set(RobotMap.INTAKE_IN_FASTER);
+		}
 		//else the intake motor will be set to no speed.
 		else if(RobotMap.intake == 3) 
 		{

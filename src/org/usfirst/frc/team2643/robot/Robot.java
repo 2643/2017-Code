@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 
 
 	// leds
-	public static final int LEDNUMBER = 48;
+	public static final int LEDNUMBER = 28;
 	LEDController led = new LEDController(LEDNUMBER);
 	
 	
@@ -106,7 +106,7 @@ public class Robot extends IterativeRobot {
 		Intake.intake();
 		Gear.gear(); 
 		Toggle.toggle();
-		//colors();
+		colors();
 		Dump.dump();
 
 	}
