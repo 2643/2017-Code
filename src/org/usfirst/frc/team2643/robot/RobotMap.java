@@ -1,269 +1,136 @@
 package org.usfirst.frc.team2643.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
+import java.text.NumberFormat;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Spark;
 
+public class RobotMap
+{
+	// Drive Motors
+	public static Spark lFrontMotor = new Spark(5);
+	public static Spark lBackMotor = new Spark(2);
+	public static Spark rFrontMotor = new Spark(6);
+	public static Spark rBackMotor = new Spark(1);
 
-public class RobotMap {
-	/**
-	 * @WheelMotors
-	 * 		These are the wheel motors
-	 */
-	public static Spark lFrontMotor = new Spark(5); 
-	public static Spark lBackMotor = new Spark(2);  
-	public static Spark rFrontMotor = new Spark(6); 
-	public static Spark rBackMotor = new Spark(1);  
-
-	/**
-	 * @gearMotor
-	 * 		motor for the gear
-	 */
-	public static Spark gearMotor = new Spark(7); 
-	/**
-	 * @intakeMotor
-	 * 		motor for the intake
-	 * 		the motor is inverted.
-	 * 		to do intake out, put a positive speed
-	 * 		to do intake in, put a negative speed
-	 */
+	// etc motors
+	public static Spark gearMotor = new Spark(7);
 	public static Spark intakeMotor = new Spark(4);
-//	/**
-//	 * @CLIMBER_MOTOR_PORT
-//	 * 		port for the climber motor
-//	 * 		*currently does not exist on the robot
-//	 */
-//	public static Spark climberMotor = new Spark(666);	
-	/**
-	 * @dumpMotor
-	 * 		the motor for the dump
-	 */
-	public static Spark dumpMotor = new Spark(3); 
-	
-	
-	//Encoders
-//	/**
-//	 * @leftEncoder
-//	 * 		the encoder for the left side wheels
-//	 */
-//	static Encoder leftEncoder = new Encoder(1, 2);
-//	/**
-//	 * @rightEncoder
-//	 * 		the encoder for the right side wheels
-//	 */
-//	static Encoder rightEncoder = new Encoder(3, 4);
-//	/**
-//	 * @dumpEncoder
-//	 * 		the encoder for the dump
-//	 */
-//	static Encoder dumpEncoder = new Encoder(5, 6);
+	public static Spark dumpMotor = new Spark(3);
 
-	//Joysticks
-	/**
-	 * @driveStick
-	 * 		driver joystick
-	 */
+	// Encoders
+	static Encoder leftEncoder = new Encoder(1, 2);
+	static Encoder rightEncoder = new Encoder(3, 4);
+
+	// Joysticks
 	public static Joystick driveStick = new Joystick(0);
-	/**
-	 * @opStick
-	 * 		operator joystick
-	 */
 	public static Joystick opStick = new Joystick(1);
-			// right motor axis on joystick
-	/**
-	 		* @RIGHT_JOYSTICK_AXIS
-	 * 			the axis used for the wheels on the right side
-	 */
-			static int RIGHT_JOYSTICK_AXIS = 5;
 
-			// left motor axis on joystick
-	/**
-	 		* @LEFT_JOYSTICK_AXIS
-	 * 		the y axis used for the wheels on the left side of the robot
-	 */
-			static int LEFT_JOYSTICK_AXIS = 1;
+	// Joystick axis
+	static int RIGHT_JOYSTICK_AXIS = 5;
+	static int LEFT_JOYSTICK_AXIS = 1;
 
 	// slow multiplier
-	/**
-	 * @SLOW_MULTLIPLIER
-	 * 		this is the slow multiplier used in toggle drive
-	 */
 	static double SLOW_MULTIPLIER = 0.5;
 
+	/* limit switches */
+	// dump limit switches
+	public static DigitalInput hallEffectTop = new DigitalInput(8);
 
-	//limit switches
-		///dump limit switches
-		/** @hallEffectTop
-		 * 		the top limit switch for the dump
-		 */
-		public static DigitalInput hallEffectTop = new DigitalInput(8);  
-	
-		//gear limit switches
+	// gear limit switches
+	public static DigitalInput gearTopLimit = new DigitalInput(5);
+	public static DigitalInput gearBottomLimit = new DigitalInput(6);
+
+	// constants in autonomous
 	/**
-	 	* @gearTopLimit
-	 * 		the top limit switch for the gear
-	 */
-		public static DigitalInput gearTopLimit = new DigitalInput(5); 
-	/**
-	 	* @gearBottomLimit
-	 * 		the bottom limit switch for the gear
-	 */
-		public static DigitalInput gearBottomLimit = new DigitalInput(6);
-	
-	
-	//constants in autonomous
-	/**
-	 * @AUTO_SPEED_ON
-	 * 		the speed for autonomous
+	 * @AUTO_SPEED_ON the speed for autonomous
 	 */
 	static double AUTO_SPEED_ON = 0.5;
 	/**
-	 * @AUTO_SPEED_OFF
-	 * 		another speed for autonomous
+	 * @AUTO_SPEED_OFF another speed for autonomous
 	 */
 	static int AUTO_SPEED_OFF = 0;
 	/**
-	 * @BOILER_AUTO_DISTANCE
-	 * 		distance to boiler
+	 * @BOILER_AUTO_DISTANCE distance to boiler
 	 */
 	static int BOILER_AUTO_DISTANCE = 500;
 	/**
-	 * @HOPPER_AUTO_DISTANCE
-	 * 		distance to the hopper
+	 * @HOPPER_AUTO_DISTANCE distance to the hopper
 	 */
 	static int HOPPER_AUTO_DISTANCE = 50;
 	/**
-	 * @AIRSHIP_AUTO_DISTANCE
-	 * 		distance to the airship
+	 * @AIRSHIP_AUTO_DISTANCE distance to the airship
 	 */
 	static int AIRSHIP_AUTO_DISTANCE = 50;
 	/**
-	 * @AUTO_LINE_DISTANCE
-	 * 		distance to the auto line
+	 * @AUTO_LINE_DISTANCE distance to the auto line
 	 */
 	static int AUTO_LINE_DISTANCE = 2200;
 
+	// motor speeds
+	// intake speeds
+	static double INTAKE_IN_SPEED = -0.6;// increased from 0.6, where it did not
+											// always intake, although it did
+											// some times.
+	static double INTAKE_OUT_SPEED = 0.6;
+	static int INTAKE_NO_SPEED = 0;
+	static double INTAKE_IN_FASTER = -0.8;
 
-	//motor speeds
-		//intake speeds
-		/**
-		 * @INTAKE_IN_SPEED
-		 * 		speed of the intake motor when taking in fuel
-		 * 		because the intake in speed needs to be faster than out 
-		 */
-		static double INTAKE_IN_SPEED = -0.6;//increased from 0.6, where it did not always intake, although it did some times. 
-		/**
-		 * @INTAKE_OUT_SPEED
-		 * 		intake speed when releasing fuel
-		 * 		because the out speed needs to be slower than the in speed
-		 */
-		static double INTAKE_OUT_SPEED = 0.6;
-		/**
-		 * @INTAKE_NO_SPEED
-		 * 	 	intake speed when nothing is happening
-		 */
-		static int INTAKE_NO_SPEED = 0;
-		/**
-	 	*@INTAKE_IN_FASTER
-	 	*	 intake speed is faster than that of the original
-	 	*/
-		static double INTAKE_IN_FASTER = -0.8;
-		
+	// dump speeds
+	static double DUMP_UP_FULL_SPEED = 0.45;
+	static double DUMP_UP_HALF_SPEED = 0.3;
+	static int DUMP_NO_SPEED = 0;
+	static double DUMP_HOVER_SPEED = 0.2;
 
-
-		//dump speeds
-	/**
-	 	* @DUMP_UP_FULL_SPEED
-	 * 		speed of the motor when the dump is full
-	 * 		because 0.3 is not strong enough to lift a full load
+	/*
+	 * The Buttons
 	 */
-		static double DUMP_UP_FULL_SPEED = 0.45;
-	/**
-	 	* @DUMP_UP_HALF_SPEED
-	 * 		speed of the motor, when the dump is holding only 10 balls
-	 * 		because 0.5 was too strong to lift 10 balls
-	 */
-		static double DUMP_UP_HALF_SPEED = 0.3;
-	/**
-	 	* @DUMP_DOWN_SPEED
-	 * 		dump motor speed when going down
-	 */
-		static int DUMP_NO_SPEED = 0;
-	/**
-	 	* @DUMP_NO_SPEED
-	 * 		speed of the dump motor, when it is not running
-	 */
-		static double DUMP_HOVER_SPEED = 0.2;
-	
-
-	
-/*
- * The Buttons
- */
-	//toggle buttons
-	/**
-	 * @toggleOn
-	 * 		button to turn the speed toggle on
-	 *		used in Toggle.class
-	 */
+	// toggle buttons
 	public static int toggleOn = 2;
-	/**
-	 * @toggleOff
-	 * 		button to turn speed toggle off
-	 * 		used in Toggle.class
-	 */
 	public static int toggleOff = 1;
-	//arcadeToggle
-	/**
-	 * @arcadeToggleOn
-	 * 		button to turn on arcade mode
-	 * 		used in Toggle.class
-	 */
-	public static int arcadeToggleOn = 5;
-	/**
-	 * @arcadeToggleOff
-	 * 		button to turn arcade mode odd
-	 * 		used in Toggle.class
-	 */
-	public static int arcadeToggleOff = 6; 
-	
-	//gear buttons
-	/**
-	 * @GEAR_MANUAL_RELEASE_BUTTON
-	 * 	the button that releases the gear
-	 */
-	public static int GEAR_MANUAL_RELEASE_BUTTON = 4; 
-	
+
+	// arcadeToggle
+	public static int arcadeToggleOn = 3;
+	public static int arcadeToggleOff = 4;
+
+	// gear buttons
+	public static int GEAR_MANUAL_RELEASE_BUTTON = 6;
+
 	// intake buttons
-	/**
-	 * @INTAKE_IN_BUTTON
-	 * 		the button for intake in
-	 */
-	static int INTAKE_IN_BUTTON = 2;  
-	/**
-	 * @INTAKE_OUT_BUTTON
-	 * 		the button for intake out
-	 */
+	static int INTAKE_IN_BUTTON = 2;
 	static int INTAKE_OUT_BUTTON = 4;
-	/**
-	 * @INTAKE_IN_FAST_BUTTON
-	 * 		the button for intake in but at a faster speed
-	 */
 	static int INTAKE_IN_FAST_BUTTON = 3;
-	/**
-	 * @INTAKE_OUT_BUTTON
-	 * 		the button for intake out
-	 */
 	static int INTAKE_NO_BUTTON = 1;
-	 
-	//dump buttons(on the dpad)
+	
+	// vision buttons
+	static int VISION_STREAMER = 7;
+	static int VISION_AUTO_ASSIST = 8;
+	
+	// dump buttons(on the dpad)
 	public static int DUMP_FULL_UP_BUTTON = 0;
 	public static int DUMP_HALF_UP_BUTTON = 90;
 	public static int DUMP_DOWN_BUTTON = 180;
 
-//Preset conditions for each function
-	public static int intake = 3; //the intake does nothing
+	// Preset conditions for each function
+	public static int intake = 3; // the intake does nothing
 	public static int gear = 2; // the gear motor will do nothing
+
+	// Advanced Auto
+	static int state;
+	static boolean toggle = true;
+	static String autoMode = "";
+
+	// Arduino
+	final static int baut = 230400;
+	static SerialPort arduino = new SerialPort(baut, SerialPort.Port.kUSB1);
+	
+	//gyro
+	static double tmp;
+	static int x;
+	static NumberFormat f = NumberFormat.getInstance();
+	static double myNumber = 0;
+	static boolean gyroToggle = true;
 }
