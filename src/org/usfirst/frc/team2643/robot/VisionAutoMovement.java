@@ -2,41 +2,11 @@ package org.usfirst.frc.team2643.robot;
 
 public class VisionAutoMovement
 {
-	private static int moveLeft = 1;
-	private static int moveRight = -1;
-	private static double speed = 0.2;
-	private static int center = 220;
-
-	public static void trackingRetro(double[] centerXVal, int compensation, boolean period)
-	{
-		double averageX = ((centerXVal[0] + centerXVal[1]) / 2.0);
-
-		masterMove(averageX, compensation);
-	}
-
-	private static void masterMove(double averageX, int compensation)
-	{
-		while (!(averageX < center + compensation && averageX > center - compensation))
-		{
-			if (averageX < center + compensation && averageX > center - compensation)
-			{
-				moveForward(0.54, 0.46);
-				System.out.println("MOVING FORWARD*");
-				break;
-			}
-			else if (averageX > center + compensation)
-			{
-				moveDirection(moveLeft, 0.247, 0.25);
-				System.out.println("MOVING LEFT*");
-			}
-			else if (averageX < center - compensation)
-			{
-				moveDirection(moveRight, 0.27, 0.265);
-				System.out.println("MOVING RIGHT*");
-			}
-		}
-	}
-
+	/**
+	 * Turns RobotMap in certain direction at a certain speed
+	 * @param direction
+	 * @param speed
+	 */
 	public static void moveDirection(int direction, double speed)
 	{
 		RobotMap.lBackMotor.set(direction * speed);
@@ -45,6 +15,12 @@ public class VisionAutoMovement
 		RobotMap.rFrontMotor.set(direction * speed);
 	}
 
+	/**
+	 * Turns RobotMap in certain direction at a certain left Speed and right speed
+	 * @param direction
+	 * @param speedL
+	 * @param speedR
+	 */
 	public static void moveDirection(int direction, double speedL, double speedR)
 	{
 		RobotMap.lBackMotor.set(direction * speedL);
@@ -53,6 +29,10 @@ public class VisionAutoMovement
 		RobotMap.rFrontMotor.set(direction * speedR);
 	}
 
+	/**
+	 * Moves RobotMap forward at certain speed
+	 * @param speed
+	 */
 	public static void moveForward(double speed)
 	{
 		RobotMap.lBackMotor.set(speed);
@@ -61,6 +41,11 @@ public class VisionAutoMovement
 		RobotMap.rFrontMotor.set(-speed);
 	}
 
+	/**
+	 * Move RobotMap forward at certain left and right speed
+	 * @param speedL
+	 * @param speedR
+	 */
 	public static void moveForward(double speedL, double speedR)
 	{
 		RobotMap.lBackMotor.set(speedL);

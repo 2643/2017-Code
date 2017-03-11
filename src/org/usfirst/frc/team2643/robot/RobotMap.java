@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Spark;
 
 public class RobotMap
@@ -16,11 +15,12 @@ public class RobotMap
 	public static Spark rFrontMotor = new Spark(6);
 	public static Spark rBackMotor = new Spark(1);
 
-	// etc motors
+	// More Motors
 	public static Spark gearMotor = new Spark(7);
 	public static Spark intakeMotor = new Spark(4);
 	public static Spark dumpMotor = new Spark(3);
-
+	public static Spark climbMotor = new Spark(0);
+	
 	// Encoders
 	static Encoder leftEncoder = new Encoder(1, 2);
 	static Encoder rightEncoder = new Encoder(3, 4);
@@ -121,11 +121,11 @@ public class RobotMap
 	// Advanced Auto
 	static int state;
 	static boolean toggle = true;
-	static String autoMode = "";
+	static String autoMode = "c";
 
 	// Arduino
-	final static int baut = 230400;
-	static SerialPort arduino = new SerialPort(baut, SerialPort.Port.kUSB1);
+	//final static int baut = 230400;
+	//static SerialPort arduino = new SerialPort(baut, SerialPort.Port.kUSB1);
 	
 	//gyro
 	static double tmp;

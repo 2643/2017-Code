@@ -1,45 +1,28 @@
 package org.usfirst.frc.team2643.robot;
 
-public class VisionCheckHeights
+public class VisionProvideData
 {
-
-	static double[] height = VisionAuto.table.getNumberArray("Height", new double[0]);
-	static double[] temp = new double[2];
-	private static int moveLeft = 1;
-	private static int moveRight = -1;
-	private static int heightBounds = 35;
-	private static int newHB = 85;
-
-	public static void checkHeight(String name)
-	{
-		System.out.println(height.length);
-		
-		if(height[0] > heightBounds || height[1] > heightBounds)
-		{
-			System.out.println("Calculating");
-			VisionAutoMovement.trackingRetro(VisionAuto.table.getNumberArray("CenterX", new double[0]), 10, true);
-			heightBounds = newHB;
-		}	
-		else
-		{
-			VisionAutoMovement.moveForward(0.57, 0.52);
-		}
-	}
-	
 	public static int lengthOfArray(String name)
 	{
 		return VisionAuto.table.getNumberArray(name, new double[0]).length;
 	}
-	
+
 	public static double[] provideArray(String name)
 	{
 		return VisionAuto.table.getNumberArray(name, new double[0]);
 	}
 
+	public static double provideNum(String name)
+	{
+		double temp = 0.0;
+		return VisionAuto.table.getNumber(name, temp);
+	}
+	
+	/*
 	private static boolean moveToSide()
 	{
 		double[] tmpArr = VisionAuto.table.getNumberArray("CenterX", new double[0]);
-		if(tmpArr[0] > 320)
+		if (tmpArr[0] > 320)
 			return true;
 		return false;
 	}
@@ -79,4 +62,5 @@ public class VisionCheckHeights
 		}
 		return secondLargestVal;
 	}
+	*/
 }

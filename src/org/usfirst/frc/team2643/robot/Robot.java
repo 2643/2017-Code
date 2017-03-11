@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2643.robot;
 
-//import edu.wpi.first.wpilibj.DigitalInput;
-//import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,7 +29,7 @@ public class Robot extends IterativeRobot
 	public static int AIRSHIP_AUTO_DISTANCE = RobotMap.AIRSHIP_AUTO_DISTANCE;
 
 	Command autonomousCommand;
-	
+
 	// leds
 	public static final int LEDNUMBER = 28;
 	LEDController led = new LEDController(LEDNUMBER);
@@ -49,10 +47,13 @@ public class Robot extends IterativeRobot
 		allLEDs.update();
 		led.initialize();
 		led.reset();
+
+		//VisionCameraStatus.autoModeStatus(1);
+		VisionCameraStatus.cameraStatus(0);
 		
-		colors();
-		
-		//initalizing smartdashboard
+		// colors();
+
+		// initalizing smartdashboard
 		SmartDashboard.putString("Auto Mode", RobotMap.autoMode);
 	}
 
@@ -76,6 +77,7 @@ public class Robot extends IterativeRobot
 		RobotMap.leftEncoder.reset();
 		RobotMap.state = 0;
 		VisionCameraStatus.autoModeStatus(1);
+		// colors();
 	}
 
 	/**
@@ -84,12 +86,13 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousPeriodic()
 	{
-		while(isAutonomous())
+		RobotMap.rightEncoder.reset();
+		RobotMap.leftEncoder.reset();
+		while (isAutonomous())
 		{
-			RobotMap.rightEncoder.reset();
-			RobotMap.leftEncoder.reset();
-			//System.out.println(SmartDashboard.getString("Auto Mode", "Center"));
-			VisionAuto.positionForAuto(SmartDashboard.getString("Auto Mode", "Center").toLowerCase());
+			// System.out.println(SmartDashboard.getString("Auto Mode",
+			// "Center"));
+			VisionAuto.positionForAuto(SmartDashboard.getString("Auto Mode", "c").toLowerCase());
 		}
 	}
 
@@ -98,12 +101,12 @@ public class Robot extends IterativeRobot
 	{
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 		VisionCameraStatus.autoModeStatus(0);
+		VisionCameraStatus.cameraStatus(0);
 	}
-	
+
 	/**
 	 * This function is called periodically during operator control
 	 */
@@ -113,11 +116,14 @@ public class Robot extends IterativeRobot
 		// prints out the left encoder and the right encoder divided by 2
 		// System.out.println((Math.abs(RobotMap.leftEncoder.get()) +
 		// Math.abs(RobotMap.rightEncoder.get())) / 2);
+
+		// VisionTelopToggle.toggle();
+		Toggle.toggle();
 		Intake.intake();
 		Gear.gear();
-		Toggle.toggle();
 		Dump.dump();
-		VisionTelopToggle.toggle();
+		Climber.climb();
+		colors();
 	}
 
 	/**
@@ -130,7 +136,8 @@ public class Robot extends IterativeRobot
 	 * @button3: X button rFrontMotor is set to the left y axis, otherwise it is
 	 *           set to 0
 	 * @button4: Y button rBackMotor is set to the left y axis, otherwise it is
-	 *           set to 0
+	 *           set to 0\
+	 * 
 	 * @button5: back left button gearMotor is set to the left y axis, otherwise
 	 *           it is set to 0
 	 * @button6: back right button dumpMotor is set to the left y axis,

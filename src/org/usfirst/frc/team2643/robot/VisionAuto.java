@@ -8,20 +8,20 @@ public class VisionAuto
 	
 	public static void startVision()
 	{
-		VisionCheckHeights.checkHeight("CenterX");
+		//VisionProvideData.checkHeight("CenterX");
 	}
 	
 	public static void positionForAuto(String pos)
 	{
-		if (pos.equals("center"))
+		if (pos.equals("c"))
 		{
 			VisionMoveCenter.moveToCenter();
 		}
-		else if (pos.equals("left"))
+		else if (pos.equals("l"))
 		{
 			VisionMove.movePos(1);
 		}
-		else if (pos.equals("right"))
+		else if (pos.equals("r"))
 		{
 			VisionMove.movePos(-1);
 		}
