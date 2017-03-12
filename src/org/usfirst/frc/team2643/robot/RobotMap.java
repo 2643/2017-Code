@@ -75,7 +75,7 @@ public class RobotMap
 	static double INTAKE_IN_SPEED = -0.6;// increased from 0.6, where it did not
 											// always intake, although it did
 											// some times.
-	static double INTAKE_OUT_SPEED = 0.6;
+	static double INTAKE_OUT_SPEED = 0.75;
 	static int INTAKE_NO_SPEED = 0;
 	static double INTAKE_IN_FASTER = -0.8;
 

@@ -1,101 +1,129 @@
 package org.usfirst.frc.team2643.robot;
 
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class VisionMove
 {
 	private static int stateAuto = RobotMap.state;
 	static NetworkTable table = VisionAuto.table;
-	private static int center = 225;
-	private static int compensation = 10;
 	private static int left = 1;
 	private static int right = -1;
-	private static double highBound = 100.0;// 98.0
 	private static boolean finishToggle = false;
 	private static double average;
 	private static Timer time = new Timer();
 
-	private static Accelerometer accel
-	= new BuiltInAccelerometer(Accelerometer.Range.k8G);
-	
-	//First Case
-	private static int moveForwardRightEncoder = 1720; //ENCODER ticks
-	private static int moveForwardLeftEncoder = -2080;
-	
-	private static double moveSpeed0 = 0.65; //<--for case 0
-	
-	//Second Case
-	private static double moveSpeed1 = 0.35; //<--for case 1
+	// First Case
+	private static int moveForwardRightEncoder = 2250; // ENCODER ticks
+	private static int moveForwardLeftEncoder = -2250;
 
-	//Third Case
-	private static double moveSpeed2L = 0.275;//<--for case 2
-	private static double moveSpeed2R = 0.24;//<--for case 2
-	
+	private static double moveSpeed0 = 0.75; // <--for case 0
+
+	// Second Case
+	private static double moveSpeed1 = 0.35; // <--for case 1
+
+	// Third Case
+	private static double moveSpeed2L = 0.35;// <--for case 2
+	private static double moveSpeed2R = 0.325;// <--for case 2
+
+	// Forth Case
+	private static double moveLeft1 = 0.38;
+	private static double moveRight1 = 0.355;
+
+	// Fifth Case
+	private static double moveLeft0 = 0.58;
+	private static double moveRight0 = 0.555;
+
+	// CASE 2
+	private static double highBound = 90.0;
+
+	// CASE 4
+	private static double highBound2 = 135.0;
+
+	// CASE 6
+	private static double moveLeft6 = 0.75;
+	private static double moveRight6 = 0.73;
+	private static double moveTime = 0.85;
+
 	public static void movePos(int direction)
 	{
-		/*int center2 = 0;
-		if(direction == left)
-		{
-			center = 289;
-			center2 = 303;
-		}
-		else if(direction == right)
-		{
-			center = 225;
-			center2 = 260;
-		}*/
-		
 		switch (stateAuto)
 		{
 			/*
-			 * MOVE FORWARD to @moveForwardLeftEncoder and @moveForwardRightEncoder
+			 * MOVE FORWARD to @moveForwardLeftEncoder
+			 * and @moveForwardRightEncoder
 			 */
-			case 0: 
+			case 0:
 				autoForward(moveSpeed0, moveForwardLeftEncoder, moveForwardRightEncoder);
 				System.out.println("CASE 0");
 				break;
-			
+ 
 			/*
 			 * TURN @Direction at speed @moveSpeed1 until it sees 2 objects
 			 */
 			case 1:
-				autoTurnDirection(2, moveSpeed1, moveSpeed1, direction);
+				autoTurnDirection(1, moveSpeed1, moveSpeed1, direction, 2, 9);
 				System.out.println("CASE 1");
 				break;
-			
+
 			/*
-			* TURN @Direction at speed @moveSpeed2L and @moveSpeed2R
-			*/	
+			 * TURN @Direction at speed @moveSpeed2L and @moveSpeed2R
+			 */
 			case 2:
-				autoTurnDirection(2, moveSpeed2L, moveSpeed2R, direction);
+				autoTurnDirection(2, moveSpeed2L, moveSpeed2R, direction, 3, 9);
 				System.out.println("CASE 2");
 				break;
-			
-			/*
-			 * TODO: CALIBRATION TO CENTER BY USING RATIO of distance between center of gear and camera
-			 *  and take ratio of pixels from center of hook to center of the camera
-			 */
+
 			case 3:
-				System.out.println("CASE 3");
-				System.out.println("UHHHHH");
+				VisionMoveCenter.autoCal(moveLeft1, moveRight1, 4, 9);
+				System.out.println("Case 3");
+				break;
+
+			case 4:
+				VisionMoveCenter.autoForward(moveLeft0, moveRight0, highBound, 5);
+				System.out.println("Case 4");
+				break;
+
+			case 5:
+				VisionMoveCenter.autoCal(moveLeft1, moveRight1, 6, 9);
+				System.out.println("Case 5");
+				break;
+
+			case 6:
+				VisionMoveCenter.autoForward(moveLeft0, moveRight0, highBound2, 7);
+				System.out.println("Case 6");
+				break;
+
+			case 7:
+				VisionMoveCenter.autoCal(moveLeft1, moveRight1, 8, 9);
+				System.out.println("Case 7");
+				break;
+
+			case 8:
+				VisionMoveCenter.autoForwardTimed(moveLeft6, moveRight6, moveTime, 9);
+				System.out.println("Case 8");
+				break;
+
+			case 9:
+				System.out.println("Case 9");
 				break;
 		}
 	}
-	
+
 	public static void autoForward(double moveSpeed, int encoderDistanceL, int encoderDistanceR)
 	{
 		boolean toggle = false;
-		while (!toggle)
+		time.start();
+		while (!toggle && Robot.time.get() < 15)
 		{
 			VisionAutoMovement.moveForward(moveSpeed);
-			System.out.println(accel.getX() + "  " + accel.getY() + "   " + accel.getZ());
-			if (RobotMap.leftEncoder.get() < encoderDistanceL || RobotMap.rightEncoder.get() > encoderDistanceR)
+
+			if (RobotMap.leftEncoder.get() < encoderDistanceL || RobotMap.rightEncoder.get() > encoderDistanceR
+					|| time.get() > 1.3)
 			{
 				toggle = true;
-				VisionAutoMovement.moveForward(0); //stop movement as second parameter is 0 speed	
+				VisionAutoMovement.moveForward(0); // stop movement as second
+													// parameter is 0 speed
 			}
 		}
 
@@ -106,24 +134,29 @@ public class VisionMove
 			stateAuto = 1;
 		}
 	}
-	
-	public static void autoTurnDirection(int amountOfObjects, double moveSpeedL, double moveSpeedR, int direction) 
+
+	public static void autoTurnDirection(int amountOfObjects, double moveSpeedL, double moveSpeedR, int direction,
+			int nextState, int breakState)
 	{
 		boolean toggle = false;
-		while(!toggle)
+		while (!toggle && Robot.time.get() < 15)
 		{
 			VisionAutoMovement.moveDirection(direction, moveSpeedL, moveSpeedR);
-			
-			if(VisionProvideData.lengthOfArray("Height") >= amountOfObjects)
+
+			if (VisionProvideData.lengthOfArray("Height") >= amountOfObjects && VisionProvideData.lengthOfArray("Height") <= 2)
 			{
 				toggle = true;
-				VisionAutoMovement.moveDirection(direction, 0); //stop movement as second parameter is 0 speed	
+				VisionAutoMovement.moveDirection(direction, 0); 
+			}
+			else
+			{
+				continue;
 			}
 		}
-		
+
 		if (toggle)
 		{
-			stateAuto = 1;
+			stateAuto = nextState;
 		}
 	}
 }

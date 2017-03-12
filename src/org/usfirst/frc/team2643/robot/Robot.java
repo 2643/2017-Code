@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,13 +28,20 @@ public class Robot extends IterativeRobot
 	public static int BOILER_AUTO_DISTANCE = RobotMap.BOILER_AUTO_DISTANCE;
 	public static int HOPPER_AUTO_DISTANCE = RobotMap.HOPPER_AUTO_DISTANCE;
 	public static int AIRSHIP_AUTO_DISTANCE = RobotMap.AIRSHIP_AUTO_DISTANCE;
+	
 
 	Command autonomousCommand;
 
+	
+	
 	// leds
 	public static final int LEDNUMBER = 28;
 	LEDController led = new LEDController(LEDNUMBER);
 
+	public static boolean isAuto;
+	
+	public static Timer time = new Timer();
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -75,6 +83,7 @@ public class Robot extends IterativeRobot
 			autonomousCommand.start();
 		RobotMap.rightEncoder.reset();
 		RobotMap.leftEncoder.reset();
+		time.start();
 		RobotMap.state = 0;
 		VisionCameraStatus.autoModeStatus(1);
 		// colors();
@@ -90,17 +99,24 @@ public class Robot extends IterativeRobot
 		RobotMap.leftEncoder.reset();
 		while (isAutonomous())
 		{
+			isAuto = isAutonomous();
 			// System.out.println(SmartDashboard.getString("Auto Mode",
 			// "Center"));
-			VisionAuto.positionForAuto(SmartDashboard.getString("Auto Mode", "c").toLowerCase());
+			VisionAuto.positionForAuto(SmartDashboard.getString("Auto Mode", RobotMap.autoMode).toLowerCase());
+			//VisionMove.movePos(1);
+			//VisionMoveCenter.moveToCenter();
 		}
 	}
 
 	@Override
 	public void teleopInit()
 	{
+		System.out.println("Teleop");
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		isAuto = false;
+		time.stop();
+		time.reset();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 		VisionCameraStatus.autoModeStatus(0);
@@ -117,12 +133,12 @@ public class Robot extends IterativeRobot
 		// System.out.println((Math.abs(RobotMap.leftEncoder.get()) +
 		// Math.abs(RobotMap.rightEncoder.get())) / 2);
 
-		// VisionTelopToggle.toggle();
+		//VisionTelopToggle.toggle();
+		Climber.climb();
 		Toggle.toggle();
 		Intake.intake();
 		Gear.gear();
 		Dump.dump();
-		Climber.climb();
 		colors();
 	}
 

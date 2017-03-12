@@ -10,8 +10,13 @@ public class Climber
 	public static void climb()
 	{
 		if (RobotMap.opStick.getRawButton(5))
+		{
+			//System.out.println("RUNNING");
 			RobotMap.climbMotor.set(0.7);
+		}
 		else
+		{
 			RobotMap.climbMotor.set(0);
+		}
 	}
 }

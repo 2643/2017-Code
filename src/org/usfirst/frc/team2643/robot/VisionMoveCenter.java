@@ -3,18 +3,19 @@ package org.usfirst.frc.team2643.robot;
 import edu.wpi.first.wpilibj.Timer;
 
 public class VisionMoveCenter
-{
+{	
 	private static int left = 1;
 	private static int right = -1;
 	private static Timer time = new Timer();
 	private static int state = RobotMap.state;
 
 	private static double divisorCon = 36.81818;
+	private static double divisorConCVR = 85.089141;
 
 	// CASE 0
-	private static double moveLeft0 = 0.58;
-	private static double moveRight0 = 0.555;
-	private static double highBound = 75.0;
+	private static double moveLeft0 = 0.38;
+	private static double moveRight0 = 0.38;
+	private static double highBound = 60.0;
 
 	// CASE 1
 	private static double moveLeft1 = 0.25;
@@ -22,10 +23,10 @@ public class VisionMoveCenter
 	private static double val = 0.0;
 
 	// CASE 2
-	private static double highBound2 = 90.0;
+	private static double highBound2 = 80.0;
 
 	// CASE 4
-	private static double highBound3 = 135.0;
+	private static double highBound3 = 110.0;
 
 	// CASE 6
 	private static double moveLeft6 = 0.0;
@@ -46,9 +47,8 @@ public class VisionMoveCenter
 				autoForward(moveLeft0, moveRight0, highBound, 1);
 				System.out.println("Case 1");
 				break;
-
 			case 1:
-				autoCal(moveLeft1, moveRight1, 2);
+				autoCal(moveLeft1, moveRight1, 2, 7);
 				System.out.println("Case 2");
 				break;
 
@@ -58,7 +58,7 @@ public class VisionMoveCenter
 				break;
 
 			case 3:
-				autoCal(moveLeft1, moveRight1, 4);
+				autoCal(moveLeft1, moveRight1, 4, 7);
 				System.out.println("Case 4");
 				break;
 
@@ -68,12 +68,15 @@ public class VisionMoveCenter
 				break;
 
 			case 5:
-				autoCal(moveLeft1, moveRight1, 6);
+				autoCal(moveLeft1, moveRight1, 6, 7);
 				System.out.println("Case 6");
 				break;
 
 			case 6:
-				autoForward(moveLeft6, moveRight6, moveTime);
+				autoForwardTimed(moveLeft6, moveRight6, moveTime, 7);
+				break;
+				
+			case 7:
 				break;
 		}
 	}
@@ -91,11 +94,16 @@ public class VisionMoveCenter
 	public static void autoForward(double moveSpeedL, double moveSpeedR, double heightL, int nextState)
 	{
 		boolean toggle = false;
-		while (!toggle)
+		
+		while (!toggle && Robot.time.get() < 15)
 		{
 			VisionAutoMovement.moveForward(moveSpeedL, moveSpeedR);
 			height = VisionProvideData.provideArray("Height");
-			if (height.length < 2)
+			if(height.length == 0)
+			{
+				continue;
+			}
+			else if (height.length < 2)
 			{
 				if (height[0] < 240)
 				{
@@ -106,17 +114,18 @@ public class VisionMoveCenter
 					VisionAutoMovement.moveDirection(right, moveSpeedL - 0.04, moveSpeedR + 0.025);
 				}
 			}
+			else if(height.length > 2)
+			{
+				continue;
+			}
 			else
 			{
 				if (height[0] > heightL)
 				{
-
 					System.out.println("Height reached " + height[0]);
 					toggle = true;
 
-					VisionAutoMovement.moveForward(0); // stop movement as
-														// second parameter is 0
-														// speed
+					VisionAutoMovement.moveForward(0);
 				}
 			}
 		}
@@ -128,12 +137,12 @@ public class VisionMoveCenter
 		}
 	}
 
-	public static void autoForward(double moveSpeedL, double moveSpeedR, double amountTime)
+	public static void autoForwardTimed(double moveSpeedL, double moveSpeedR, double amountTime, int finalState)
 	{
 		boolean toggle = false;
 		time.start();
 		
-		while (!toggle)
+		while (!toggle && Robot.time.get() < 15)
 		{
 			VisionAutoMovement.moveForward(moveSpeedL, moveSpeedR);
 			if (time.get() > amountTime)
@@ -153,6 +162,7 @@ public class VisionMoveCenter
 			time.stop();
 			time.reset();
 			System.out.println("END");
+			state = finalState;
 		}
 	}
 
@@ -166,11 +176,11 @@ public class VisionMoveCenter
 	 * @param comp2
 	 * @param nextState
 	 */
-	public static void autoCal(double moveSpeedL, double moveSpeedR, int nextState)
+	public static void autoCal(double moveSpeedL, double moveSpeedR, int nextState, int breakCode)
 	{
 		boolean toggle = false;
 
-		while (!toggle)
+		while (!toggle && Robot.time.get() < 15)
 		{
 			cenX = VisionProvideData.provideArray("CenterX");
 			ra = VisionProvideData.provideArray("Ratio");
@@ -183,6 +193,17 @@ public class VisionMoveCenter
 			{
 				continue;
 			}
+			else if(cenX.length < 2)
+			{
+				if (height[0] < 240)
+				{
+					VisionAutoMovement.moveDirection(left, moveSpeedL, moveSpeedR);
+				}
+				else
+				{
+					VisionAutoMovement.moveDirection(right, moveSpeedL - 0.04, moveSpeedR + 0.025);
+				}
+			}
 			else
 			{
 				if (cenX[0] - 240 < cenX[1] - 240)
@@ -190,8 +211,8 @@ public class VisionMoveCenter
 				else
 					tmp = 1;
 
-				val = ((Math.abs(avg - 240) / ra[tmp]) / divisorCon);
-				// System.out.println(val);
+				val = ((Math.abs(avg - 240) / ra[tmp]) / divisorConCVR);
+				//TODO: System.out.println(val);
 				if (val > 1.25) // left
 				{
 					// System.out.println(r2 + comp2 + " LEFT");
