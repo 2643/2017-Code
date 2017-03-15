@@ -14,8 +14,8 @@ public class VisionMove
 	private static Timer time = new Timer();
 
 	// First Case
-	private static int moveForwardRightEncoder = 2250; // ENCODER ticks
-	private static int moveForwardLeftEncoder = -2250;
+	private static int moveForwardRightEncoder = 2075; // ENCODER ticks
+	private static int moveForwardLeftEncoder = -2075;
 
 	private static double moveSpeed0 = 0.75; // <--for case 0
 
@@ -27,11 +27,11 @@ public class VisionMove
 	private static double moveSpeed2R = 0.325;// <--for case 2
 
 	// Forth Case
-	private static double moveLeft1 = 0.38;
+	private static double moveLeft1 = 0.365;
 	private static double moveRight1 = 0.355;
 
 	// Fifth Case
-	private static double moveLeft0 = 0.58;
+	private static double moveLeft0 = 0.565;
 	private static double moveRight0 = 0.555;
 
 	// CASE 2
@@ -42,7 +42,7 @@ public class VisionMove
 
 	// CASE 6
 	private static double moveLeft6 = 0.75;
-	private static double moveRight6 = 0.73;
+	private static double moveRight6 = 0.74;
 	private static double moveTime = 0.85;
 
 	public static void movePos(int direction)
@@ -80,7 +80,7 @@ public class VisionMove
 				break;
 
 			case 4:
-				VisionMoveCenter.autoForward(moveLeft0, moveRight0, highBound, 5);
+				VisionMoveCenter.autoForward(moveLeft0, moveRight0, highBound, 5, 9);
 				System.out.println("Case 4");
 				break;
 
@@ -90,7 +90,7 @@ public class VisionMove
 				break;
 
 			case 6:
-				VisionMoveCenter.autoForward(moveLeft0, moveRight0, highBound2, 7);
+				VisionMoveCenter.autoForward(moveLeft0, moveRight0, highBound2, 7, 9);
 				System.out.println("Case 6");
 				break;
 
@@ -114,7 +114,7 @@ public class VisionMove
 	{
 		boolean toggle = false;
 		time.start();
-		while (!toggle && Robot.time.get() < 15)
+		while (!toggle && Robot.time.get() < 14)
 		{
 			VisionAutoMovement.moveForward(moveSpeed);
 
@@ -139,7 +139,7 @@ public class VisionMove
 			int nextState, int breakState)
 	{
 		boolean toggle = false;
-		while (!toggle && Robot.time.get() < 15)
+		while (!toggle && Robot.time.get() < 14)
 		{
 			VisionAutoMovement.moveDirection(direction, moveSpeedL, moveSpeedR);
 

@@ -18,8 +18,8 @@ public class VisionMoveCenter
 	private static double highBound = 60.0;
 
 	// CASE 1
-	private static double moveLeft1 = 0.25;
-	private static double moveRight1 = 0.225;
+	private static double moveLeft1 = 0.235;
+	private static double moveRight1 = 0.235;
 	private static double val = 0.0;
 
 	// CASE 2
@@ -29,9 +29,9 @@ public class VisionMoveCenter
 	private static double highBound3 = 110.0;
 
 	// CASE 6
-	private static double moveLeft6 = 0.0;
-	private static double moveRight6 = 0.0;
-	private static double moveTime = 0.0;
+	private static double moveLeft6 = 0.75;
+	private static double moveRight6 = 0.73;
+	private static double moveTime = 0.85;
 
 	// CASE VALUES FROM RASPPI
 	private static double[] cenX = VisionProvideData.provideArray("CenterX");
@@ -44,7 +44,7 @@ public class VisionMoveCenter
 		switch (state)
 		{
 			case 0:
-				autoForward(moveLeft0, moveRight0, highBound, 1);
+				autoForward(moveLeft0, moveRight0, highBound, 1, 7);
 				System.out.println("Case 1");
 				break;
 			case 1:
@@ -53,7 +53,7 @@ public class VisionMoveCenter
 				break;
 
 			case 2:
-				autoForward(moveLeft0, moveRight0, highBound2, 3);
+				autoForward(moveLeft0, moveRight0, highBound2, 3, 7);
 				System.out.println("Case 3");
 				break;
 
@@ -63,7 +63,7 @@ public class VisionMoveCenter
 				break;
 
 			case 4:
-				autoForward(moveLeft0, moveRight0, highBound3, 5);
+				autoForward(moveLeft0, moveRight0, highBound3, 5, 7);
 				System.out.println("Case 5");
 				break;
 
@@ -91,17 +91,20 @@ public class VisionMoveCenter
 	 * @param heightL
 	 * @param nextState
 	 */
-	public static void autoForward(double moveSpeedL, double moveSpeedR, double heightL, int nextState)
+	public static void autoForward(double moveSpeedL, double moveSpeedR, double heightL, int nextState, int breakState)
 	{
 		boolean toggle = false;
 		
-		while (!toggle && Robot.time.get() < 15)
+		while (!toggle && Robot.time.get() < 14)
 		{
 			VisionAutoMovement.moveForward(moveSpeedL, moveSpeedR);
 			height = VisionProvideData.provideArray("Height");
+			
 			if(height.length == 0)
 			{
-				continue;
+				state = breakState;
+				VisionAutoMovement.moveForward(0);
+				break;
 			}
 			else if (height.length < 2)
 			{
@@ -116,7 +119,9 @@ public class VisionMoveCenter
 			}
 			else if(height.length > 2)
 			{
-				continue;
+				state = breakState;
+				VisionAutoMovement.moveForward(0);
+				break;
 			}
 			else
 			{
@@ -142,10 +147,10 @@ public class VisionMoveCenter
 		boolean toggle = false;
 		time.start();
 		
-		while (!toggle && Robot.time.get() < 15)
+		while (!toggle && Robot.time.get() < 14)
 		{
 			VisionAutoMovement.moveForward(moveSpeedL, moveSpeedR);
-			if (time.get() > amountTime)
+			if (time.get() > amountTime || Robot.time.get() > 14)
 			{
 
 				System.out.println("Time reached " + time.get());
@@ -180,7 +185,7 @@ public class VisionMoveCenter
 	{
 		boolean toggle = false;
 
-		while (!toggle && Robot.time.get() < 15)
+		while (!toggle && Robot.time.get() < 14)
 		{
 			cenX = VisionProvideData.provideArray("CenterX");
 			ra = VisionProvideData.provideArray("Ratio");
@@ -201,18 +206,20 @@ public class VisionMoveCenter
 				}
 				else
 				{
-					VisionAutoMovement.moveDirection(right, moveSpeedL - 0.04, moveSpeedR + 0.025);
+					VisionAutoMovement.moveDirection(right, moveSpeedL, moveSpeedR);
 				}
 			}
-			else
+			else if(cenX.length == 2)
 			{
-				if (cenX[0] - 240 < cenX[1] - 240)
+				if (cenX[0] - 240 < cenX[1] - 240 && cenX.length == 2)
 					tmp = 0;
 				else
 					tmp = 1;
 
 				val = ((Math.abs(avg - 240) / ra[tmp]) / divisorConCVR);
-				//TODO: System.out.println(val);
+				
+				System.out.println(cenX[0] + "   " + cenX[1] + "    " + val);
+				
 				if (val > 1.25) // left
 				{
 					// System.out.println(r2 + comp2 + " LEFT");

@@ -13,7 +13,7 @@ public class VisionAuto
 	
 	public static void positionForAuto(String pos)
 	{
-		System.out.println(pos);
+		//System.out.println(pos);
 		if (pos.equals("c"))
 		{
 			VisionMoveCenter.moveToCenter();

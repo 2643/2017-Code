@@ -34,7 +34,7 @@ public class RobotMap
 	static int LEFT_JOYSTICK_AXIS = 1;
 
 	// slow multiplier
-	static double SLOW_MULTIPLIER = 0.5;
+	static double SLOW_MULTIPLIER = 0.65;
 
 	/* limit switches */
 	// dump limit switches

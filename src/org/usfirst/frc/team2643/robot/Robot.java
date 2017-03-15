@@ -29,16 +29,11 @@ public class Robot extends IterativeRobot
 	public static int HOPPER_AUTO_DISTANCE = RobotMap.HOPPER_AUTO_DISTANCE;
 	public static int AIRSHIP_AUTO_DISTANCE = RobotMap.AIRSHIP_AUTO_DISTANCE;
 	
-
 	Command autonomousCommand;
-
-	
 	
 	// leds
 	public static final int LEDNUMBER = 28;
 	LEDController led = new LEDController(LEDNUMBER);
-
-	public static boolean isAuto;
 	
 	public static Timer time = new Timer();
 	
@@ -99,22 +94,20 @@ public class Robot extends IterativeRobot
 		RobotMap.leftEncoder.reset();
 		while (isAutonomous())
 		{
-			isAuto = isAutonomous();
 			// System.out.println(SmartDashboard.getString("Auto Mode",
 			// "Center"));
-			VisionAuto.positionForAuto(SmartDashboard.getString("Auto Mode", RobotMap.autoMode).toLowerCase());
+			//VisionAuto.positionForAuto(SmartDashboard.getString("Auto Mode", RobotMap.autoMode).toLowerCase());
 			//VisionMove.movePos(1);
-			//VisionMoveCenter.moveToCenter();
+			VisionMoveCenter.moveToCenter();
 		}
 	}
 
 	@Override
 	public void teleopInit()
 	{
-		System.out.println("Teleop");
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		isAuto = false;
+		System.out.println("Teleop");
 		time.stop();
 		time.reset();
 		RobotMap.leftEncoder.reset();
