@@ -1,14 +1,8 @@
 package org.usfirst.frc.team2643.robot;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -18,67 +12,47 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
-	
-	
-	Potentiometer pot = new AnalogPotentiometer(0, 360, 0);
-	
-	Spark lFrontMotor = new Spark(7);
-	Spark lBackMotor = new Spark(5);
-	Spark rFrontMotor = new Spark(6);
-	Spark rBackMotor = new Spark(4);
-	
-	RobotDrive drive = new RobotDrive(lFrontMotor, rFrontMotor, lBackMotor, rBackMotor);
-	
-	Joystick stick = new Joystick(0);
-	
-	boolean driveToggle = false;
-	
-	int toggleOn = 2;
-	int toggleOff = 3;
-	
-	double slowMult = .5;
-	
-	boolean isArcadeOn = false;
-	
-//	DigitalInput limitSwitch = new DigitalInput(2);
-	
-	Spark gearMotor = new Spark(8);
-	
-	Spark intakeMotor = new Spark(9);
-	
-	Encoder leftEncoder = new Encoder(1,2);
-	Encoder rightEncoder = new Encoder(3,4);
-	
-	static double AUTO_SPEED_ON = 0.5;
-	static int AUTO_SPEED_OFF = 0;
-	static int BOILER_AUTO_DISTANCE = 500;
-	static int HOPPER_AUTO_DISTANCE = 50;
-	static int AIRSHIP_AUTO_DISTANCE = 50;
-	
-	
-	final String DoNothingAuto = "DoNothingAuto";
-	final String BoilerAuto = "BoilerAuto";
-	final String HopperAuto = "HopperAuto";
-	final String AirshipAuto = "AirshipAuto";
-	String autoSelected;
-	SendableChooser<String> chooser = new SendableChooser<>();
+public class Robot extends IterativeRobot
+{
 
+	// Imported from robotMap.java for speeds and distances
+	/**
+	 * @AUTO_SPEED_ON
+	 * @AUTO_SPEED_OFF
+	 * @BOILER_AUTO_DISTANCE
+	 * @HOPPER_AUTO_DISTANCE
+	 * @AIRSHIP_AUTO_DISTANCE Already is defined in RobotMap
+	 */
+	public static double AUTO_SPEED_ON = RobotMap.AUTO_SPEED_ON;
+	public static int AUTO_SPEED_OFF = RobotMap.AUTO_SPEED_OFF;
+	public static int BOILER_AUTO_DISTANCE = RobotMap.BOILER_AUTO_DISTANCE;
+	public static int HOPPER_AUTO_DISTANCE = RobotMap.HOPPER_AUTO_DISTANCE;
+	public static int AIRSHIP_AUTO_DISTANCE = RobotMap.AIRSHIP_AUTO_DISTANCE;
+	
+	Command autonomousCommand;
+	
+	// leds
+	public static final int LEDNUMBER = 28;
+	LEDController led = new LEDController(LEDNUMBER);
+	
+	public static Timer time = new Timer();
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+
 	@Override
-	public void robotInit() {
-		chooser.addDefault("Do Nothing", DoNothingAuto);
-		chooser.addObject("Boiler", BoilerAuto);
-		chooser.addObject("Hopper", HopperAuto);
-		chooser.addObject("Airship", AirshipAuto);
-		SmartDashboard.putData("Auto choices", chooser);
-		
-		leftEncoder.reset();
-		rightEncoder.reset();
-		
+	public void robotInit()
+	{
+		LedStrip allLEDs = new LedStrip(LEDNUMBER, 1.0f);
+		allLEDs.allOff();
+		allLEDs.update();
+		led.initialize();
+		led.reset();
+
+		// initalizing smartdashboard
+		SmartDashboard.putString("Auto Mode", RobotMap.autoMode);
 	}
 
 	/**
@@ -93,139 +67,115 @@ public class Robot extends IterativeRobot {
 	 * SendableChooser make sure to add them to the chooser code above as well.
 	 */
 	@Override
-	public void autonomousInit() {
-		autoSelected = chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
-		System.out.println("Auto selected: " + autoSelected);
+	public void autonomousInit()
+	{
+		if (autonomousCommand != null)
+			autonomousCommand.start();
+		RobotMap.rightEncoder.reset();
+		RobotMap.leftEncoder.reset();
+		VisionMove.resetState();	
+		VisionCameraStatus.autoModeStatus(1);
+		VisionCameraStatus.takePhoto(1);
+		VisionMoveCenter.resetState();
 	}
 
-	
-	
-	
-	
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	@Override
-	public void autonomousPeriodic() {
-		
-		if((Math.abs(leftEncoder.get()) + Math.abs(rightEncoder.get()))/2 < 2200)
+	public void autonomousPeriodic()
+	{
+		RobotMap.rightEncoder.reset();
+		RobotMap.leftEncoder.reset();
+		while (isAutonomous())
 		{
-			setAll(0.5);
+			// System.out.println(SmartDashboard.getString("Auto Mode",
+			// "Center"));
+			VisionAuto.positionForAuto(SmartDashboard.getString("Auto Mode", RobotMap.autoMode).toLowerCase());
+			//VisionMove.movePos(1);
+			//VisionMoveCenter.moveToCenter();
 		}
-		else
-		{
-			setAll(0);
-		}
+	}
+
+	@Override
+	public void teleopInit()
+	{
+		if (autonomousCommand != null)
+			autonomousCommand.cancel();
+		System.out.println("Teleop");
+		time.stop();
+		time.reset();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
 	}
 
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
-	public void teleopPeriodic() {
-		
-		System.out.println((Math.abs(leftEncoder.get()) + Math.abs(rightEncoder.get()))/2);
-		toggleDrive();
-		
+	public void teleopPeriodic()
+	{
+		// prints out the left encoder and the right encoder divided by 2
+		// System.out.println((Math.abs(RobotMap.leftEncoder.get()) +
+		// Math.abs(RobotMap.rightEncoder.get())) / 2);
+
+		//VisionTelopToggle.toggle();
+		VisionCameraStatus.takePhoto(0);
+		VisionCameraStatus.autoModeStatus(0);
+		VisionCameraStatus.cameraStatus(0);
+		Climber.climb();
+		Toggle.toggle();
+		//Intake.intake();
+		Gear.gear();
+		Dump.dump();
+		colors();
 	}
 
 	/**
 	 * This function is called periodically during test mode
+	 * 
+	 * @button1: A button lFrontMotor is set to the left y axis, otherwise it is
+	 *           set to 0
+	 * @button2: B button lBackMotor is set to the left y axis, otherwise it is
+	 *           set to 0
+	 * @button3: X button rFrontMotor is set to the left y axis, otherwise it is
+	 *           set to 0
+	 * @button4: Y button rBackMotor is set to the left y axis, otherwise it is
+	 *           set to 0\
+	 * 
+	 * @button5: back left button gearMotor is set to the left y axis, otherwise
+	 *           it is set to 0
+	 * @button6: back right button dumpMotor is set to the left y axis,
+	 *           otherwise it is set to 0
+	 * @button7: back button intakeMotor is set to the left y axis, otherwise it
+	 *           is set to 0
+	 * @button8: start button climberMotor is set to the left y axis. otherwise
+	 *           it is set to 0
+	 * @leftJoystickUp: prints the average of the encoders
+	 * @leftJoystickDown: prints the potentiometer value
 	 */
 	@Override
-	public void testPeriodic() {
-	}
-	
-	public void toggleDrive() {
-		// if you press the button, then driveToggle will be true
-		if (stick.getRawButton(toggleOn)) {
-			driveToggle = true;
-		}
-		// if you press the button for toggleOff, then driveToggle will be false
-		else if (stick.getRawButton(toggleOff)) {
-			driveToggle = false;
-		}
-
-		// if driveToggle is not on, then motors will be at the full speed
-		// of the joystick
-		if (!driveToggle) {
-			lFrontMotor.set(stick.getRawAxis(1));
-			lBackMotor.set(stick.getRawAxis(1));
-			rFrontMotor.set(stick.getRawAxis(5));
-			rBackMotor.set(stick.getRawAxis(5));
-		}
-		// otherwise if driveToggle is true, then the motors will be at the half
-		// speed
-		// of the joystick
-		else {
-			lFrontMotor.set((stick.getRawAxis(1)) * slowMult);
-			lBackMotor.set((stick.getRawAxis(1)) * slowMult);
-			rFrontMotor.set((stick.getRawAxis(5)) * slowMult);
-			rBackMotor.set((stick.getRawAxis(5)) * slowMult);
-		}
+	public void testPeriodic()
+	{
+		// MotorTest.testMotor();
 
 	}
-/*	
-public void drive(){
-		
-	drive.arcadeDrive(stick);	
-	lFrontMotor.set(lFrontMotor
-	lBackMotor.set(lBackMotor
-	rFrontMotor.set(rFrontMotor
-	rBackMotor.set(
-	/*
-		lFrontMotor.set(stick.getRawAxis(1)*-1);
-		lBackMotor.set(stick.getRawAxis(1)*-1);
-		rBackMotor.set(stick.getRawAxis(5));
-		rFrontMotor.set(stick.getRawAxis(5));
-		
-	}*/
 
- public void gear() {
-		
-		//operator controlled
-		//if the potentiometer is in the "in" position, 
-		//then this will move it to the "middle" position
-		if((stick.getRawButton(6) == true) && (pot.get() <= 30))//whoah, cheap!
-		{
-			gearMotor.set(0.25);
-		}
-		
-		//if the potentiometer is in the "middle" position, 
-		//then this will move it to the "out" position
-		else if((stick.getRawButton(5) == true) && ((pot.get() > 31) && (pot.get() <= 70)))
-		{
-			gearMotor.set(0.25);
-		}
-		
-		//if the potentiometer is in the "middle" or "out" position, 
-		//then this will move it to the "in" position
-		else if((stick.getRawButton(4) == true) && (pot.get() > 1))
-		{
-			gearMotor.set(-0.25);
-		}
+	public static void setAll(double speed)
+	{
+		// making all the motors go to a set speed which will be told later.
+		RobotMap.lFrontMotor.set(-speed);
+		RobotMap.lBackMotor.set(-speed);
+		RobotMap.rFrontMotor.set(speed);
+		RobotMap.rBackMotor.set(speed);
 	}
-	
- public void intake() {
-		if (stick.getRawButton(1) == true) {
-			intakeMotor.set(0.5);
-		} else if (stick.getRawButton(2)) {
-			intakeMotor.set(-0.5);
-		} else {
-			intakeMotor.set(0);
-		}
+
+	/**
+	 * Starts and updates the led bars
+	 */
+	public void colors()
+	{
+		led.bars();
 	}
- 	
- 	public void setAll(double speed)
- 	{
- 		speed = -speed;
- 		lFrontMotor.set(speed);
- 		lBackMotor.set(speed);
- 		rFrontMotor.set(speed);
- 		rBackMotor.set(speed);
- 	}
+
 }
-
-
