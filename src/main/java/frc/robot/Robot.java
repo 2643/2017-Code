@@ -43,15 +43,28 @@ public class Robot extends TimedRobot {
   public void setDrive(double l, double r) {
     l1.set(l);
     l2.set(l);
-    r1.set(r);
-    r2.set(r);
+    r1.set(-r);
+    r2.set(-r);
   }
 
   @Override
   public void teleopPeriodic() {
+
+    if(j1.getRawButton(1)) {
+      state = 1;
+    } else if(j1.getRawAxis(5) > 0.9 && j1.getRawAxis(6) > 0.9) {
+      state = 2;
+    } else {
+      state = 0;
+    }
+
     switch (state) {
     case 0: {
-      setDrive(j1.getRawAxis(1), j1.getRawAxis(5));
+      setDrive(-0.5*j1.getRawAxis(1), -0.5*j1.getRawAxis(5));
+      break;
+    }
+    case 2: {
+      setDrive(-0.9*j1.getRawAxis(1), -0.9*j1.getRawAxis(5));
       break;
     }
     case 1: {
@@ -65,7 +78,7 @@ public class Robot extends TimedRobot {
         } else if (centerLocation < -0.1) {
           setDrive(-0.3, 0.3);
         } else {
-          setDrive(0.3, 0.3);
+          setDrive(0.35, 0.35);
         }
       } else {
         setDrive(0, 0);
