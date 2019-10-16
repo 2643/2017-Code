@@ -19,13 +19,9 @@ public class Robot extends TimedRobot {
 
   Joystick j1 = new Joystick(0);
 
-  NetworkTable visionTable = NetworkTableInstance.getDefault().getTable("vision");
 
   @Override
   public void robotInit() {
-    new Thread(() -> {
-      CameraServer.getInstance().startAutomaticCapture();
-    }).start();
   }
 
   @Override
@@ -49,44 +45,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
-
-    double centerLocation = (visionTable.getEntry("centroid-left-x").getDouble(0)
-          + visionTable.getEntry("centroid-right-x").getDouble(0)) / 2;
-    boolean valid = visionTable.getEntry("valid").getBoolean(false);
-    System.out.println("valid: " + valid + " center: " + centerLocation);
-
-    if(j1.getRawButton(1)) {
-      state = 1;
-    } else if(j1.getRawAxis(2) > 0.9 && j1.getRawAxis(3) > 0.9) {
-      state = 2;
-    } else {
-      state = 0;
-    }
-
-    switch (state) {
-    case 0: {
-      setDrive(-0.5*j1.getRawAxis(1), -0.5*j1.getRawAxis(5));
-      break;
-    }
-    case 2: {
-      setDrive(-j1.getRawAxis(1), -j1.getRawAxis(5));
-      break;
-    }
-    case 1: {
-      if (valid) {
-        if (centerLocation > 0.1) {
-          setDrive(0.3, -0.3);
-        } else if (centerLocation < -0.1) {
-          setDrive(-0.3, 0.3);
-        } else {
-          setDrive(0.3, 0.3);
-        }
-      } else {
-        setDrive(0, 0);
-      }
-    }
-    }
+    setDrive(-0.5*j1.getRawAxis(1), -0.5*j1.getRawAxis(5));
   }
 
   @Override
